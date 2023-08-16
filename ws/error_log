@@ -1,0 +1,67 @@
+[14-Jul-2023 07:11:35 America/Chicago] PHP Fatal error:  Uncaught Error: Class "Router" not found in /home1/ndisonec/public_html/development/ws/sample.php:2
+Stack trace:
+#0 {main}
+  thrown in /home1/ndisonec/public_html/development/ws/sample.php on line 2
+[14-Jul-2023 07:16:06 America/Chicago] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function Router::__construct(), 0 passed in /home1/ndisonec/public_html/development/ws/index.php on line 17 and exactly 1 expected in /home1/ndisonec/public_html/development/ws/Router.php:11
+Stack trace:
+#0 /home1/ndisonec/public_html/development/ws/index.php(17): Router->__construct()
+#1 {main}
+  thrown in /home1/ndisonec/public_html/development/ws/Router.php on line 11
+[14-Jul-2023 07:17:19 America/Chicago] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function Router::__construct(), 0 passed in /home1/ndisonec/public_html/development/ws/index.php on line 17 and exactly 1 expected in /home1/ndisonec/public_html/development/ws/Router.php:11
+Stack trace:
+#0 /home1/ndisonec/public_html/development/ws/index.php(17): Router->__construct()
+#1 {main}
+  thrown in /home1/ndisonec/public_html/development/ws/Router.php on line 11
+[14-Jul-2023 07:17:27 America/Chicago] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function Router::__construct(), 0 passed in /home1/ndisonec/public_html/development/ws/index.php on line 17 and exactly 1 expected in /home1/ndisonec/public_html/development/ws/Router.php:11
+Stack trace:
+#0 /home1/ndisonec/public_html/development/ws/index.php(17): Router->__construct()
+#1 {main}
+  thrown in /home1/ndisonec/public_html/development/ws/Router.php on line 11
+[14-Jul-2023 07:52:45 America/Chicago] PHP Warning:  Undefined variable $_Get in /home1/ndisonec/public_html/development/ws/index.php on line 3
+[14-Jul-2023 07:52:45 America/Chicago] PHP Warning:  Trying to access array offset on value of type null in /home1/ndisonec/public_html/development/ws/index.php on line 3
+[14-Jul-2023 07:52:47 America/Chicago] PHP Warning:  Undefined variable $_Get in /home1/ndisonec/public_html/development/ws/index.php on line 3
+[14-Jul-2023 07:52:47 America/Chicago] PHP Warning:  Trying to access array offset on value of type null in /home1/ndisonec/public_html/development/ws/index.php on line 3
+[14-Jul-2023 07:52:57 America/Chicago] PHP Warning:  Undefined variable $_Get in /home1/ndisonec/public_html/development/ws/index.php on line 3
+[14-Jul-2023 07:52:57 America/Chicago] PHP Warning:  Trying to access array offset on value of type null in /home1/ndisonec/public_html/development/ws/index.php on line 3
+[14-Jul-2023 07:52:59 America/Chicago] PHP Warning:  Undefined variable $_Get in /home1/ndisonec/public_html/development/ws/index.php on line 3
+[14-Jul-2023 07:52:59 America/Chicago] PHP Warning:  Trying to access array offset on value of type null in /home1/ndisonec/public_html/development/ws/index.php on line 3
+[14-Jul-2023 07:54:55 America/Chicago] PHP Warning:  Undefined variable $url in /home1/ndisonec/public_html/development/ws/index.php on line 3
+[14-Jul-2023 07:55:36 America/Chicago] PHP Warning:  Undefined variable $url in /home1/ndisonec/public_html/development/ws/index.php on line 3
+[14-Jul-2023 07:56:03 America/Chicago] PHP Warning:  Undefined variable $url in /home1/ndisonec/public_html/development/ws/index.php on line 3
+[14-Jul-2023 07:56:28 America/Chicago] PHP Warning:  Undefined variable $url in /home1/ndisonec/public_html/development/ws/index.php on line 3
+[14-Jul-2023 08:00:11 America/Chicago] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function Router::__construct(), 0 passed in /home1/ndisonec/public_html/development/ws/index.php on line 17 and exactly 1 expected in /home1/ndisonec/public_html/development/ws/Router.php:11
+Stack trace:
+#0 /home1/ndisonec/public_html/development/ws/index.php(17): Router->__construct()
+#1 {main}
+  thrown in /home1/ndisonec/public_html/development/ws/Router.php on line 11
+[14-Jul-2023 08:00:16 America/Chicago] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function Router::__construct(), 0 passed in /home1/ndisonec/public_html/development/ws/index.php on line 17 and exactly 1 expected in /home1/ndisonec/public_html/development/ws/Router.php:11
+Stack trace:
+#0 /home1/ndisonec/public_html/development/ws/index.php(17): Router->__construct()
+#1 {main}
+  thrown in /home1/ndisonec/public_html/development/ws/Router.php on line 11
+[14-Jul-2023 08:00:49 America/Chicago] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function Router::__construct(), 0 passed in /home1/ndisonec/public_html/development/ws/index.php on line 17 and exactly 1 expected in /home1/ndisonec/public_html/development/ws/Router.php:11
+Stack trace:
+#0 /home1/ndisonec/public_html/development/ws/index.php(17): Router->__construct()
+#1 {main}
+  thrown in /home1/ndisonec/public_html/development/ws/Router.php on line 11
+[14-Jul-2023 08:00:54 America/Chicago] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function Router::__construct(), 0 passed in /home1/ndisonec/public_html/development/ws/index.php on line 17 and exactly 1 expected in /home1/ndisonec/public_html/development/ws/Router.php:11
+Stack trace:
+#0 /home1/ndisonec/public_html/development/ws/index.php(17): Router->__construct()
+#1 {main}
+  thrown in /home1/ndisonec/public_html/development/ws/Router.php on line 11
+[14-Jul-2023 08:03:20 America/Chicago] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function Router::__construct(), 0 passed in /home1/ndisonec/public_html/development/ws/index.php on line 17 and exactly 1 expected in /home1/ndisonec/public_html/development/ws/Router.php:11
+Stack trace:
+#0 /home1/ndisonec/public_html/development/ws/index.php(17): Router->__construct()
+#1 {main}
+  thrown in /home1/ndisonec/public_html/development/ws/Router.php on line 11
+[17-Jul-2023 03:39:10 America/Chicago] PHP Parse error:  syntax error, unexpected identifier "CreateUser", expecting "(" in /home1/ndisonec/public_html/development/ws/index.php on line 21
+[17-Jul-2023 03:39:14 America/Chicago] PHP Parse error:  syntax error, unexpected identifier "CreateUser", expecting "(" in /home1/ndisonec/public_html/development/ws/index.php on line 21
+[17-Jul-2023 03:39:21 America/Chicago] PHP Parse error:  syntax error, unexpected identifier "CreateUser", expecting "(" in /home1/ndisonec/public_html/development/ws/index.php on line 21
+[17-Jul-2023 03:40:22 America/Chicago] PHP Parse error:  syntax error, unexpected identifier "CreateUser", expecting "(" in /home1/ndisonec/public_html/development/ws/index.php on line 21
+[17-Jul-2023 03:42:09 America/Chicago] PHP Parse error:  syntax error, unexpected token "public", expecting end of file in /home1/ndisonec/public_html/development/ws/index.php on line 30
+[17-Jul-2023 03:42:13 America/Chicago] PHP Parse error:  syntax error, unexpected token "public", expecting end of file in /home1/ndisonec/public_html/development/ws/index.php on line 30
+[17-Jul-2023 03:42:50 America/Chicago] PHP Parse error:  syntax error, unexpected token "public", expecting end of file in /home1/ndisonec/public_html/development/ws/index.php on line 30
+[17-Jul-2023 03:42:57 America/Chicago] PHP Parse error:  syntax error, unexpected token "public", expecting end of file in /home1/ndisonec/public_html/development/ws/index.php on line 30
+[17-Jul-2023 03:44:28 America/Chicago] PHP Parse error:  syntax error, unexpected token "public", expecting end of file in /home1/ndisonec/public_html/development/ws/index.php on line 32
+[17-Jul-2023 03:44:33 America/Chicago] PHP Parse error:  syntax error, unexpected token "public", expecting end of file in /home1/ndisonec/public_html/development/ws/index.php on line 32
+[19-Jul-2023 04:18:06 America/Chicago] PHP Warning:  Undefined array key "PHP_AUTH_USER" in /home1/ndisonec/public_html/development/ws/index.php on line 5
