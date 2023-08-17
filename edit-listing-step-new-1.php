@@ -42,31 +42,31 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
                             </a>
                         </li>
                         <li>
-                            <a href="edit-listing-step-2?row=<?php echo $listing_codea; ?>">
+                            <a href="edit-listing-step-new-2?row=<?php echo $listing_codea; ?>">
                                 <span><?php echo $BIZBOOK['STEP2']; ?></span>
                                 <b><?php echo $BIZBOOK['SERVICES']; ?></b>
                             </a>
                         </li>
                         <li>
-                            <a href="edit-listing-step-3?row=<?php echo $listing_codea; ?>">
+                            <a href="edit-listing-step-new-3?row=<?php echo $listing_codea; ?>">
                                 <span><?php echo $BIZBOOK['STEP3']; ?></span>
-                                <b><?php echo $BIZBOOK['OFFERS']; ?></b>
+                                <b>Locations</b>
                             </a>
                         </li>
                         <li>
-                            <a href="edit-listing-step-4?row=<?php echo $listing_codea; ?>">
+                            <a href="edit-listing-step-new-4?row=<?php echo $listing_codea; ?>">
                                 <span><?php echo $BIZBOOK['STEP4']; ?></span>
-                                <b><?php echo $BIZBOOK['MAP']; ?></b>
+                                <b>Work Hours</b>
                             </a>
                         </li>
                         <li>
-                            <a href="edit-listing-step-5?row=<?php echo $listing_codea; ?>">
+                            <a href="edit-listing-step-new-5?row=<?php echo $listing_codea; ?>">
                                 <span><?php echo $BIZBOOK['STEP5']; ?></span>
                                 <b><?php echo $BIZBOOK['OTHER']; ?></b>
                             </a>
                         </li>
                         <li>
-                            <a href="edit-listing-step-6?row=<?php echo $listing_codea; ?>">
+                            <a href="edit-listing-step-new-6?row=<?php echo $listing_codea; ?>">
                                 <span><?php echo $BIZBOOK['STEP6']; ?></span>
                                 <b><?php echo $BIZBOOK['DONE']; ?></b>
                             </a>
@@ -88,7 +88,7 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
                         $listings_a_row = getListing($listing_codea);
 
                         ?>
-                        <form action="listing_update.php" id="listing_form_1"
+                        <form action="listing_update_new.php" id="listing_form_1"
                               name="listing_form_1" method="post" enctype="multipart/form-data">
 
                             <input type="hidden" id="src_path" value="edit-1"
@@ -158,7 +158,7 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
                              </div>
                             <!--FILED END-->
                             <!--FILED START-->
-                            <?php //if($listings_a_row['ndis_reg'] == 1) {?>
+                            <?php if($listings_a_row['ndis_reg'] != 2) {?>
                             <div class="row" id="question_class" >
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -180,7 +180,7 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
                                     </div>
                                 </div>
                             </div>
-                            <?php //} ?>
+                            <?php } ?>
                             <!--FILED END-->
 
                             <!--FILED START-->
@@ -301,7 +301,7 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
                             <!--FILED END-->
   
                              <!--FILED START-->
-
+                             <?php if($listings_a_row['ndis_reg'] != 2) {?>
                             <div class="row" id="reg_group" >
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -325,7 +325,7 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
                                     </div>
                                 </div>
                             </div>
-
+                            <?php } ?>
                             <!--FILED END-->
                             <!--FILED START-->
                             <div class="row">
@@ -334,7 +334,7 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
                                             class="btn btn-primary"><?php echo $BIZBOOK['SAVE_AND_EXIT']; ?></button>
                                 </div>
                                 <div class="col-md-12">
-                                    <a href="edit-listing-step-2?row=<?php echo $_GET['row']; ?>"
+                                    <a href="edit-listing-step-new-2?row=<?php echo $_GET['row']; ?>"
                                        class="skip"><?php echo $BIZBOOK['SKIP_THIS']; ?>>></a>
                                 </div>
                                 <div class="col-md-12">
@@ -398,6 +398,22 @@ include "footer.php";
         });
     }
 </script>
+<script>
+$(document).ready(function(){
+    $('#ndis_reg').on('change', function(){
+    	var demovalue = $(this).val(); 
+        if(demovalue == 1){         
+        $("#question_class").show();
+        $("#reg_group").show();
+        }else{
+        $("#question_class").hide();
+        $("#reg_group").hide();
+        }
+
+
+    });
+});
+</script> 
 </body>
 
 </html>

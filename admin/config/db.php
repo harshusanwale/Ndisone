@@ -5,8 +5,8 @@
  */
 
 # Prevent warning. #
-// error_reporting(0);
-// ob_start();
+error_reporting(0);
+ob_start();
 
 define('DB_HOSTNAME', 'localhost');
 define('DB_USERNAME', 'root');

@@ -82,7 +82,7 @@ if (file_exists('config/listing_page_authentication.php')) {
 									<td><span class="db-list-rat"><?php  echo listing_pageview_count($listrow['listing_id']); ?></span></td>
 									<td><span class="db-list-ststus"><?php echo $listrow['listing_status']; ?></span></td>
 									<td><a href="edit-listing-step-new-1?row=<?php echo $listrow['listing_code']; ?>" class="db-list-edit"><?php echo $BIZBOOK['EDIT']; ?></a></td>
-									<td><a href="delete-listing?row=<?php echo $listrow['listing_code']; ?>" class="db-list-edit"><?php echo $BIZBOOK['DELETE']; ?></a></td>
+									<td><a href="delete-listing-new?row=<?php echo $listrow['listing_code']; ?>" class="db-list-edit"><?php echo $BIZBOOK['DELETE']; ?></a></td>
 									<td><a href="<?php echo $LISTING_URL.urlModifier($listrow['listing_slug']); ?>" class="db-list-edit" target="_blank"><?php echo $BIZBOOK['PREVIEW']; ?></a></td>
 								</tr>
 

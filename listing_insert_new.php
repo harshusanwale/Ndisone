@@ -64,10 +64,10 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 
 //Location Details
         $location = json_encode($_SESSION["location"]);
+        // print_r( $location);die;
 
         $days = json_encode($_SESSION["days"]);
-        // print_r(json_encode($days));die;
-        // if($_POST['days']){ $days = $_POST['days']; $jsonDays = json_encode($days);}else{$jsonDays = '[]';}
+
         $appr_method = $_SESSION["appr_method"];
 
 // Other Details
@@ -77,6 +77,12 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 
         // $listing_status = "Pending";
         $payment_status = "Pending";
+
+        if(isset($_SESSION['listing_type_id']) && !empty($_SESSION['listing_type_id'])) {
+            $listing_type_id = $_SESSION["listing_type_id"];
+        }else{
+            $listing_type_id = 1;
+        }
 
         function checkListingSlug($link, $counter=1){
             global $conn;
@@ -166,11 +172,11 @@ $reg_stamp = $_SESSION["reg_stamp_image"];
 					(user_id, abn_number, organi_type, ndis_regs, ndis_early_child, reg_number, reg_stamp, listing_name, com_land_number
 					, com_phone_1, com_phone_2, com_email, com_website, primary_location, face_url, insta_url, twit_url, linkd_url, serv_offers,reg_group, serv_locations, work_hours
 					, appr_merhod, language, serv_specilisation, pet_frie
-					,payment_status, listing_slug, listing_cdt,listing_status) 
+					,payment_status, listing_slug, listing_cdt,listing_status,listing_type_id) 
 					VALUES 
 					('$user_id', '$abn_number', '$organi_type', '$ndis_reg','$ndis_early_child', '$reg_number', '$reg_stamp', '$listing_name', '$com_land_num', '$com_phone_1', '$com_phone_2', '$comp_email', '$com_website', '$primary_location'
 					, '$face_url', '$insta_url', '$twi_url', '$link_url', '$ser_offer','$reg_group','$location ','$days', '$appr_method'
-					,'$language', '$ser_special', '$pet_frie', '$payment_status', '$listing_slug', '$curDate','$listing_status')";
+					,'$language', '$ser_special', '$pet_frie', '$payment_status', '$listing_slug', '$curDate','$listing_status','$listing_type_id')";
         // print_r($listing_qry);die;
 
         $listing_res = mysqli_query($conn,$listing_qry);
@@ -333,8 +339,10 @@ $reg_stamp = $_SESSION["reg_stamp_image"];
             unset($_SESSION['ser_offer']);
             unset($_SESSION['location']);
             unset($_SESSION['days']);
-            unset($_SESSION['reg_stamp']);          
-
+            unset($_SESSION['reg_stamp']); 
+            unset($_SESSION["reg_number"]); 
+            unset($_SESSION["primary_location"]);
+            
             header('Location: add-listing-step-6?code='.$ListCode);
         } else {
 

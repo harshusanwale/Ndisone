@@ -288,7 +288,7 @@ if (!isset($_SESSION['listing_codea']) || empty($_SESSION['listing_codea'])) {
 
                                                     }
 
-                                                } ?>
+                                                 } ?>
                                                     value="<?php echo $sub_categories_row['sub_category_id']; ?>"><?php echo $sub_categories_row['sub_category_name']; ?></option>
                                                 <?php
                                             }
