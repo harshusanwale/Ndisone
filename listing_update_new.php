@@ -98,6 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $insta_url = $_POST["insta_url"];
 
             $twi_url = $_POST["twi_url"];
+            // print_r($twi_url);die;
 
             $link_url = $_POST["link_url"];
 
@@ -157,12 +158,61 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 //************************  Reg Stamp Upload Ends  **************************
 
 
+//************************  Profile Image Upload starts  **************************
+
+if (!empty($_FILES['profile_image']['name'])) {
+    $file = rand(1000, 100000) . $_FILES['profile_image']['name'];
+    $file_loc = $_FILES['profile_image']['tmp_name'];
+    $file_size = $_FILES['profile_image']['size'];
+    $file_type = $_FILES['profile_image']['type'];
+    $allowed = array("image/jpeg", "image/pjpeg", "image/png", "image/gif", "image/webp", "image/svg", "application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.openxmlformats-officedocument.wordprocessingml.template");
+    if (in_array($file_type, $allowed)) {
+        $folder = "images/listings/";
+        $new_size = $file_size / 1024;
+        $new_file_name = strtolower($file);
+        $event_image = str_replace(' ', '-', $new_file_name);
+        //move_uploaded_file($file_loc, $folder . $event_image);
+        $profile_image1 = compressImage($event_image, $file_loc, $folder, $new_size);
+        $profile_image = $profile_image1;
+    } else {
+        $profile_image = $profile_image_old;
+    }
+} else {
+    $profile_image = $profile_image_old;
+}
+//************************  Profile Image Upload Ends  **************************
+
+//************************  Cover Image Upload starts  **************************
+
+if (!empty($_FILES['cover_image']['name'])) {
+    $file = rand(1000, 100000) . $_FILES['cover_image']['name'];
+    $file_loc = $_FILES['cover_image']['tmp_name'];
+    $file_size = $_FILES['cover_image']['size'];
+    $file_type = $_FILES['cover_image']['type'];
+    $allowed = array("image/jpeg", "image/pjpeg", "image/png", "image/gif", "image/webp", "image/svg", "application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.openxmlformats-officedocument.wordprocessingml.template");
+    if (in_array($file_type, $allowed)) {
+        $folder = "images/listing-ban/";
+        $new_size = $file_size / 1024;
+        $new_file_name = strtolower($file);
+        $event_image = str_replace(' ', '-', $new_file_name);
+        //move_uploaded_file($file_loc, $folder . $event_image);
+        $cover_image1 = compressImage($event_image, $file_loc, $folder, $new_size);
+        $cover_image = $cover_image1;
+    } else {
+        $cover_image = $cover_image_old;
+    }
+} else {
+    $cover_image = $cover_image_old;
+}
+//************************  Cover Image Upload ends  **************************
+
+
             $listing_qry =
-                "UPDATE  " . TBL . "listing_new  SET user_id='" . $user_id . "', ndis_early_child='" . $ndis_early_child . "', abn_number='" . $abn_number . "',
+                "UPDATE  " . TBL . "listings  SET user_id='" . $user_id . "', ndis_early_child='" . $ndis_early_child . "', abn_number='" . $abn_number . "',
                  listing_type_id='" . $listing_type_id . "', organi_type='" . $organi_type . "', ndis_regs='" . $ndis_reg . "', reg_number='" . $reg_number . "' 
     , com_land_number='" . $com_land_num . "', com_phone_1='" . $com_phone_1 . "', com_phone_2='" . $com_phone_2 . "',listing_name	='" . $listing_name . "', com_email='" . $comp_email . "'
-    , com_website='" . $com_website . "', primary_location='" . $primary_location . "', listing_slug ='" . $listing_slug . "'
-    ,insta_url='" . $insta_url . "',twit_url='" . $twit_url . "',linkd_url='" . $link_url . "',reg_group='" . $reg_groupid . "',face_url='" . $face_url . "',reg_stamp='" . $reg_stamp_image . "'
+    , com_website='" . $com_website . "', listing_address='" . $primary_location . "', listing_slug ='" . $listing_slug . "'
+    ,insta_url='" . $insta_url . "',twitter_link='" . $twi_url . "',linkd_url='" . $link_url . "',reg_group='" . $reg_groupid . "',fb_link='" . $face_url . "',reg_stamp='" . $reg_stamp_image . "',profile_image='" . $profile_image . "',cover_image='" . $cover_image . "'
     where listing_id='" . $listing_id . "'";
 
         }
@@ -174,19 +224,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         //On Update data from edit listing step -2 starts
         if ($src_path == "edit-2") {
-
             $listing_id = $_POST["listing_id"];
 
-            $service_off123 = $_POST["ser_offer"];
+            $category_id = $_POST["category_id"];
 
-            $prefix1 = $fruitList = '';
-            foreach ($service_off123 as $fruit1) {
-                $service_off .= $prefix1 . $fruit1;
-                $prefix1 = ',';
+            $sub_category_id123 = $_POST["sub_category_id"];
+            $prefix = $fruitList = '';
+            foreach ($sub_category_id123 as $fruit) {
+                $sub_category_id .= $prefix . $fruit;
+                $prefix = ',';
             }
+            // print_r($_POST);die;
 
             $listing_qry =
-                "UPDATE  " . TBL . "listing_new  SET user_id='" . $user_id . "', serv_offers='" . $service_off . "'
+                "UPDATE  " . TBL . "listings SET user_id='" . $user_id . "',category_id='" . $category_id . "', sub_category_id='" . $sub_category_id . "'
              where listing_id='" . $listing_id . "'";
 
         }
@@ -204,8 +255,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $location = json_encode($_POST["location"]);
             // print_r($location);die;
             $listing_qry =
-                "UPDATE  " . TBL . "listing_new  SET user_id='" . $user_id . "'
-    ,serv_locations='" . $location . "' where listing_id='" . $listing_id . "'";
+                "UPDATE  " . TBL . "listings  SET user_id='" . $user_id . "'
+    ,service_locations='" . $location . "' where listing_id='" . $listing_id . "'";
 
 
         }
@@ -224,7 +275,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
             $listing_qry =
-                "UPDATE  " . TBL . "listing_new  SET user_id='" . $user_id . "'
+                "UPDATE  " . TBL . "listings  SET user_id='" . $user_id . "'
     ,work_hours='" . $work_hours  . "'
      where listing_id='" . $listing_id . "'";
 
@@ -248,7 +299,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $ser_special = $_POST["ser_special"];
             $pet_frie = $_POST["pet_frie"];
 
-            $listing_qry = "UPDATE  " . TBL . "listing_new  SET user_id='" . $user_id . "', appr_merhod ='" . $appr_method . "'
+            $listing_qry = "UPDATE  " . TBL . "listings  SET user_id='" . $user_id . "', appr_merhod ='" . $appr_method . "'
     , language ='" . $language . "',serv_specilisation ='" . $ser_special . "',pet_frie ='" . $pet_frie . "'  where listing_id='" . $listing_id . "'";
 
 
@@ -362,12 +413,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             unset($_SESSION['link_url']);
 
             unset($_SESSION['reg_group']);
-            unset($_SESSION['ser_offer']);
+            unset($_SESSION["category_id"]);
+            unset($_SESSION["sub_category_id"]);
             unset($_SESSION['location']);
             unset($_SESSION['days']);
             unset($_SESSION['reg_stamp']);
             unset($_SESSION["reg_number"]); 
             unset($_SESSION["primary_location"]);
+            unset($_SESSION['profile_image']);
+            unset($_SESSION['cover_image']);
 
 
             header('Location: edit-listing-step-new-6?code=' . $listing_code);
@@ -400,12 +454,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             unset($_SESSION['link_url']);
 
             unset($_SESSION['reg_group']);
-            unset($_SESSION['ser_offer']);
+            unset($_SESSION["category_id"]);
+            unset($_SESSION["sub_category_id"]);
             unset($_SESSION['location']);
             unset($_SESSION['days']);
             unset($_SESSION['reg_stamp']);
             unset($_SESSION["reg_number"]); 
             unset($_SESSION["primary_location"]);
+            unset($_SESSION['profile_image']);
+            unset($_SESSION['cover_image']);
 
             header('Location: edit-listing-step-6?code=' . $listing_code);
             exit;

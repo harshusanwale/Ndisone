@@ -278,6 +278,30 @@ if($listing_count_user >= $plan_type_listing_count){
                                 </div>
                             </div>
                             <!--FILED END-->
+                            
+                            <!--FILED START-->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label><?php echo $BIZBOOK['CHOOSE_PROFILE_IMAGE']; ?></label>
+                                        <div class="fil-img-uplo">
+                                            <span class="dumfil"><?php echo $BIZBOOK['UPLOAD_A_FILE'];  ?></span>
+                                            <input type="file" name="profile_image" accept="image/*,.jpg,.jpeg,.png" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label><?php echo $BIZBOOK['CHOOSE_COVER_IMAGE']; ?></label>
+                                        <div class="fil-img-uplo">
+                                            <span class="dumfil"><?php echo $BIZBOOK['UPLOAD_A_FILE'];  ?></span>
+                                            <input type="file" name="cover_image" accept="image/*,.jpg,.jpeg,.png" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--FILED END-->
+                            
   
                              <!--FILED START-->
                             <div class="row" id="reg_group" style="display: none;">

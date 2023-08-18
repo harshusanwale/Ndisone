@@ -78,7 +78,7 @@ if (!isset($_SESSION['listing_codea']) || empty($_SESSION['listing_codea'])) {
             </div>
         </div>
         <div class="row">
-            <div class="login-main add-list ">
+            <div class="login-main add-list add-list-ser">
                 <div class="log-bor">&nbsp;</div>
                 <span class="steps"><?php echo $BIZBOOK['STEP2']; ?></span>
                 <div class="log">
@@ -86,7 +86,7 @@ if (!isset($_SESSION['listing_codea']) || empty($_SESSION['listing_codea'])) {
                         <?php
                         $listings_a_row = getListing($listing_codea);
                         ?>
-                        <h4>Category/Subcategory</h4>
+                        <h4>Service offered</h4>
                         <!-- <span class="add-list-add-btn lis-ser-add-btn" title="add new offer">+</span>
                         <span class="add-list-rem-btn lis-ser-rem-btn" title="remove offer">-</span> -->
                         <form action="listing_update_new.php" class="listing_form_2" id="listing_form_2"
@@ -105,55 +105,30 @@ if (!isset($_SESSION['listing_codea']) || empty($_SESSION['listing_codea'])) {
                                    class="validate"> -->
                             <ul>
                                 <!--FILED START-->
-                                <div class="row">
+                            <div class="row" id="reg_group" style="">
+                            <?php foreach(getAllCategories() as $row) { ?>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <select onChange="getSubCategory(this.value);" name="category_id"
-                                                id="category_id" class="chosen-select form-control">
-                                            <option value=""><?php echo $BIZBOOK['SELECT_CATEGORY']; ?></option>
-                                            <?php
-                                            foreach (getAllCategories() as $categories_row) {
+                                       <label><?php echo $row['category_name']?>:</label>
+                                       <!-- <input type="hidden" -->
+                                       <?php foreach(getCategorySubCategories($row['category_id']) as $subrow)  { ?>                
+                                        <div class="chbox">
+                                            <input type="checkbox" name="ser_offer[]" 
+                                            <?php $suppOffarray = explode(',',$listings_a_row['serv_offers']);
+                                                foreach ($suppOffarray as $seroff_Array) {
+                                                if($subrow['sub_category_id'] == $seroff_Array){ 
+                                                    echo 'checked="checked"';
+                                                }} 
                                                 ?>
-                                                <option <?php if ($listings_a_row['category_id'] == $categories_row['category_id']) {
-                                                    echo "selected";
-                                                } ?>
-                                                    value="<?php echo $categories_row['category_id']; ?>"><?php echo $categories_row['category_name']; ?></option>
-                                                <?php
-                                            }
-                                            ?>
-                                        </select>
-
-                                    </div>
+                                            value="<?php echo $subrow['sub_category_id']; ?>"   class="feature_check" id="suppOffr<?php echo $subrow['sub_category_id']; ?>"/>
+                                            <label for="suppOffr<?php echo $subrow['sub_category_id']; ?>"><?php echo $subrow['sub_category_name']; ?></label>                                           
+                                        </div>
+                                        <?php } ?>                            
+                                    </div>                            
                                 </div>
+                                <?php } ?>
                             </div>
-                            <!--FILED END-->
-                            <!--FILED START-->
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <select name="sub_category_id[]" id="sub_category_id" multiple
-                                                class="chosen-select form-control">
-                                           
-                                            <?php
-                                            foreach (getCategorySubCategories($listings_a_row['category_id']) as $sub_categories_row) {
-                                                ?>
-                                                <option <?php $catArray = explode(',', $listings_a_row['sub_category_id']);
-                                                foreach ($catArray as $cat_Array) {
-                                                    if ($sub_categories_row['sub_category_id'] == $cat_Array) {
-                                                        echo "selected";
-
-                                                    }
-
-                                                 } ?>
-                                                    value="<?php echo $sub_categories_row['sub_category_id']; ?>"><?php echo $sub_categories_row['sub_category_name']; ?></option>
-                                                <?php
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--FILED END-->
+                            <!--FILED END-->  
                             </ul>
                             <!--FILED START-->
                             <div class="row">
@@ -196,7 +171,6 @@ include "footer.php";
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-ui.js"></script>
-<script src="js/select-opt.js"></script>
 <script type="text/javascript">var webpage_full_link = '<?php echo $webpage_full_link;?>';</script>
 <script type="text/javascript">var login_url = '<?php echo $LOGIN_URL;?>';</script>
 <script src="js/custom.js"></script>

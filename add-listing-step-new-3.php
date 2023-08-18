@@ -32,7 +32,9 @@ if (isset($_POST['listing_submit'])) {
     // print_r($_POST);die;
 
 // Basic Personal Details
-     $_SESSION['ser_offer'] = $_POST["ser_offer"];
+    $_SESSION['category_id'] = $_POST["category_id"];
+    $_SESSION['sub_category_id'] = $_POST["sub_category_id"];
+    //  $_SESSION['ser_offer'] = $_POST["ser_offer"];
     // $_SESSION['last_name'] = $_POST["last_name"];
     // $_SESSION['mobile_number'] = $_POST["mobile_number"];
     // $_SESSION['email_id'] = $_POST["email_id"];
@@ -172,7 +174,7 @@ if (isset($_POST['listing_submit'])) {
         <div class="row">
             <div class="login-main add-list add-list-ser">
                 <div class="log-bor">&nbsp;</div>
-                <span class="steps"><?php echo $BIZBOOK['STEP2']; ?></span>
+                <span class="steps"><?php echo $BIZBOOK['STEP3']; ?></span>
                 <div class="log">
                     <div class="login">
                         <h4>Service Locations</h4>
@@ -182,8 +184,12 @@ if (isset($_POST['listing_submit'])) {
                         <form action="add-listing-step-new-4.php" class="listing_form_3" id="listing_form_3"
                               name="listing_form_3" method="post" enctype="multipart/form-data">
 
-                            <input id="ser_offer" name="ser_offer" type="hidden"
-                                   value="<?php echo $_SESSION['ser_offer']; ?>"
+                            <input id="category_id" name="category_id" type="hidden"
+                                   value="<?php echo $_SESSION['category_id']; ?>"
+                                   required="required" class="validate">
+
+                            <input id="sub_category_id" name="sub_category_id" type="hidden"
+                                   value="<?php echo $_SESSION['sub_category_id']; ?>"
                                    required="required" class="validate">
 
                             <ul>

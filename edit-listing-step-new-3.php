@@ -111,7 +111,7 @@ if (!isset($_SESSION['listing_codea']) || empty($_SESSION['listing_codea'])) {
                             <div class="add-list-location">
                                 <ul>
                                 <?php
-                                $location_1 = $listings_a_row['serv_locations'];
+                                $location_1 = $listings_a_row['service_locations'];
                                 
                                 $location_array = json_decode($location_1,true);
                               

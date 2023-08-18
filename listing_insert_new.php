@@ -10,6 +10,7 @@ if (file_exists('config/info.php')) {
 
 if ($_SERVER['REQUEST_METHOD']=='POST') {
     if (isset($_POST['listing_submit'])) {
+        
         $reg_group = "" ;
         $ser_offer  = "" ;
 
@@ -37,10 +38,10 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
         $comp_email = $_SESSION["comp_email"];
         $com_website = $_SESSION["com_website"];
         $primary_location = $_SESSION["primary_location"];
-        $face_url = $_SESSION["face_url"];
+        $fb_link = $_SESSION["face_url"];
         $insta_url = $_SESSION["insta_url"];
 
-        $twi_url = $_SESSION["twi_url"];
+        $twitter_link = $_SESSION["twi_url"];
 
         $link_url = $_SESSION["link_url"];
 
@@ -54,16 +55,25 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
         }
 
 // Service Offers Details 
-        $ser_offer123 = $_SESSION["ser_offer"];
-        $prefix1 = $fruitList = '';
-        foreach ($ser_offer123 as $fruit1)
-        {
-            $ser_offer .= $prefix1 .  $fruit1 ;
-            $prefix1 = ',';
-        }
+        // $ser_offer123 = $_SESSION["ser_offer"];
+        // $prefix1 = $fruitList = '';
+        // foreach ($ser_offer123 as $fruit1)
+        // {
+        //     $ser_offer .= $prefix1 .  $fruit1 ;
+        //     $prefix1 = ',';
+        // }
+        $category_id = $_SESSION["category_id"];
 
+        $sub_category_id123 = $_SESSION["sub_category_id"];
+
+        $prefix = $fruitList = '';
+        foreach ($sub_category_id123 as $fruit)
+        {
+            $sub_category_id .= $prefix .  $fruit ;
+            $prefix = ',';
+        }
 //Location Details
-        $location = json_encode($_SESSION["location"]);
+        $service_locations = json_encode($_SESSION["location"]);
         // print_r( $location);die;
 
         $days = json_encode($_SESSION["days"]);
@@ -165,19 +175,40 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 $reg_stamp = $_SESSION["reg_stamp_image"];
 //************************   Reg Stamp Image Upload Ends  **************************
 
+//************************  Profile Image Upload starts  **************************
+
+$profile_image = $_SESSION['profile_image'];
+//************************  Profile Image Upload Ends  **************************
+
+//************************  Cover Image Upload starts  **************************
+
+$cover_image = $_SESSION['cover_image'];
+
+//************************  Cover Image Upload ends  **************************
+
 
 //    Listing Insert Part Starts
 
-        $listing_qry = "INSERT INTO " . TBL . "listing_new 
-					(user_id, abn_number, organi_type, ndis_regs, ndis_early_child, reg_number, reg_stamp, listing_name, com_land_number
-					, com_phone_1, com_phone_2, com_email, com_website, primary_location, face_url, insta_url, twit_url, linkd_url, serv_offers,reg_group, serv_locations, work_hours
-					, appr_merhod, language, serv_specilisation, pet_frie
-					,payment_status, listing_slug, listing_cdt,listing_status,listing_type_id) 
-					VALUES 
-					('$user_id', '$abn_number', '$organi_type', '$ndis_reg','$ndis_early_child', '$reg_number', '$reg_stamp', '$listing_name', '$com_land_num', '$com_phone_1', '$com_phone_2', '$comp_email', '$com_website', '$primary_location'
-					, '$face_url', '$insta_url', '$twi_url', '$link_url', '$ser_offer','$reg_group','$location ','$days', '$appr_method'
-					,'$language', '$ser_special', '$pet_frie', '$payment_status', '$listing_slug', '$curDate','$listing_status','$listing_type_id')";
-        // print_r($listing_qry);die;
+        // $listing_qry = "INSERT INTO " . TBL . "listing_new 
+		// 			(user_id, abn_number, organi_type, ndis_regs, ndis_early_child, reg_number, reg_stamp, listing_name, com_land_number
+		// 			, com_phone_1, com_phone_2, com_email, com_website, primary_location, face_url, insta_url, twit_url, linkd_url, serv_offers,reg_group, serv_locations, work_hours
+		// 			, appr_merhod, language, serv_specilisation, pet_frie
+		// 			,payment_status, listing_slug, listing_cdt,listing_status,listing_type_id) 
+		// 			VALUES 
+		// 			('$user_id', '$abn_number', '$organi_type', '$ndis_reg','$ndis_early_child', '$reg_number', '$reg_stamp', '$listing_name', '$com_land_num', '$com_phone_1', '$com_phone_2', '$comp_email', '$com_website', '$primary_location'
+		// 			, '$face_url', '$insta_url', '$twi_url', '$link_url', '$ser_offer','$reg_group','$location ','$days', '$appr_method'
+		// 			,'$language', '$ser_special', '$pet_frie', '$payment_status', '$listing_slug', '$curDate','$listing_status','$listing_type_id')";
+
+        $listing_qry = "INSERT INTO " . TBL . "listings 
+                        (user_id, category_id, sub_category_id, listing_type_id, listing_name, listing_address, service_locations,
+                        fb_link, twitter_link, listing_status, payment_status, listing_slug, listing_cdt, abn_number, organi_type, ndis_regs, ndis_early_child, reg_number, reg_stamp, com_land_number,
+                        com_phone_1, com_phone_2, com_email, com_website, insta_url, linkd_url, reg_group, work_hours,
+                        appr_merhod, language, serv_specilisation, pet_frie,profile_image,cover_image) 
+                        VALUES 
+                        ('$user_id', '$category_id', '$sub_category_id', '$listing_type_id', '$listing_name', '$primary_location', '$service_locations',
+                        '$fb_link', '$twitter_link', '$listing_status', '$payment_status', '$listing_slug', '$curDate', '$abn_number', '$organi_type', '$ndis_reg', '$ndis_early_child', '$reg_number', '$reg_stamp', '$com_land_num',
+                        '$com_phone_1', '$com_phone_2', '$comp_email', '$com_website', '$insta_url', '$link_url', '$reg_group', '$days',
+                        '$appr_method', '$language', '$ser_special', '$pet_frie','$profile_image','$cover_image')";
 
         $listing_res = mysqli_query($conn,$listing_qry);
         $ListingID = mysqli_insert_id($conn);
@@ -197,7 +228,7 @@ $reg_stamp = $_SESSION["reg_stamp_image"];
 
         $ListCode = 'LIST' . $ListingID;
 
-        $lisupqry = "UPDATE " . TBL . "listing_new 
+        $lisupqry = "UPDATE " . TBL . "listings 
 					  SET listing_code = '$ListCode' 
 					  WHERE listing_id = $listlastID";
 
@@ -336,12 +367,15 @@ $reg_stamp = $_SESSION["reg_stamp_image"];
             unset($_SESSION['link_url']);
 
             unset($_SESSION['reg_group']);
-            unset($_SESSION['ser_offer']);
+            unset($_SESSION["category_id"]);
+            unset($_SESSION["sub_category_id"]);
             unset($_SESSION['location']);
             unset($_SESSION['days']);
             unset($_SESSION['reg_stamp']); 
             unset($_SESSION["reg_number"]); 
             unset($_SESSION["primary_location"]);
+            unset($_SESSION['profile_image']);
+            unset($_SESSION['cover_image']);
             
             header('Location: add-listing-step-6?code='.$ListCode);
         } else {

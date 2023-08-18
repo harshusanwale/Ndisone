@@ -88,52 +88,27 @@ if (isset($_POST['listing_submit'])) {
     $_SESSION['reg_stamp_image'] = $reg_stamp_image;
 //************************ Register stamp Image Upload Ends  **************************
 
-
-    //************************  Profile Image Upload starts  **************************
-
-    if (!empty($_FILES['profile_image']['name'])) {
-        $file = rand(1000, 100000) . $_FILES['profile_image']['name'];
-        $file_loc = $_FILES['profile_image']['tmp_name'];
-        $file_size = $_FILES['profile_image']['size'];
-        $file_type = $_FILES['profile_image']['type'];
-        $allowed = array("image/jpeg", "image/pjpeg", "image/png", "image/gif", "image/webp", "image/svg", "application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.openxmlformats-officedocument.wordprocessingml.template");
-        if(in_array($file_type, $allowed)) {
-            $folder = "images/listings/";
-            $new_size = $file_size / 1024;
-            $new_file_name = strtolower($file);
-            $event_image = str_replace(' ', '-', $new_file_name);
-            //move_uploaded_file($file_loc, $folder . $event_image);
-            $profile_image = compressImage($event_image, $file_loc, $folder, $new_size);
-        }else{
-            $profile_image = '';
-        }
-    }
-
-    $_SESSION['profile_image'] = $profile_image;
-
-//************************  Profile Image Upload Ends  **************************
-
 //************************  Cover Image Upload starts  **************************
 
-    if (!empty($_FILES['cover_image']['name'])) {
-        $file = rand(1000, 100000) . $_FILES['cover_image']['name'];
-        $file_loc = $_FILES['cover_image']['tmp_name'];
-        $file_size = $_FILES['cover_image']['size'];
-        $file_type = $_FILES['cover_image']['type'];
-        $allowed = array("image/jpeg", "image/pjpeg", "image/png", "image/gif", "image/webp", "image/svg", "application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.openxmlformats-officedocument.wordprocessingml.template");
-        if(in_array($file_type, $allowed)) {
-            $folder = "images/listing-ban/";
-            $new_size = $file_size / 1024;
-            $new_file_name = strtolower($file);
-            $event_image = str_replace(' ', '-', $new_file_name);
-            //move_uploaded_file($file_loc, $folder . $event_image);
-            $cover_image = compressImage($event_image, $file_loc, $folder, $new_size);
-        }else{
-            $cover_image = '';
-        }
-    }
+    // if (!empty($_FILES['cover_image']['name'])) {
+    //     $file = rand(1000, 100000) . $_FILES['cover_image']['name'];
+    //     $file_loc = $_FILES['cover_image']['tmp_name'];
+    //     $file_size = $_FILES['cover_image']['size'];
+    //     $file_type = $_FILES['cover_image']['type'];
+    //     $allowed = array("image/jpeg", "image/pjpeg", "image/png", "image/gif", "image/webp", "image/svg", "application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.openxmlformats-officedocument.wordprocessingml.template");
+    //     if(in_array($file_type, $allowed)) {
+    //         $folder = "images/listing-ban/";
+    //         $new_size = $file_size / 1024;
+    //         $new_file_name = strtolower($file);
+    //         $event_image = str_replace(' ', '-', $new_file_name);
+    //         //move_uploaded_file($file_loc, $folder . $event_image);
+    //         $cover_image = compressImage($event_image, $file_loc, $folder, $new_size);
+    //     }else{
+    //         $cover_image = '';
+    //     }
+    // }
 
-    $_SESSION['cover_image'] = $cover_image;
+    // $_SESSION['cover_image'] = $cover_image;
 
 //************************  Cover Image Upload ends  **************************
 
@@ -197,12 +172,12 @@ if ($_SESSION['listing_name'] == NULL || empty($_SESSION['listing_name'])) {
             </div>
         </div>
         <div class="row">
-            <div class="login-main add-list ">
+            <div class="login-main add-list add-list-ser">
                 <div class="log-bor">&nbsp;</div>
                 <span class="steps"><?php echo $BIZBOOK['STEP2']; ?></span>
                 <div class="log">
                     <div class="login">
-                        <h4>Category/Subcategory</h4>
+                        <h4>Service offered</h4>
                         <?php include "page_level_message.php"; ?>
                         <!-- <span class="add-list-add-btn lis-ser-add-btn" title="add new offer">+</span>
                         <span class="add-list-rem-btn lis-ser-rem-btn" title="remove offer">-</span> -->
@@ -286,48 +261,36 @@ if ($_SESSION['listing_name'] == NULL || empty($_SESSION['listing_name'])) {
                             required="required"
                             type="hidden" class="validate">
 
-                            <input id="profile_image" name="profile_image"
-                                   value="<?php echo $_SESSION['profile_image']; ?>" required="required"
-                                   type="hidden" class="validate">
 
-                            <input id="cover_image" name="cover_image" value="<?php echo $_SESSION['cover_image']; ?>"
-                                   required="required"
-                                   type="hidden" class="validate">
-
+                            <ul>
                             <!--FILED START-->
-                            <div class="row">
+                            <div class="row" id="reg_group" style="">
+                            <?php foreach(getAllCategories() as $row) { ?>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <select onChange="getSubCategory(this.value);" name="category_id"
-                                                id="category_id" class="chosen-select form-control">
-                                            <option value=""><?php echo $BIZBOOK['SELECT_CATEGORY']; ?></option>
-                                            <?php
-                                            foreach (getAllCategories() as $categories_row) {
-                                                ?>
-                                                <option <?php if ($_SESSION['category_id'] == $categories_row['category_id']) {
-                                                    echo "selected";
-                                                } ?>
-                                                    value="<?php echo $categories_row['category_id']; ?>"><?php echo $categories_row['category_name']; ?></option>
-                                                <?php
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
+                                       <label><?php echo $row['category_name']?>:</label>
+                                       <!-- <input type="hidden" -->
+                                       <?php foreach(getCategorySubCategories($row['category_id']) as $subrow)  { ?>
+                      
+                                        
+                                        <div class="chbox">
+                                        <?php 
+                                        if($_SESSION['ser_offer']) {?>
+                                            <input type="checkbox" name="ser_offer[]" value="<?php echo $subrow['sub_category_id']; ?>"  <?php if (in_array($subrow, $_SESSION['ser_offer'])) echo 'checked="checked"'; ?> class="feature_check" id="suppOffr<?php echo $subrow['sub_category_id']; ?>"/>
+                                            <label for="suppOffr<?php echo $subrow['sub_category_id']; ?>"><?php echo $subrow['sub_category_name']; ?></label>
+                                            <?php } else {?>
+                                            <input type="checkbox" name="ser_offer[]" value="<?php echo $subrow['sub_category_id']; ?>" class="feature_check" id="suppOffr<?php echo $subrow['sub_category_id']; ?>"/>
+                                            <label for="suppOffr<?php echo $subrow['sub_category_id']; ?>"><?php echo $subrow['sub_category_name']; ?></label>
+                                            <?php } ?>
+                                           
+                                        </div>
+                                        <?php } ?>                                   
+                                    </div>                            
                                 </div>
+                                <?php } ?>
                             </div>
                             <!--FILED END-->
-                            <!--FILED START-->
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <select data-placeholder="Select Sub Category" name="sub_category_id[]"
-                                                id="sub_category_id" multiple class="chosen-select form-control">
-                                            <option value=""><?php echo $BIZBOOK['SELECT_SUB_CATEGORY']; ?></option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--FILED END-->
+                            </ul>
                             <!--FILED START-->
                             <div class="row">
                                 <div class="col-md-6">
@@ -366,40 +329,13 @@ include "footer.php";
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<!-- <script src="js/jquery.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery-ui.js"></script>
-<script src="js/select-opt.js"></script>
-<script type="text/javascript">var webpage_full_link = '<?php echo $webpage_full_link;?>';</script>
-<script type="text/javascript">var login_url = '<?php echo $LOGIN_URL;?>';</script>
-<script src="js/custom.js"></script>
-<script src="js/jquery.validate.min.js"></script>
-<script src="js/custom_validation.js"></script> -->
-
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="js/jquery.min.js"></script>
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-ui.js"></script>
-<script src="js/select-opt.js"></script>
-<script type="text/javascript">var webpage_full_link ='<?php echo $webpage_full_link;?>';</script>
-<script type="text/javascript">var login_url ='<?php echo $LOGIN_URL;?>';</script>
+<script type="text/javascript">var webpage_full_link = '<?php echo $webpage_full_link;?>';</script>
+<script type="text/javascript">var login_url = '<?php echo $LOGIN_URL;?>';</script>
 <script src="js/custom.js"></script>
-<script src="js/jquery.validate.min.js"></script>
-<script src="js/custom_validation.js"></script>
-<script>
-    function getSubCategory(val) {
-        $.ajax({
-            type: "POST",
-            url: "sub_category_process.php",
-            data: 'category_id=' + val,
-            success: function (data) {
-                $("#sub_category_id").html(data);
-                $('#sub_category_id').trigger("chosen:updated");
-            }
-        });
-    }
-</script>
 </body>
+
 </html>

@@ -103,6 +103,12 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
                             <input type="hidden" id="reg_stamp_old"
                                    value="<?php echo $listings_a_row['reg_stamp']; ?>" name="reg_stamp_old"
                                    class="validate">
+                            <input type="hidden" id="profile_image_old"
+                            value="<?php echo $listings_a_row['profile_image']; ?>" name="profile_image_old"
+                            class="validate">
+                            <input type="hidden" id="cover_image_old"
+                                   value="<?php echo $listings_a_row['cover_image']; ?>" name="cover_image_old"
+                                   class="validate">
                          
 
                             <!--FILED START-->
@@ -256,7 +262,7 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <input type="text" name="primary_location" class="form-control"
-                                               value="<?php echo $listings_a_row['primary_location'] ?>" id="primary_location"
+                                               value="<?php echo $listings_a_row['listing_address'] ?>" id="primary_location"
                                                placeholder="<?php echo $BIZBOOK['PRIMARY_LOCATION']; ?>">
                                     </div>
                                 </div>
@@ -268,7 +274,7 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <input type="text" name="face_url" class="form-control"
-                                               value="<?php echo $listings_a_row['face_url'] ?>"
+                                               value="<?php echo $listings_a_row['fb_link'] ?>"
                                                placeholder="<?php echo $BIZBOOK['FACE_URL']; ?>">
                                     </div>
                                 </div>
@@ -286,7 +292,7 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <input type="text" name="twi_url" class="form-control"
-                                               value="<?php echo $listings_a_row['twit_url'] ?>"
+                                               value="<?php echo $listings_a_row['twitter_link'] ?>"
                                                placeholder="<?php echo $BIZBOOK['TWI_URL']; ?>">
                                     </div>
                                 </div>
@@ -295,6 +301,29 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
                                         <input type="text" name="link_url" class="form-control"
                                                value="<?php echo $listings_a_row['linkd_url'] ?>" 
                                                placeholder="<?php echo $BIZBOOK['LINK_URL']; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                            <!--FILED END-->
+
+                             <!--FILED START-->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label><?php echo $BIZBOOK['CHOOSE_PROFILE_IMAGE']; ?></label>
+                                        <div class="fil-img-uplo">
+                                            <span class="dumfil"><?php echo $BIZBOOK['UPLOAD_A_FILE'];  ?></span>
+                                            <input type="file" name="profile_image" accept="image/*,.jpg,.jpeg,.png" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label><?php echo $BIZBOOK['CHOOSE_COVER_IMAGE']; ?></label>
+                                        <div class="fil-img-uplo">
+                                            <span class="dumfil"><?php echo $BIZBOOK['UPLOAD_A_FILE'];  ?></span>
+                                            <input type="file" name="cover_image" accept="image/*,.jpg,.jpeg,.png" class="form-control">
+                                        </div>
                                     </div>
                                 </div>
                             </div>

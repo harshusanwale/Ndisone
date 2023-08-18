@@ -17,6 +17,30 @@ if (file_exists('config/listing_page_authentication.php')) {
 
 ?>
 <!-- START -->
+<style>
+ .Monday,
+.Tuesday,
+.Wednesday,
+.Thursday,
+.Friday,
+.Saturday,
+.Sunday {
+display: none;
+}
+
+.dinon {
+
+display: block;
+
+}
+
+.diBlo {
+
+display: none;
+
+}
+</style>
+<!-- START -->
 <section>
     <div class="ad-com">
         <div class="ad-dash leftpadd">
@@ -213,7 +237,7 @@ if (file_exists('config/listing_page_authentication.php')) {
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <input readonly="readonly" type="text" name="primary_location" class="form-control"
-                                               value="<?php echo $listings_a_row['primary_location'] ?>" id="primary_location"
+                                               value="<?php echo $listings_a_row['listing_address'] ?>" id="primary_location"
                                                placeholder="<?php echo $BIZBOOK['PRIMARY_LOCATION']; ?>">
                                     </div>
                                 </div>
@@ -225,7 +249,7 @@ if (file_exists('config/listing_page_authentication.php')) {
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <input readonly="readonly" type="text" name="face_url" class="form-control"
-                                               value="<?php echo $listings_a_row['face_url'] ?>"
+                                               value="<?php echo $listings_a_row['fb_link'] ?>"
                                                placeholder="<?php echo $BIZBOOK['FACE_URL']; ?>">
                                     </div>
                                 </div>
@@ -243,7 +267,7 @@ if (file_exists('config/listing_page_authentication.php')) {
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <input readonly="readonly" type="text" name="twi_url" class="form-control"
-                                               value="<?php echo $listings_a_row['twit_url'] ?>"
+                                               value="<?php echo $listings_a_row['twitter_link'] ?>"
                                                placeholder="<?php echo $BIZBOOK['TWI_URL']; ?>">
                                     </div>
                                 </div>
@@ -289,40 +313,63 @@ if (file_exists('config/listing_page_authentication.php')) {
                             </div>
                         </div>
                         <div class="row">
-                            <div class="login-main add-list add-list-ser">
+                            <div class="login-main add-list posr">
                                 <div class="log-bor">&nbsp;</div>
                                 <span class="steps"><?php echo $BIZBOOK['STEP2']; ?></span>
                                 <div class="log">
                                     <div class="login">
 
-                                        <h4>Service offered</h4>
-                                        <ul>
-                                        <!--FILED START-->
-                                        <div class="row" id="reg_group" style="">
-                                        <?php foreach(getAllCategories() as $row) { ?>
+                                        <h4>Category/Subcategory</h4>
+                                        
+                                       <!--FILED START-->
+                                       <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                <label><?php echo $row['category_name']?>:</label>
-                                                <!-- <input type="hidden" -->
-                                                <?php foreach(getCategorySubCategories($row['category_id']) as $subrow)  { ?>                
-                                                    <div class="chbox">
-                                                        <input disabled="disabled" type="checkbox" name="ser_offer[]" 
-                                                        <?php $suppOffarray = explode(',',$listings_a_row['serv_offers']);
-                                                            foreach ($suppOffarray as $seroff_Array) {
-                                                            if($subrow['sub_category_id'] == $seroff_Array){ 
-                                                                echo 'checked="checked"';
-                                                            }} 
+                                                    <select disabled="disabled" name="category_id" id="category_id"
+                                                            class="form-control">
+                                                        <option
+                                                            value=""><?php echo $BIZBOOK['SELECT_CATEGORY']; ?></option>
+                                                        <?php
+                                                        foreach (getAllCategories() as $categories_row) {
                                                             ?>
-                                                        value="<?php echo $subrow['sub_category_id']; ?>"   class="feature_check" id="suppOffr<?php echo $subrow['sub_category_id']; ?>"/>
-                                                        <label for="suppOffr<?php echo $subrow['sub_category_id']; ?>"><?php echo $subrow['sub_category_name']; ?></label>                                           
-                                                    </div>
-                                                    <?php } ?>                            
-                                                </div>                            
+                                                            <option <?php if ($listings_a_row['category_id'] == $categories_row['category_id']) {
+                                                                echo "selected";
+                                                            } ?>
+                                                                value="<?php echo $categories_row['category_id']; ?>"><?php echo $categories_row['category_name']; ?></option>
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
                                             </div>
-                                            <?php } ?>
                                         </div>
-                                        <!--FILED END-->  
-                                        </ul>
+                                        <!--FILED END-->
+
+                                        <!--FILED START-->
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <select disabled="disabled" name="sub_category_id"
+                                                            id="sub_category_id"
+                                                            class="form-control">
+                                                        <option
+                                                            value=""><?php echo $BIZBOOK['SELECT_SUB_CATEGORY']; ?></option>
+                                                        <?php
+                                                        foreach (getAllSubCategories() as $sub_categories_row) {
+                                                            ?>
+                                                            <option <?php if ($listings_a_row['sub_category_id'] == $sub_categories_row['sub_category_id']) {
+                                                                echo "selected";
+                                                            } ?>
+                                                                value="<?php echo $sub_categories_row['sub_category_id']; ?>"><?php echo $sub_categories_row['sub_category_name']; ?></option>
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--FILED END--> 
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -337,7 +384,7 @@ if (file_exists('config/listing_page_authentication.php')) {
                                         <h4>Service Locations</h4>
                                         <ul>
                                         <?php
-                                        $location_1 = $listings_a_row['serv_locations'];                                        
+                                        $location_1 = $listings_a_row['service_locations'];                                        
                                         $location_array = json_decode($location_1,true);                                                                            
                                             foreach ($location_array as $location_Array) {                                   
                                                 ?> 
@@ -435,10 +482,10 @@ if (file_exists('config/listing_page_authentication.php')) {
                                             echo  '<div class="col-md-2">';
                                             echo  '</div>';
                                             echo  '<div class="col-md-4">';
-                                            echo  '<input type="time" class="form-control" name="days['.$daySlots.'][data]['.$i.'][from]" value="' . $timeSlot['from'] . '">';
+                                            echo  '<input  readonly="readonly" type="time" class="form-control" name="days['.$daySlots.'][data]['.$i.'][from]" value="' . $timeSlot['from'] . '">';
                                             echo  '</div>';
                                             echo  '<div class="col-md-4">';
-                                            echo  '<input type="time" class="form-control" name="days['.$daySlots.'][data]['.$i.'][to]" value="' . $timeSlot['to'] . '">';
+                                            echo  '<input  readonly="readonly" type="time" class="form-control" name="days['.$daySlots.'][data]['.$i.'][to]" value="' . $timeSlot['to'] . '">';
                                             echo  '</div>';
                                             echo  '</div>';
                                             echo  '</li>';
@@ -571,6 +618,7 @@ if (file_exists('config/listing_page_authentication.php')) {
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-ui.js"></script>
+<script src="js/select-opt.js"></script>
 <script type="text/javascript">var webpage_full_link = '<?php echo $webpage_full_link;?>';</script>
 <script type="text/javascript">var login_url = '<?php echo $LOGIN_URL;?>';</script>
 <script src="js/custom.js"></script>

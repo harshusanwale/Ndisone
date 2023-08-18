@@ -23,7 +23,7 @@ function getAllTrashListing()
 }
 
 //Get particular Listing Using Listing Code
-function getListingold($arg)
+function getListing($arg)
 {
     global $conn;
 
@@ -34,17 +34,17 @@ function getListingold($arg)
 
 }
 
-//Get particular Listing Using Listing Code
-function getListing($arg)
-{
-    global $conn;
+// //Get particular Listing Using Listing Code
+// function getListing($arg)
+// {
+//     global $conn;
 
-    $sql = "SELECT * FROM  " . TBL . "listing_new where listing_code='" . $arg . "'";
-    $rs = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_array($rs);
-    return $row;
+//     $sql = "SELECT * FROM  " . TBL . "listing_new where listing_code='" . $arg . "'";
+//     $rs = mysqli_query($conn, $sql);
+//     $row = mysqli_fetch_array($rs);
+//     return $row;
 
-}
+// }
 
 
 //Get particular Listing Using Listing Slug
@@ -72,7 +72,7 @@ function getIdListing($arg)
 }
 
 //Get All Listing with given User Id
-function getAllListingUserold($arg)
+function getAllListingUser($arg)
 {
     global $conn;
 
@@ -82,16 +82,16 @@ function getAllListingUserold($arg)
 
 }
 
-//Get All Listing with given User Id
-function getAllListingUser($arg)
-{
-    global $conn;
+// //Get All Listing with given User Id
+// function getAllListingUser($arg)
+// {
+//     global $conn;
 
-    $sql = "SELECT * FROM " . TBL . "listing_new  WHERE user_id= '$arg' AND listing_is_delete != '2' ORDER BY listing_id DESC";
-    $rs = mysqli_query($conn, $sql);
-    return $rs;
+//     $sql = "SELECT * FROM " . TBL . "listing_new  WHERE user_id= '$arg' AND listing_is_delete != '2' ORDER BY listing_id DESC";
+//     $rs = mysqli_query($conn, $sql);
+//     return $rs;
 
-}
+// }
 
 
 
