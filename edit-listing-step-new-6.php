@@ -36,7 +36,7 @@ $listing_row = getListing($listing_codea);
                         <li>
                             <a href="edit-listing-step-new-2">
                                 <span><?php echo $BIZBOOK['STEP2']; ?></span>
-                                <b><?php echo $BIZBOOK['SERVICES']; ?></b>
+                                <b>Service Offered</b>
                             </a>
                         </li>
                         <li>

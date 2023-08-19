@@ -140,7 +140,7 @@ if (isset($_POST['listing_submit'])) {
                         <li>
                             <a href="add-listing-step-new-2">
                                 <span><?php echo $BIZBOOK['STEP2']; ?></span>
-                                <b><?php echo $BIZBOOK['SERVICES']; ?></b>
+                                <b>Service Offered</b>
                             </a>
                         </li>
                         <li>

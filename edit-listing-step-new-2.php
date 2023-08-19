@@ -46,7 +46,7 @@ if (!isset($_SESSION['listing_codea']) || empty($_SESSION['listing_codea'])) {
                         <li>
                             <a href="edit-listing-step-new-2?row=<?php echo $listing_codea; ?>" class="act">
                                 <span><?php echo $BIZBOOK['STEP2']; ?></span>
-                                <b><?php echo $BIZBOOK['SERVICES']; ?></b>
+                                <b>Service Offered</b>
                             </a>
                         </li>
                         <li>
@@ -86,7 +86,7 @@ if (!isset($_SESSION['listing_codea']) || empty($_SESSION['listing_codea'])) {
                         <?php
                         $listings_a_row = getListing($listing_codea);
                         ?>
-                        <h4>Category/Subcategory</h4>
+                        <h4>Service Offered</h4>
                         <!-- <span class="add-list-add-btn lis-ser-add-btn" title="add new offer">+</span>
                         <span class="add-list-rem-btn lis-ser-rem-btn" title="remove offer">-</span> -->
                         <form action="listing_update_new.php" class="listing_form_2" id="listing_form_2"

@@ -46,7 +46,7 @@ if($listing_count_user >= $plan_type_listing_count){
                         <li>
                             <a href="#!">
                                 <span><?php echo $BIZBOOK['STEP2']; ?></span>
-                                <b><?php echo $BIZBOOK['SERVICES']; ?></b>
+                                <b>Service Offered</b>
                             </a>
                         </li>
                         <li>
@@ -116,9 +116,9 @@ if($listing_count_user >= $plan_type_listing_count){
                                     <label>Organisation Type:</label>
                                     <select name="organi_type" id="organi_type" class="form-control colorBackground ca-check-plan empty valid">
                                             <option value="">--Select--</option>
-                                            <option value="1" <?php ($_SESSION['organi_type'] == 1) ? "selected" : "";?>>Sole Trader</option>
-                                            <option value="2"  <?php ($_SESSION['organi_type'] == 2) ? "selected" : "";?>>Digital</option>
-                                            <option value="3"  <?php ($_SESSION['organi_type'] == 3) ? "selected" : "";?>>Agency</option>                                            
+                                            <option value="1" <?php if($_SESSION['organi_type'] == 1){ echo "selected" ;}?>>Sole Trader</option>
+                                            <option value="2"  <?php if($_SESSION['organi_type'] == 2){ echo  "selected" ; }?>>Digital</option>
+                                            <option value="3"  <?php if($_SESSION['organi_type'] == 3){ echo  "selected" ; }?>>Agency</option>                                            
                                     </select>
                                 </div>
                                 </div>
@@ -131,15 +131,19 @@ if($listing_count_user >= $plan_type_listing_count){
                                     <label>Are you registered for NDIS?:</label>
                                     <select name="ndis_reg" id="ndis_reg" class="form-control colorBackground ca-check-plan empty valid">
                                             <option value="">--Select--</option>
-                                            <option value="1"  <?php ($_SESSION['ndis_reg'] == 1) ? "selected" : "";?>>Yes</option>
-                                            <option value="2"  <?php ($_SESSION['ndis_reg'] == 2) ? "selected" : "";?>>NO</option>                                       
+                                            <option value="1" <?php if($_SESSION['ndis_reg'] == 1) {echo "selected";}?>>Yes</option>
+                                            <option value="2" <?php if($_SESSION['ndis_reg'] == 2) {echo "selected" ;} ?>>NO</option>                                                                         
                                     </select>
                                 </div>
                                 </div>
                              </div>
                             <!--FILED END-->
                             <!--FILED START-->
-                            <div class="row" id="question_class" style="display: none;">
+                         
+                            
+                            <div class="row d-flex" id="question_class"  style="<?php if($_SESSION['ndis_reg'] == 1){echo 'display: block' ;}else{
+                             echo 'display: none';   
+                               }?>">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label><?php echo $BIZBOOK['REGSITRATION_NUMBER']; ?></label>
@@ -160,6 +164,7 @@ if($listing_count_user >= $plan_type_listing_count){
                                     </div>
                                 </div>
                             </div>
+                        
                             <!--FILED END-->
 
                             <!--FILED START-->
@@ -169,8 +174,8 @@ if($listing_count_user >= $plan_type_listing_count){
                                     <label>Are you registered for NDIS early Childhood?:</label>
                                     <select name="ndis_early_child" id="ndis_early_child" class="form-control colorBackground ca-check-plan empty valid">
                                             <option value="">--Select--</option>
-                                            <option value="1"  <?php ($_SESSION['ndis_early_child'] == 1) ? "selected" : "";?>>Yes</option>
-                                            <option value="2"  <?php ($_SESSION['ndis_early_child'] == 2) ? "selected" : "";?>>NO</option>                                       
+                                            <option value="1"  <?php if($_SESSION['ndis_early_child'] == 1) {echo "selected";}?>>Yes</option>
+                                            <option value="2"  <?php if($_SESSION['ndis_early_child'] == 2) { echo "selected" ;}?>>NO</option>                                                                            
                                     </select>
                                 </div>
                                 </div>
@@ -304,16 +309,19 @@ if($listing_count_user >= $plan_type_listing_count){
                             
   
                              <!--FILED START-->
-                            <div class="row" id="reg_group" style="display: none;">
+                            <div class="row" id="reg_group" style="<?php if($_SESSION['ndis_reg'] == 1){echo 'display: block;' ;}else{
+                             echo '"display: none"';   
+                               }?>">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Your Registration Group:</label>
                                         <?php foreach(getAllRegGroup() as $row) { ?>
                                         <div class="chbox">
-                                            <?php if($_SESSION['reg_group']) {?>
-                                            <input type="checkbox" name="reg_group[]" value="<?php echo $row['id']; ?>"  <?php if (in_array($row, $_SESSION['reg_group'])) echo 'checked="checked"'; ?>  class="feature_check" id="suppOffr<?php echo $row['id']; ?>" />
+                                            <?php
+                                             if($_SESSION['reg_group']){?>
+                                            <input type="checkbox" name="reg_group[]" value="<?php echo $row['id']; ?>"  <?php if(in_array($row['id'], $_SESSION['reg_group'])){echo 'checked="checked"'; }?>  class="feature_check" id="suppOffr<?php echo $row['id']; ?>" />
                                             <label for="suppOffr<?php echo $row['id']; ?>"><h6><?php echo $row['name']; ?></h6></label>
-                                            <?php } else {?>
+                                            <?php }else{?>
                                             <input type="checkbox" name="reg_group[]" value="<?php echo $row['id']; ?>"    class="feature_check" id="suppOffr<?php echo $row['id']; ?>" />
                                             <label for="suppOffr<?php echo $row['id']; ?>"><h6><?php echo $row['name']; ?></h6></label>
                                             <?php } ?>
@@ -344,9 +352,7 @@ if($listing_count_user >= $plan_type_listing_count){
 include "footer.php";
 ?>
 
-<?php
-include "google_address_api.php";
-?>
+
 
 
 <!-- Optional JavaScript -->
@@ -374,10 +380,7 @@ include "google_address_api.php";
         });
     }
 </script>
-<script src="admin/ckeditor/ckeditor.js"></script>
-<script>
-    CKEDITOR.replace('listing_description');
-</script>
+
 <script>
     function getCities(val) {
         $.ajax({

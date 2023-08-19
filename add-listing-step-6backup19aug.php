@@ -49,19 +49,19 @@ $listing_row = getListing($listing_codea);
                         <li>
                             <a href="#!">
                                 <span><?php echo $BIZBOOK['STEP2']; ?></span>
-                                <b>Service Offered</b>
+                                <b><?php echo $BIZBOOK['SERVICES']; ?></b>
                             </a>
                         </li>
                         <li>
                             <a href="#!">
                                 <span><?php echo $BIZBOOK['STEP3']; ?></span>
-                                <b><?php echo $BIZBOOK['SER-LOCATION']; ?></b>
+                                <b><?php echo $BIZBOOK['OFFERS']; ?></b>
                             </a>
                         </li>
                         <li>
                             <a href="#!">
                                 <span><?php echo $BIZBOOK['STEP4']; ?></span>
-                                <b><?php echo $BIZBOOK['WPR_HOURS']; ?></b>
+                                <b><?php echo $BIZBOOK['MAP']; ?></b>
                             </a>
                         </li>
                         <li>

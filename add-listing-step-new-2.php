@@ -165,7 +165,7 @@ if ($_SESSION['listing_name'] == NULL || empty($_SESSION['listing_name'])) {
                         <li>
                             <a href="add-listing-step-new-2" class="act">
                                 <span><?php echo $BIZBOOK['STEP2']; ?></span>
-                                <b><?php echo $BIZBOOK['SERVICES']; ?></b>
+                                <b>Service Offered</b>
                             </a>
                         </li>
                         <li>
@@ -202,7 +202,7 @@ if ($_SESSION['listing_name'] == NULL || empty($_SESSION['listing_name'])) {
                 <span class="steps"><?php echo $BIZBOOK['STEP2']; ?></span>
                 <div class="log">
                     <div class="login">
-                        <h4>Category/Subcategory</h4>
+                        <h4>Service Offered</h4>
                         <?php include "page_level_message.php"; ?>
                         <!-- <span class="add-list-add-btn lis-ser-add-btn" title="add new offer">+</span>
                         <span class="add-list-rem-btn lis-ser-rem-btn" title="remove offer">-</span> -->
@@ -331,7 +331,7 @@ if ($_SESSION['listing_name'] == NULL || empty($_SESSION['listing_name'])) {
                             <!--FILED START-->
                             <div class="row">
                                 <div class="col-md-6">
-                                    <a href="add-listing-step-1">
+                                    <a href="add-listing-step-new-1">
                                         <button type="button"
                                                 class="btn btn-primary"><?php echo $BIZBOOK['PREVIOUS']; ?></button>
                                     </a>

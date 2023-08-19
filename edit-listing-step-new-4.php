@@ -69,7 +69,7 @@ display: none;
                         <li>
                             <a href="edit-listing-step-new-2?row=<?php echo $listing_codea; ?>">
                                 <span><?php echo $BIZBOOK['STEP2']; ?></span>
-                                <b><?php echo $BIZBOOK['SERVICES']; ?></b>
+                                <b>Service Offered</b>
                             </a>
                         </li>
                         <li>
@@ -91,7 +91,7 @@ display: none;
                             </a>
                         </li>
                         <li>
-                            <a href="edit-listing-step-6">
+                            <a href="edit-listing-step-new-6">
                                 <span><?php echo $BIZBOOK['STEP6']; ?></span>
                                 <b><?php echo $BIZBOOK['DONE']; ?></b>
                             </a>

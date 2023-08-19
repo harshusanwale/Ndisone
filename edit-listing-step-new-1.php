@@ -44,7 +44,7 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
                         <li>
                             <a href="edit-listing-step-new-2?row=<?php echo $listing_codea; ?>">
                                 <span><?php echo $BIZBOOK['STEP2']; ?></span>
-                                <b><?php echo $BIZBOOK['SERVICES']; ?></b>
+                                <b>Service Offered</b>
                             </a>
                         </li>
                         <li>

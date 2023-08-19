@@ -75,6 +75,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $listing_id = $_POST["listing_id"];
             $reg_stamp_old = $_POST["reg_stamp_old"];
+            $profile_image_old = $_POST["profile_image_old"];
+            $cover_image_old = $_POST["cover_image_old"];
             // Basic Personal Details
             $abn_number = $_POST["abn_number"];
             $organi_type = $_POST["organi_type"];

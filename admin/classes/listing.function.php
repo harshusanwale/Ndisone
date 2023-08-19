@@ -276,4 +276,14 @@ function getListingSeoScore($arg)
     return $row[0];
 }
 
+// Convert 24-hour time to 12-hour time with AM/PM
+function convertTo12HourFormat($time) {
+    $timeParts = explode(":", $time);
+    $hours = (int)$timeParts[0];
+    $minutes = $timeParts[1];
+    $suffix = ($hours >= 12) ? "PM" : "AM";
+    $hours = ($hours > 12) ? $hours - 12 : $hours;
+    return "$hours:$minutes $suffix";
+}
+
 ?>

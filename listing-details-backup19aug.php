@@ -89,15 +89,15 @@ $review_count = getCountListingReview($listing_id); //Listing Reviews Count
                             </a>
                         </li>
                         <li><a href="#ld-gal"><i
-                                    class="material-icons">photo</i>Work Hours
-                            </a>
-                        </li>
-                        <li><a href="#ld-360"><i
-                                    class="material-icons">camera</i>Locations
+                                    class="material-icons">photo</i> <?php echo $BIZBOOK['LISTING_DETAILS_GALLERY']; ?>
                             </a>
                         </li>
                         <li><a href="#ld-off"><i
                                     class="material-icons">style</i> <?php echo $BIZBOOK['LISTING_DETAILS_OFFERS']; ?>
+                            </a>
+                        </li>
+                        <li><a href="#ld-360"><i
+                                    class="material-icons">camera</i> <?php echo $BIZBOOK['LISTING_DETAILS_360_VIEW']; ?>
                             </a>
                         </li>
                         <li><a href="#ld-rev"><i
@@ -254,9 +254,9 @@ $review_count = getCountListingReview($listing_id); //Listing Reviews Count
                                     } ?>
                                 </li>
                             </a>
-                            <?php if ($listrow['com_website'] != NULL) { ?>
-                                <a target="_blank" href="http://<?php echo $listrow['com_website']; ?>">
-                                    <li class="ic-web"><?php echo $listrow['com_website']; ?></li>
+                            <?php if ($listrow['listing_website'] != NULL) { ?>
+                                <a target="_blank" href="http://<?php echo $listrow['listing_website']; ?>">
+                                    <li class="ic-web"><?php echo $listrow['listing_website']; ?></li>
                                 </a>
                             <?php } ?>
                         </ul>
@@ -330,62 +330,7 @@ $review_count = getCountListingReview($listing_id); //Listing Reviews Count
                                 <?php
                                 if ($plan_type_row['plan_type_description'] == '1') {
                                     ?>
-                                    <div class="row">
-                                        <div class="col-6">
-                                         Listing Name:
-                                        </div>
-                                        <div class="col-6">
-                                        <p><?php echo stripslashes($listrow['listing_name']); ?></p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                         Abn Number:
-                                        </div>
-                                        <div class="col-6">
-                                        <p><?php echo stripslashes($listrow['abn_number']); ?></p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                         Organisation Type:
-                                        </div>
-                                        <div class="col-6">
-                                        <p><?php if($listrow['organi_type'] == 1){echo "Sole Trader" ;}else if($listrow['organi_type'] == 2){echo "Digital" ;}else{echo "Agency" ;} ?></p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                         Ndis Register:
-                                        </div>
-                                        <div class="col-6">
-                                        <p><?php if($listrow['ndis_regs'] == 1){echo "yes" ;}else{echo "No" ;}?></p>
-                                        </div>
-                                    </div>
-                                    <?php if(!empty($listrow['ndis_regs']) && !empty($listrow['reg_stamp'])) { ?>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            Register Number:
-                                        </div>
-                                        <div class="col-6">
-                                        <p><?php echo stripslashes($listrow['reg_number']); ?></p>
-                                        </div>
-                                   </div>
-                                   <div class="row">
-                                        <div class="col-6">
-                                            Register Stamp:
-                                        </div>
-                                        <div class="col-6">
-                                        <p><img height="50" width="50"
-                                                src="<?php echo $slash; ?>images/listings/<?php if ($listrow['reg_stamp'] != NULL) {
-                                                    echo $listrow['reg_stamp'];
-                                                } else {
-                                                    echo "1.jpg";
-                                                } ?>"
-                                                alt="" loading="lazy"/></p>
-                                        </div>
-                                   </div>
-                                    <?php } ?>               
+                                    <p><?php echo stripslashes($listrow['listing_description']); ?></p>
                                     <?php
                                 }
                                 ?>
@@ -394,7 +339,7 @@ $review_count = getCountListingReview($listing_id); //Listing Reviews Count
 
                         <!--END LISTING DETAILS: LEFT PART 1-->
                         <!--LISTING DETAILS: LEFT PART 2-->
-                        <?php if (!empty($listrow['category_id'])) { ?>
+                        <?php if (!empty($listrow['service_id'])) { ?>
                             <div id="ld-ser" class="pglist-bg pglist-p-com">
                                 <div class="pglist-p-com-ti">
                                     <h3>
@@ -402,95 +347,63 @@ $review_count = getCountListingReview($listing_id); //Listing Reviews Count
                                     </h3></div>
                                 <div class="list-pg-inn-sp">
                                     <div class="row pg-list-ser">
-                                        <div class="row">
-                                        <?php
-                                            foreach (getAllCategories() as $categories_row) {
-                                            ?>                         
-                                            <div class="col-12">
-                                            <?php if ($listrow['category_id'] == $categories_row['category_id']) {
-                                                    echo  '<h5>'.$categories_row['category_name'].':'.'</h5>';
-                                                } ?>                                           
-                                            </div>
-                                            <?php } ?>
-                                        </div>
-                                        <div class="row">
-                                        <?php
-                                            foreach (getCategorySubCategories($listrow['category_id']) as $sub_categories_row) {
-                                                $catArray = explode(',', $listrow['sub_category_id']);                                          
-                                            foreach ($catArray as $cat_Array) {  ?>                     
-                                            <div class="col-12"> 
-                                            <?php if ($sub_categories_row['sub_category_id'] == $cat_Array) {
-                                                    echo $sub_categories_row['sub_category_name'];
-                                                }?>                                           
-                                            </div>
-                                            <?php }  }?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php } ?>
-                        <!--END LISTING DETAILS: LEFT PART 2-->
-                        <!--LISTING DETAILS: LEFT PART 3-->
-                        <?php if (!empty($listrow['work_hours'])) { ?>
-                            <div id="ld-gal" class="pglist-bg pglist-p-com">
-                                <div class="pglist-p-com-ti">
-                                    <h3>
-                                        <span>Work</span> Hours 
-                                    </h3></div>
-                                <div class="list-pg-inn-sp list-pg-inn-abo">
-                                    <div class="">
-                                        <?php $data = json_decode($listrow['work_hours'],true);
-                                        $days_1 = $data;
-                                         foreach($days_1 as $day => $dayData) {
-                                        ?>
-                                         Day:<p><?php echo  $dayData['day']; ?><br></p>
-                                        
-                                          <div class="row">
-                                          <?php  foreach ($dayData['data'] as $entry) {
-                                            $fromTime = convertTo12HourFormat($entry['from']);
-                                            $toTime = convertTo12HourFormat($entry['to']);
-                                          ?>
-                                            <div class="col-6">
-                                           From:<p><?php echo  $fromTime; ?><br></p>
-                                         </div>
-                                         <div class="col-6">
-                                           To:<p><?php echo    $toTime; ?><br></p>
-                                         </div>
-                                         <?php }?>
-                                         </div>
-                                        <?php }  ?>
+                                        <ul>
+                                            <?php
+
+                                            $service_name_array = explode(',', $listrow['service_id']);
+                                            $service_image_array = explode(',', $listrow['service_image']);
+
+                                            $zipped = array_map(null, $service_name_array, $service_image_array);
+
+                                            foreach ($zipped as $tuple) {
+                                                $tuple[0]; // service name
+                                                $tuple[1]; // service Image
+
+                                                ?>
+                                                <li class="col-md-3">
+                                                    <div class="pg-list-ser-p1"><img
+                                                            src="<?php echo $slash; ?>images/services/<?php if ($tuple[1] != NULL) {
+                                                                echo $tuple[1];
+                                                            } else {
+                                                                echo "1.jpg";
+                                                            } ?>"
+                                                            alt="" loading="lazy"/>
+                                                    </div>
+                                                    <div class="pg-list-ser-p2">
+                                                        <h4><?php echo $tuple[0]; ?></h4></div>
+                                                </li>
+                                                <?php
+                                            }
+                                            ?>
+
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
                         <?php } ?>
                     <?php } ?>
-                    <!--END LISTING DETAILS: LEFT PART 3-->
+                    <!--END LISTING DETAILS: LEFT PART 2-->
                     <?php
                     if (!empty($listrow['service_locations'])) {
                         ?>
                         <!--START SERVICE AREAS-->
-                        <div id="ld-360" class="pglist-bg pglist-p-com">
+                        <div id="ld-ser" class="pglist-bg pglist-p-com">
                             <div class="pglist-p-com-ti">
                                 <h3>
-                                    <span>Location</span> <?php echo $BIZBOOK['LISTING_DETAILS_AREAS']; ?>
+                                    <span><?php echo $BIZBOOK['LISTING_DETAILS_SERVICE']; ?></span> <?php echo $BIZBOOK['LISTING_DETAILS_AREAS']; ?>
                                 </h3></div>
                             <div class="list-pg-inn-sp">
                                 <div class="row pg-list-ser-area">
-                                <?php
-                                        $service_locations = json_decode($listrow['service_locations'],true);
-                                        foreach ($service_locations as $places) {      ?>
                                     <ul>
-                                        
-                                      
-                                            <li>Location :<span><?php echo $places['location']; ?></span></li>
-                                            <li>City :<span><?php echo $places['location_city']; ?></span></li>
-                                            <li>State :<span><?php echo $places['location_state']; ?></span></li>
-                                            <li>Country :<span><?php echo $places['location_country']; ?></span></li>
-                                           
-                                    </ul>
-                                    <?php
+                                        <?php
+                                        $service_locations = explode(',', $listrow['service_locations']);
+                                        foreach ($service_locations as $places) {
+                                            ?>
+                                            <li><span><?php echo $places; ?></span></li>
+                                            <?php
                                         }
                                         ?>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -674,85 +587,21 @@ $review_count = getCountListingReview($listing_id); //Listing Reviews Count
                     }
                     ?>
                     <?php
-                    //if //($plan_type_row['plan_type_threedview'] == '1') {
-                        if (!empty($listrow['listing_address'])) { ?>
+                    if ($plan_type_row['plan_type_threedview'] == '1') {
+                        if (!empty($listrow['360_view'])) { ?>
                             <!--END 360 DEGREE MAP: LEFT PART 8-->
-                            <div class="pglist-bg pglist-p-com" id="ld-off">
+                            <div class="pglist-bg pglist-p-com" id="ld-360">
                                 <div class="pglist-p-com-ti">
                                     <h3>
-                                        <span>Other</span> Details
+                                        <span><?php echo $BIZBOOK['LISTING_DETAILS_360']; ?> </span> <?php echo $BIZBOOK['LISTING_DETAILS_DEGREE_VIEW']; ?>
                                     </h3></div>
                                 <div class="list-pg-inn-sp list-360">
-                                    <div class="row">
-                                        <div class="col-6">
-                                        Approach Method:
-                                        </div>
-                                        <div class="col-6">
-                                          <?php if($listrow['appr_merhod'] == 1){
-                                            echo "Online" ;
-                                          }else if($listrow['appr_merhod'] == 2){
-                                            echo "Telehealth" ;
-                                          }else if($listrow['appr_merhod'] == 3){
-                                            echo "We come to you" ;
-                                          }else{
-                                            echo "You come to us" ;
-                                          }  ?>
-                                        </div>
-                                     </div>
-                                     <div class="row">
-                                        <div class="col-6">
-                                        Languages:
-                                        </div>
-                                        <div class="col-6">
-                                          <?php foreach (getAllLanguages() as $Lrow){
-                                          ?>  
-                                          <?php if($listrow['language'] == $Lrow['id']){
-                                            echo $Lrow['language_name'] ;
-                                           }}?>                                         
-                                        </div>
-                                     </div>
-                                     <div class="row">
-                                        <div class="col-6">
-                                        Service Specilisation:
-                                        </div>
-                                        <div class="col-6">
-                                          <?php if($listrow['serv_specilisation'] == 1){
-                                            echo "Aboriginal and Torres Strait Islander" ;
-                                          }else if($listrow['serv_specilisation'] == 2){
-                                            echo "LGBTIQ+" ;
-                                          }else if($listrow['serv_specilisation'] == 3){
-                                            echo "Autism" ;
-                                          }else if($listrow['serv_specilisation'] == 4){
-                                            echo "CALD" ;
-                                          }else if($listrow['serv_specilisation'] == 5){
-                                            echo "Intellectual Disability" ;
-                                          }else if($listrow['serv_specilisation'] == 6){
-                                            echo "Psychosocial Disability" ;
-                                          }else{
-                                            echo "Sensory Impairment" ;
-                                          }  ?>
-                                        </div>
-                                     </div>
-                                     <div class="row">
-                                        <div class="col-6">
-                                        Pet friendly:
-                                        </div>
-                                        <div class="col-6">
-                                          <?php if($listrow['pet_frie'] == 1){
-                                            echo "Happy" ;
-                                          }else if($listrow['pet_frie'] == 2){
-                                            echo "Not Happy" ;
-                                          }else{
-                                            echo "No preference" ;
-                                          }  ?>
-                                        </div>
-                                     </div>
-                                   
+                                    <?php echo $listrow['360_view']; ?>
                                 </div>
                             </div>
                             <?php
                         }
-                    //}
+                    }
                     ?>
                     
                     <div class="list-sh">
@@ -1372,28 +1221,27 @@ $review_count = getCountListingReview($listing_id); //Listing Reviews Count
                     }
                     ?>
                     <?php
-                    //if ($plan_type_row['plan_type_maps'] == '1') {
+                    if ($plan_type_row['plan_type_maps'] == '1') {
                         ?>
                         <!--LISTING DETAILS: LEFT PART 8-->
-                        <?php if (!empty($listrow['listing_address'])) { ?>
+                        <?php if (!empty($listrow['google_map'])) { ?>
                             <div class="pglist-p3 pglist-bg pglist-p-com">
                                 <div class="pglist-p-com-ti pglist-p-com-ti-right">
                                     <h3><span><?php echo $BIZBOOK['OUR']; ?></span> <?php echo $BIZBOOK['LOCATION']; ?>
                                     </h3></div>
                                 <div class="list-pg-inn-sp">
                                     <div class="list-pg-map">
-                                        <?php echo $listrow['listing_address']; ?>
+                                        <?php echo $listrow['google_map']; ?>
                                     </div>
                                 </div>
                             </div>
                             <?php
                         }
                         ?>
-                    <?php// } ?>
+                    <?php } ?>
                     <!--END LISTING DETAILS: LEFT PART 8-->
                     <?php
-                    if ((!empty($listrow['com_land_number']) && !empty($listrow['com_phone_1']) && !empty($listrow['com_phone_2'])
-                    && !empty($listrow['com_email']) && !empty($listrow['com_website']))) {
+                    if ((!empty($listrow['listing_info_question']))) {
                         ?>
                         <!--LISTING DETAILS: LEFT PART 9-->
                         <div class="pglist-p3 pglist-bg pglist-p-com">
@@ -1404,24 +1252,20 @@ $review_count = getCountListingReview($listing_id); //Listing Reviews Count
                                 <div class="list-pg-oth-info">
                                     <ul>
                                         <?php
-                                        // $listings_a_row_listing_info_question_Array = explode(',', $listrow['listing_info_question']);
-                                        // $listings_a_row_listing_info_answer_Array = explode(',', $listrow['listing_info_answer']);
+                                        $listings_a_row_listing_info_question_Array = explode(',', $listrow['listing_info_question']);
+                                        $listings_a_row_listing_info_answer_Array = explode(',', $listrow['listing_info_answer']);
 
-                                        // $zipped = array_map(null, $listings_a_row_listing_info_question_Array, $listings_a_row_listing_info_answer_Array);
+                                        $zipped = array_map(null, $listings_a_row_listing_info_question_Array, $listings_a_row_listing_info_answer_Array);
 
-                                        // foreach ($zipped as $tuple) {
-                                        //     $tuple[0]; // Info question
-                                        //     $tuple[1]; // Info Answer
-                                        //     if ($tuple[0] != NULL) {
-                                        //         ?>
-                                                <li>LandLine Number: <span><?php echo $listrow['com_land_number']; ?></span></li>
-                                                <li>Phone No 1: <span><?php echo $listrow['com_phone_1']; ?></span></li>
-                                                <li>Phone No 2: <span><?php echo $listrow['com_phone_2']; ?></span></li>
-                                                <li>Email: <span><?php echo $listrow['com_email']; ?></span></li>
-                                                <li>Website: <span><?php echo $listrow['com_website']; ?></span></li>
-                                               <?php
-                                        //     }
-                                        // }
+                                        foreach ($zipped as $tuple) {
+                                            $tuple[0]; // Info question
+                                            $tuple[1]; // Info Answer
+                                            if ($tuple[0] != NULL) {
+                                                ?>
+                                                <li><?php echo $tuple[0]; ?> <span><?php echo $tuple[1]; ?></span></li>
+                                                <?php
+                                            }
+                                        }
                                         ?>
                                     </ul>
                                 </div>

@@ -109,25 +109,25 @@ display: none;
                 <div class="add-list-ste-inn">
                     <ul>
                         <li>
-                            <a href="add-listing-step-1">
+                            <a href="add-listing-step-new-1">
                                 <span><?php echo $BIZBOOK['STEP1']; ?></span>
                                 <b><?php echo $BIZBOOK['BASIC_INFO']; ?></b>
                             </a>
                         </li>
                         <li>
-                            <a href="add-listing-step-2">
+                            <a href="add-listing-step-new-2">
                                 <span><?php echo $BIZBOOK['STEP2']; ?></span>
-                                <b><?php echo $BIZBOOK['SERVICES']; ?></b>
+                                <b>Service Offered</b>
                             </a>
                         </li>
                         <li>
-                            <a href="add-listing-step-3">
+                            <a href="add-listing-step-new-3">
                                 <span><?php echo $BIZBOOK['STEP3']; ?></span>
                                 <b><?php echo $BIZBOOK['SER-LOCATION']; ?></b>
                             </a>
                         </li>
                         <li>
-                            <a href="add-listing-step-4" class="act">
+                            <a href="add-listing-step-new-4" class="act">
                                 <span><?php echo $BIZBOOK['STEP4']; ?></span>
                                 <b><?php echo $BIZBOOK['WPR_HOURS']; ?></b>
                             </a>
@@ -237,7 +237,7 @@ display: none;
                             <!--FILED START-->
                             <div class="row">
                                 <div class="col-md-6">
-                                    <a href="add-listing-step-3">
+                                    <a href="add-listing-step-new-3">
                                         <button type="button" class="btn btn-primary"><?php echo $BIZBOOK['PREVIOUS']; ?></button>
                                     </a>
                                 </div>

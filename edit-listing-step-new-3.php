@@ -47,7 +47,7 @@ if (!isset($_SESSION['listing_codea']) || empty($_SESSION['listing_codea'])) {
                         <li>
                             <a href="edit-listing-step-new-2?row=<?php echo $listing_codea; ?>">
                                 <span><?php echo $BIZBOOK['STEP2']; ?></span>
-                                <b><?php echo $BIZBOOK['SERVICES']; ?></b>
+                                <b>Service Offered</b>
                             </a>
                         </li>
                         <li>
@@ -199,6 +199,9 @@ if (!isset($_SESSION['listing_codea']) || empty($_SESSION['listing_codea'])) {
 <!--END PRICING DETAILS-->
 <?php
 include "footer.php";
+?>
+<?php
+include "google_address_api.php";
 ?>
 
 

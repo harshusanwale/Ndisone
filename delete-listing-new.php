@@ -319,7 +319,7 @@ display: none;
                                 <div class="log">
                                     <div class="login">
 
-                                        <h4>Category/Subcategory</h4>
+                                        <h4>Service Offered</h4>
                                         
                                        <!--FILED START-->
                                        <div class="row">
