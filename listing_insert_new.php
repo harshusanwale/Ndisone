@@ -374,9 +374,7 @@ $cover_image = $_SESSION['cover_image'];
             unset($_SESSION['reg_stamp']); 
             unset($_SESSION["reg_number"]); 
             unset($_SESSION["primary_location"]);
-            unset($_SESSION['profile_image']);
-            unset($_SESSION['cover_image']);
-            
+               
             header('Location: add-listing-step-6?code='.$ListCode);
         } else {
 

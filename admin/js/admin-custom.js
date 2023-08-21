@@ -237,15 +237,158 @@ $(document).ready(function () {
     
 
      //LOCATION ADD - APPEND
-     $(".location-add-btn").click(function () {
-        $(".add-ncate ul li:last-child").after('<li> <div class="row"> <div class="col-md-6"> <div class="form-group"> <input type="text" class="form-control" name="location_city[]" placeholder="Service Location City *" required> </div> </div> <div class="col-md-6"> <div class="form-group"> <input type="text" class="form-control" name="location_state[]" placeholder="Service Location State *" required> </div> </div> </div> </li>');
-    });
-    //LOCATION REMOVE - APPEND
-    $(".location-rem-btn").click(function () {
-        $(".add-ncate ul li:last-child").remove();
+    //  $(".location-add-btn").click(function () {
+    //     $(".add-ncate ul li:last-child").after('<li> <div class="row"> <div class="col-md-6"> <div class="form-group"> <input type="text" class="form-control" name="location_city[]" placeholder="Service Location City *" required> </div> </div> <div class="col-md-6"> <div class="form-group"> <input type="text" class="form-control" name="location_state[]" placeholder="Service Location State *" required> </div> </div> </div> </li>');
+    // });
+    // //LOCATION REMOVE - APPEND
+    // $(".location-rem-btn").click(function () {
+    //     $(".add-ncate ul li:last-child").remove();
+    // });
+    
+     //LOCATION ADD - APPEND
+    $(".loction-add-off").click(function () {      
+        var len = $(".add-list-location ul li").length;
+
+        // Create the new list item with input fields and append it to the unordered list
+        $(".add-list-location ul li:last-child").after('<li><div class="row"><div class="col-md-12"><div class="form-group">Location '+len+'<input type="text" name="location['+len+'][location]" value="" id="location'+len+'" class=" form-control location colorBackground address" placeholder="Service Location  '+len+'" ></div></div><div class="col-md-4"><div class="form-group">City<input type="text" autocomplete="off" value="" name="location['+len+'][location_city]" id="location_city'+len+'" class="form-control colorBackground" placeholder="City" ></div></div><div class="col-md-4"><div class="form-group">State<input type="text" autocomplete="off" value="" name="location['+len+'][location_state]" id="location_state'+len+'" class="form-control colorBackground" placeholder="State" ></div></div><div class="col-md-4"><div class="form-group">Country<input type="text" autocomplete="off" value="" name="location['+len+'][location_country]" id="location_country'+len+'" class="form-control colorBackground" placeholder="Country" ></div></div><div class="col-md-4"><div class="form-group">Postcode<input type="text" autocomplete="off" value="" name="location['+len+'][location_zip_code]" id="location_zip_code'+len+'" class="form-control colorBackground" placeholder="Postcode" ></div></div><div class="col-md-4"><div class="form-group">Latitude<input type="text" autocomplete="off" value="" name="location['+len+'][location_latitude]" id="location_latitude'+len+'" class="form-control colorBackground" placeholder="Latitude" ></div></div><div class="col-md-4"><div class="form-group">Longitude<input type="text" autocomplete="off" value="" name="location['+len+'][location_longitude]" id="location_longitude'+len+'" class="form-control colorBackground" placeholder="Longitude" ></div></div></div></li>');
+        var newInputField = $(".add-list-location ul li:last-child input.location")[0];
+        loadPlacesAutocompleteScript(newInputField, len);
+
+        // Apply the event listener for background color changes to the new input fields
+        applyBackgroundChangeListener();
     });
 
+    $(".location-rem-btn").on('click', function () {
+        var _removListSer = $(".add-list-location ul li").length;
+        if(_removListSer >= 2){
+            $(".add-list-location ul li:last-child").remove();
+        }
+        else{
+            alert("Sorry! you are not allowed to remove the last one.");
+        }
+    });
 
+    var autocompletes = []; // Array to store autocomplete instances
+
+
+
+    function loadPlacesAutocompleteScript(inputElement, index) {
+
+      var autocompleteScript = document.createElement('script');
+      autocompleteScript.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAb1vGO92hZfS0oRzq9X9VhDJzz2BcqV0w&libraries=places";
+      autocompleteScript.onload = function() {
+          var autocomplete = new google.maps.places.Autocomplete(
+              inputElement, {
+                  types: ['geocode'],
+                  componentRestrictions: { country: 'au' }
+              });
+
+          autocomplete.addListener('place_changed', function() {
+              var place = this.getPlace();
+              if (place && place.geometry) {
+                  updatelocationFields(place, this.input, index);
+              }
+          });
+      };
+      document.head.appendChild(autocompleteScript);
+  }
+
+
+  function initAutocomplete() {
+      var locationInputs = document.getElementsByClassName('location');
+      var autocompletes = []; // Initialize the array to store Autocomplete instances
+    
+      for (let locationIndex = 0; locationIndex < locationInputs.length; locationIndex++) {
+        var autocomplete = new google.maps.places.Autocomplete(
+          locationInputs[locationIndex], {
+            types: ['geocode'],
+            componentRestrictions: { country: 'au' }
+          });
+    
+        autocomplete.addListener('place_changed', function() {
+          var place = this.getPlace();
+    
+          if (place && place.geometry) {
+            console.log(this.input);
+            updatelocationFields(place, this.input, locationIndex);
+          }
+        });
+    
+        autocompletes.push(autocomplete);
+      }
+    }
+
+  function updatelocationFields(place, inputElement, index) {
+
+    
+      // Update latitude and longitude values
+      var lateInput = document.getElementById('location_latitude' + index);
+      lateInput.value = place.geometry.location.lat();
+      lateInput.style.backgroundColor = '#66ff99';
+
+      var longInput = document.getElementById('location_longitude' + index);
+      longInput.value = place.geometry.location.lng();
+      longInput.style.backgroundColor = '#66ff99';
+
+      // Update other fields based on place details
+      var cityInput = document.getElementById('location_city' + index);
+      var postCodeInput = document.getElementById('location_zip_code' + index);
+      var stateInput = document.getElementById('location_state' + index);
+      var countryInput = document.getElementById('location_country' + index);
+
+      place.address_components.forEach(function(component) {
+
+        //   console.log(component);
+
+
+          if (component.types.includes('locality')) {
+              cityInput.value = component.long_name;
+              cityInput.style.backgroundColor = '#66ff99';
+          }
+          if (component.types.includes('postal_code')) {
+              postCodeInput.value = component.long_name;
+              postCodeInput.style.backgroundColor = '#66ff99';
+          }
+          if (component.types.includes('administrative_area_level_1')) {
+              stateInput.value = component.long_name;
+              stateInput.style.backgroundColor = '#66ff99';
+          }
+          if (component.types.includes('country')) {
+              countryInput.value = component.long_name;
+              countryInput.style.backgroundColor = '#66ff99';
+          }
+      });
+  }
+
+  google.maps.event.addDomListener(window, "load", initAutocomplete);
+
+    //SPECIAL OFFER LIST ADD - APPEND
+    // $(".lis-add-off").click(function(){
+    //     $(".add-list-off ul li:last-child").after('<li><div class="row"> <div class="col-md-6"> <div class="form-group"> <input type="text" class="form-control" placeholder="Offer name *"> </div> </div> <div class="col-md-6"> <div class="form-group"> <input type="text" class="form-control" placeholder="Price"> </div> </div> </div><div class="row"> <div class="col-md-12"> <div class="form-group"> <textarea class="form-control" placeholder="Details about this offer"></textarea> </div> </div> </div><div class="row"> <div class="col-md-12"> <div class="form-group"> <label>Choose offer image</label> <input type="file" class="form-control"> </div> </div> </div></li>');
+    // });
+    //WORK HOURS ADD - APPEND
+      $(".slots-add-btn").click(function () {
+        var currentLi = $(this).closest("li");
+        var currentUl = currentLi.closest("ul");
+        var day = currentLi.find("input[type=checkbox]:first-child").val();
+        var len = currentUl.children("li").length - 1;
+
+        var newLi = $('<li class="removeable"> <div class="row"> <div class="col-md-2"> </div><div class="col-md-4"> <input type="time" class="form-control colorBackground" name="days[' + day + '][data][' + len + '][from]" value=""> </div> <div class="col-md-4"> <input type="time" class="form-control colorBackground" name="days[' + day + '][data][' + len + '][to]" value=""> </div>  </div> </li>');
+        currentUl.find("li:last-child").after(newLi);
+
+        // Apply the background color change event listener to the newly added input fields
+        newLi.find("input[type=time]").on('change', applyBackgroundChangeListener);
+    });
+
+    // WORK HOURS "Remove" button
+    $(".slots-rem-btn").click(function () {
+        var currentLi = $(this).closest("li");
+        var currentUl = currentLi.closest("ul");
+        if (currentUl.children("li").length > 1) {
+        currentUl.find("li:last-child").remove();
+        }
+    });
+    
 
     //CITY ADD - APPEND
     $(".city-add-btn").click(function () {
@@ -611,3 +754,5 @@ $('.count1').each(function () {
         }
     });
 });
+
+// location add

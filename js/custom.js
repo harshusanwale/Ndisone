@@ -223,11 +223,6 @@ $(document).ready(function () {
 
 
 
-
-
-
-
-
     function loadPlacesAutocompleteScript(inputElement, index) {
 
       var autocompleteScript = document.createElement('script');

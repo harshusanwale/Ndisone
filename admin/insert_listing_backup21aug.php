@@ -11,68 +11,133 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['listing_submit'])) {
 
 // Basic Personal Details
+        $first_name = $_POST["first_name"];
+        $last_name = $_POST["last_name"];
+        $mobile_number = $_POST["mobile_number"];
+        $email_id = $_POST["email_id"];
 
         $register_mode = "Direct";
 
 // Common Listing Details
         $listing_name = $_POST["listing_name"];
-        $ndis_early_child = $_POST["ndis_early_child"];
-        $com_land_num = $_POST["com_land_num"];
-        $com_phone_1 = $_POST["com_phone_1"];
-        $com_phone_2 = $_POST["com_phone_2"];
-        $comp_email = $_POST["comp_email"];
-        $com_website = $_POST["com_website"];
-        $primary_location = $_POST["primary_location"];
+        $listing_mobile = $_POST["listing_mobile"];
+        $listing_email = $_POST["listing_email"];
+        $listing_website = $_POST["listing_website"];
+        $listing_whatsapp = $_POST["listing_whatsapp"];
+        $listing_address = $_POST["listing_address"];
+        $listing_lat = $_POST["listing_lat"];
+        $listing_lng = $_POST["listing_lng"];
+        $listing_description = addslashes($_POST["listing_description"]);
         $listing_type_id = 1;
 
-        $primary_location = $_POST["primary_location"];
-        $insta_url = $_POST["insta_url"];
+        $country_id = $_POST["country_id"];
+        $service_locations = $_POST["service_locations"];
         $state_id = "1";
 
-        $twi_url = $_POST["twi_url"];
-
-        $link_url = $_POST["link_url"];
-
-        $reg_group = $_POST["reg_group"];
-        
+        $city_id1 = $_POST["city_id"];
         $prefix = $fruitList = '';
-        foreach ($reg_group123 as $fruit)
-        {
-            $reg_group .= $prefix .  $fruit ;
+        foreach ($city_id1 as $fruit) {
+            $city_id .= $prefix . $fruit;
             $prefix = ',';
         }
 
-        // Service Offers Details 
-        // $ser_offer123 = $_POST["ser_offer"];
-        // $prefix1 = $fruitList = '';
-        // foreach ($ser_offer123 as $fruit1)
-        // {
-        //     $ser_offer .= $prefix1 .  $fruit1 ;
-        //     $prefix1 = ',';
-        // }
-        $category_id = $_POST["category_id"];
+        $category_id123 = $_POST["category_id"];
+
+        $prefix = $fruitList = '';
+        foreach ($category_id123 as $fruit) {
+            $category_id .= $prefix . $fruit;
+            $prefix = ',';
+        }
 
         $sub_category_id123 = $_POST["sub_category_id"];
 
         $prefix = $fruitList = '';
-        foreach ($sub_category_id123 as $fruit)
-        {
-            $sub_category_id .= $prefix .  $fruit ;
+        foreach ($sub_category_id123 as $fruit) {
+            $sub_category_id .= $prefix . $fruit;
             $prefix = ',';
         }
-        
-        //Location Details
-        $service_locations = json_encode($_POST["location"]);
-        // print_r( $location);die;
 
-        $days = json_encode($_POST["days"]);
+        $service_id123 = $_POST["service_id"];
 
-        $appr_method = $_POST["appr_method"];
+        $prefix1 = $fruitList = '';
+        foreach ($service_id123 as $fruit1) {
+            $service_id .= $prefix1 . $fruit1;
+            $prefix1 = ',';
+        }
 
-        // Other Details
-        $language = $_POST["language"];
-        $ser_special = $_POST["ser_special"];
-        $pet_frie = $_POST["pet_frie"];
+// Listing Timing Details
+        $opening_days = $_POST["opening_days"];
+        $opening_time = $_POST["opening_time"];
+        $closing_time = $_POST["closing_time"];
+
+// Listing Social Link Details
+        $fb_link = $_POST["fb_link"];
+        $gplus_link = $_POST["gplus_link"];
+        $twitter_link = $_POST["twitter_link"];
+
+// Listing Location Details
+        $google_map = $_POST["google_map"];
+        $threesixty_view = $_POST["360_view"];
+
+        // Listing Video
+        $listing_video123 = $_POST["listing_video"];
+
+        $prefix6 = $fruitList = '';
+        foreach ($listing_video123 as $fruit6) {
+            $listing_video1 = $prefix6 . $fruit6;
+            $listing_video .= addslashes($listing_video1);
+            $prefix6 = '|';
+        }
+
+// Listing Service Names Details
+
+        $service_1_name123 = $_POST["service_1_name"];
+
+        $service_1_name = implode("|", $service_1_name123);
+
+// Listing Offer Prices Details
+        $service_1_price123 = $_POST["service_1_price"];
+
+        $prefix1 = $fruitList = '';
+        foreach ($service_1_price123 as $fruit1) {
+            $service_1_price .= $prefix1 . $fruit1;
+            $prefix1 = ',';
+        }
+        $service_2_price = 0;
+        $service_3_price = 0;
+        $service_4_price = 0;
+        $service_5_price = 0;
+        $service_6_price = 0;
+
+// Listing Offer Details
+        $service_1_detail123 = $_POST["service_1_detail"];
+
+        $service_1_detail1 = implode("|", $service_1_detail123);
+        $service_1_detail = addslashes($service_1_detail1);
+
+        // Listing Offer View more link
+        $service_1_view_more123 = $_POST["service_1_view_more"];
+        $prefix1 = $fruitList = '';
+        foreach ($service_1_view_more123 as $fruit1) {
+            $service_1_view_more .= $prefix1 . $fruit1;
+            $prefix1 = ',';
+        }
+
+
+//Listing Other Informations
+        $listing_info_question123 = $_POST["listing_info_question"];
+        $prefix1 = $fruitList = '';
+        foreach ($listing_info_question123 as $fruit1) {
+            $listing_info_question .= $prefix1 . $fruit1;
+            $prefix1 = ',';
+        }
+
+        $listing_info_answer123 = $_POST["listing_info_answer"];
+        $prefix1 = $fruitList = '';
+        foreach ($listing_info_answer123 as $fruit1) {
+            $listing_info_answer .= $prefix1 . $fruit1;
+            $prefix1 = ',';
+        }
 
 // Listing Status
         $payment_status = "Pending";
@@ -200,41 +265,125 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 //************************  Cover Image Upload ends  **************************
 
-//************************  Register Stamp Image Upload starts  **************************
+// ************************  Gallery Image Upload starts  **************************   
 
-if (!empty($_FILES['reg_stamp']['name'])) {
-    $file = rand(1000, 100000) . $_FILES['reg_stamp']['name'];
-    $file_loc = $_FILES['reg_stamp']['tmp_name'];
-    $file_size = $_FILES['reg_stamp']['size'];
-    $file_type = $_FILES['reg_stamp']['type'];
-    $allowed = array("image/jpeg", "image/pjpeg", "image/png", "image/gif", "image/webp", "image/svg", "application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.openxmlformats-officedocument.wordprocessingml.template");
-    if (in_array($file_type, $allowed)) {
-        $folder = "../images/listings/";
-        $new_size = $file_size / 1024;
-        $new_file_name = strtolower($file);
-        $event_image = str_replace(' ', '-', $new_file_name);
-        //move_uploaded_file($file_loc, $folder . $event_image);
-        $reg_stamp_image = compressImage($event_image, $file_loc, $folder, $new_size);
-    } else {
-        $reg_stamp_image = '';
+        $all_gallery_image = $_FILES['gallery_image'];
+        $all_gallery_image23 = $_FILES['gallery_image']['name'];
+
+        for ($k = 0; $k < count($all_gallery_image23); $k++) {
+
+
+            if (!empty($all_gallery_image['name'][$k])) {
+                $file1 = rand(1000, 100000) . $all_gallery_image['name'][$k];
+                $file_loc1 = $all_gallery_image['tmp_name'][$k];
+                $file_size1 = $all_gallery_image['size'][$k];
+                $file_type1 = $all_gallery_image['type'][$k];
+                $allowed = array("image/jpeg", "image/pjpeg", "image/png", "image/gif", "image/webp", "image/svg", "application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.openxmlformats-officedocument.wordprocessingml.template");
+                if (in_array($file_type1, $allowed)) {
+                    $folder1 = "../images/listings/";
+                    $new_size = $file_size1 / 1024;
+                    $new_file_name1 = strtolower($file1);
+                    $event_image1 = str_replace(' ', '-', $new_file_name1);
+                    //move_uploaded_file($file_loc1, $folder1 . $event_image1);
+                    $gallery_image1[] = compressImage($event_image1, $file_loc1, $folder1, $new_size);
+                } else {
+                    $gallery_image1[] = '';
+                }
+            }
+
+        }
+        if($gallery_image1 != NULL){
+            $gallery_image = implode(",", $gallery_image1);
+            }else{
+                $gallery_image = '';
+            }
+
+// ************************  Gallery Image Upload ends  **************************   
+
+// ************************  Service Image Upload starts  ************************** 
+
+        $all_service_image = $_FILES['service_image'];
+        $all_service_image23 = $_FILES['service_image']['name'];
+
+        for ($k = 0; $k < count($all_service_image23); $k++) {
+
+            if (!empty($_FILES['service_image']['name'][$k])) {
+                $file = rand(1000, 100000) . $_FILES['service_image']['name'][$k];
+                $file_loc = $_FILES['service_image']['tmp_name'][$k];
+                $file_size = $_FILES['service_image']['size'][$k];
+                $file_type = $_FILES['service_image']['type'][$k];
+                $allowed = array("image/jpeg", "image/pjpeg", "image/png", "image/gif", "image/webp", "image/svg", "application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.openxmlformats-officedocument.wordprocessingml.template");
+                if (in_array($file_type, $allowed)) {
+                    $folder = "../images/services/";
+                    $new_size = $file_size / 1024;
+                    $new_file_name = strtolower($file);
+                    $event_image = str_replace(' ', '-', $new_file_name);
+                    //move_uploaded_file($file_loc, $folder . $event_image);
+                    $service_image1[] = compressImage($event_image, $file_loc, $folder, $new_size);
+                } else {
+                    $service_image1[] = '';
+                }
+            }
+
+        }
+        if($service_image1 != NULL){
+        $service_image = implode(",", $service_image1);
+    }else{
+        $service_image = '';
     }
-}
 
-//************************   Register Stamp Upload ends  **************************
+// ************************  Service Image Upload ends  **************************
 
+// ************************  Offer Image Upload Starts  **************************
+
+        $all_service_1_image = $_FILES['service_1_image'];
+        $all_service_1_image2 = $_FILES['service_1_image']['name'];
+
+        for ($k = 0; $k < count($all_service_1_image2); $k++) {
+
+            if (!empty($_FILES['service_1_image']['name'][$k])) {
+                $file = rand(1000, 100000) . $_FILES['service_1_image']['name'][$k];
+                $file_loc = $_FILES['service_1_image']['tmp_name'][$k];
+                $file_size = $_FILES['service_1_image']['size'][$k];
+                $file_type = $_FILES['service_1_image']['type'][$k];
+                $allowed = array("image/jpeg", "image/pjpeg", "image/png", "image/gif", "image/webp", "image/svg", "application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.openxmlformats-officedocument.wordprocessingml.template");
+                if (in_array($file_type, $allowed)) {
+                    $folder = "../images/services/";
+                    $new_size = $file_size / 1024;
+                    $new_file_name = strtolower($file);
+                    $event_image = str_replace(' ', '-', $new_file_name);
+                    //move_uploaded_file($file_loc, $folder . $event_image);
+                    $service_1_image1[] = compressImage($event_image, $file_loc, $folder, $new_size);
+                } else {
+                    $service_1_image1[] = '';
+                }
+            }
+
+        }
+        if($service_1_image1 != NULL){
+        $service_1_image = implode(",", $service_1_image1);
+        }else{
+        $service_1_image = '';
+        }
+// ************************  Offer Image Upload ends  **************************
 
 //    Listing Insert Part Starts
 
-        $listing_qry = "INSERT INTO " . TBL . "listings 
-        (user_id, category_id, sub_category_id, listing_type_id, listing_name, listing_address, service_locations,
-        fb_link, twitter_link, listing_status, payment_status, listing_slug, listing_cdt, abn_number, organi_type, ndis_regs, ndis_early_child, reg_number, reg_stamp, com_land_number,
-        com_phone_1, com_phone_2, com_email, com_website, insta_url, linkd_url, reg_group, work_hours,
-        appr_merhod, language, serv_specilisation, pet_frie,profile_image,cover_image) 
-        VALUES 
-        ('$user_id', '$category_id', '$sub_category_id', '$listing_type_id', '$listing_name', '$primary_location', '$service_locations',
-        '$fb_link', '$twitter_link', '$listing_status', '$payment_status', '$listing_slug', '$curDate', '$abn_number', '$organi_type', '$ndis_reg', '$ndis_early_child', '$reg_number', '$reg_stamp_image', '$com_land_num',
-        '$com_phone_1', '$com_phone_2', '$comp_email', '$com_website', '$insta_url', '$link_url', '$reg_group', '$days',
-        '$appr_method', '$language', '$ser_special', '$pet_frie','$profile_image','$cover_image')";
+        $listing_qry = "INSERT INTO " . TBL . "listings
+					(user_id, category_id, sub_category_id, service_id, service_image, listing_type_id, listing_name, listing_mobile, listing_email
+					, listing_website, listing_whatsapp, listing_description, listing_address, listing_lat, listing_lng, service_locations, country_id, state_id, city_id, profile_image, cover_image
+					, gallery_image, opening_days, opening_time, closing_time, fb_link, twitter_link, gplus_link, google_map
+					, 360_view, listing_video, service_1_name, service_1_price, service_1_detail, service_1_image, service_1_view_more, service_2_name,service_2_price, service_2_image, service_3_name,service_3_price, service_3_image
+					, service_4_name,service_4_price,service_4_image,service_5_name,service_5_price, service_5_image, service_6_name,service_6_price, service_6_image, listing_status
+					, listing_info_question , listing_info_answer, payment_status, listing_slug, listing_cdt) 
+					VALUES 
+					('$user_id', '$category_id', '$sub_category_id', '$service_id', '$service_image', '$listing_type_id', '$listing_name', '$listing_mobile', '$listing_email', '$listing_website', '$listing_whatsapp', '$listing_description'
+					, '$listing_address', '$listing_lat', '$listing_lng', '$service_locations', '$country_id'
+					, '$state_id', '$city_id', '$profile_image', '$cover_image'
+					,'$gallery_image', '$opening_days', '$opening_time', '$closing_time', '$fb_link', '$twitter_link', '$gplus_link', '$google_map'
+					,'$threesixty_view', '$listing_video', '$service_1_name', '$service_1_price', '$service_1_detail', '$service_1_image', '$service_1_view_more', '$service_2_name', '$service_2_price', '$service_2_image', '$service_3_name', '$service_3_price', '$service_3_image'
+					, '$service_4_name', '$service_4_price', '$service_4_image', '$service_5_name', '$service_5_price', '$service_5_image', '$service_6_name', '$service_6_price', '$service_6_image', '$listing_status'
+					, '$listing_info_question', '$listing_info_answer', '$payment_status', '$listing_slug', '$curDate')";
 
         $listing_res = mysqli_query($conn, $listing_qry);
         $ListingID = mysqli_insert_id($conn);
@@ -366,12 +515,12 @@ if (!empty($_FILES['reg_stamp']['name'])) {
 //****************************    client email ends    *************************
 
 
-            $_POST['status_msg'] = "New Listing has been created Successfully!!!";
+            $_SESSION['status_msg'] = "New Listing has been created Successfully!!!";
 
             header('Location: admin-all-listings.php');
         } else {
 
-            $_POST['status_msg'] = "Oops!! Something Went Wrong Try Later!!!";
+            $_SESSION['status_msg'] = "Oops!! Something Went Wrong Try Later!!!";
 
             header('Location: admin-add-new-listings-start.php');
         }
@@ -381,7 +530,7 @@ if (!empty($_FILES['reg_stamp']['name'])) {
     }
 } else {
 
-    $_POST['status_msg'] = "Oops!! Something Went Wrong Try Later!!!";
+    $_SESSION['status_msg'] = "Oops!! Something Went Wrong Try Later!!!";
 
     header('Location: admin-add-new-listings-start.php');
 }

@@ -1819,6 +1819,8 @@ $BIZBOOK['FACE_URL'] = "Facebook URL";
 
 $BIZBOOK['INSTA_URL'] = "Instagram URL";
 
+$BIZBOOK['REG_NUMBER'] = "Regstraion Number";
+
 
 $BIZBOOK['TWI_URL'] = "Twitter URL";
 

@@ -141,8 +141,8 @@ if($listing_count_user >= $plan_type_listing_count){
                             <!--FILED START-->
                          
                             
-                            <div class="row d-flex" id="question_class"  style="<?php if($_SESSION['ndis_reg'] == 1){echo 'display: block' ;}else{
-                             echo 'display: none';   
+                            <div class="row " id="question_class"  style="<?php if($_SESSION['ndis_reg'] == 1){echo 'display:block!imporatnt';}else if(empty($_SESSION['ndis_reg'])){echo 'display:none!imporatnt';}else{
+                             echo 'display:none!imporatnt';   
                                }?>">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -397,6 +397,7 @@ include "footer.php";
 <script>
 $(document).ready(function(){
     $('#ndis_reg').on('change', function(){
+
     	var demovalue = $(this).val(); 
         if(demovalue == 1){         
         $("#question_class").show();
@@ -405,8 +406,6 @@ $(document).ready(function(){
         $("#question_class").hide();
         $("#reg_group").hide();
         }
-
-
     });
 });
 </script> 
