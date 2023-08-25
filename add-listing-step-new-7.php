@@ -32,6 +32,7 @@ if (isset($_POST['listing_submit'])) {
 
 
 //Working Hours Details
+$_SESSION['work_hour_check'] = $_POST["work_hour_check"];
 $_SESSION['mon_is_open'] = $_POST["mon_is_open"];
 $_SESSION['mon_open_time'] = $_POST["mon_open_time"];
 $_SESSION['mon_close_time'] = $_POST["mon_close_time"];

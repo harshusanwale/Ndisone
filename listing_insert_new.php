@@ -13,16 +13,18 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
         
         $reg_group = "" ;
         $ser_offer  = "" ;
+        $work_hour_check = $_SESSION["work_hour_check"];
+        $reg_stamp_checkbox = $_SESSION["reg_stamp_checkbox"];
         $_SESSION['listing_info_question'] = $_POST["listing_info_question"];
         $_SESSION['listing_info_answer'] = $_POST["listing_info_answer"];
        
-
 // Basic Personal Details
         $abn_number = $_SESSION["abn_number"];
         $organi_type = $_SESSION["organi_type"];
         $ndis_reg = $_SESSION["ndis_reg"];
         $reg_number = $_SESSION["reg_number"];
 
+    
         $register_mode = "Direct";
         
 // Common Listing Details

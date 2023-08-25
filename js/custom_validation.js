@@ -178,7 +178,45 @@ $(document).ready(function () {
 
             listing_name: {required: true},
 
+            abn_number: {required: true,number: true},
+
+            organi_type: {required: true},
+
+            ndis_reg: {required: true},
+
+            reg_number: {required: true},
+
+            ndis_early_child: {required: true},
+
+            com_phone_1: {required: true,number: true},
+
+            com_phone_2: {required: true,number: true},
+
+            com_land_num: {required: true,number: true},
+
+            comp_email: {required: true,email: true},
+
+            com_website: {required: true,url: true},
+
+            primary_location: {required: true},
+
+            face_url: {required: true,url: true},
+
+            insta_url: {required: true,url: true},
+
+            twi_url: {required: true,url: true},
+
+            link_url: {required: true,url: true},
+
             listing_address: {required: true},
+
+            listing_description: {required: true},
+
+            profile_image: {required: true},
+
+            cover_image: {required: true},
+
+            reg_group: {required: true},
 
             // listing_lat: {required: true},
 
@@ -206,6 +244,42 @@ $(document).ready(function () {
 
             listing_name: {required: "Listing Name is Required"},
 
+            abn_number :   {required: "ABN Number is Required"},
+
+            organi_type :   {required: "Organisation type is Required"},
+
+            ndis_reg :   {required: "Ndis Register Option is Required"},
+
+            reg_number :   {required: "Registration Number is Required"},
+
+            com_land_num :   {required: "Company Contact Number is Required"},
+
+            com_phone_1 :   {required: "Company Contact Number1 is Required"},
+
+            com_phone_2 :   {required: "Company Contact Number2 is Required"},
+
+            comp_email :   {required: "Company Email is Required"},
+
+            primary_location :   {required: "Primary Location is Required"},
+
+            com_website :   {required: "Company Website is Required"},
+
+            link_url :   {required: "Linkedin Url is Required"},
+
+            twi_url :   {required: "Twitter Url is Required"},
+
+            insta_url :   {required: "Instagram Url is Required"},
+
+            face_url :   {required: "Facebook Url is Required"},
+
+            listing_description :   {required: "Listing Description is Required"},
+
+            profile_image :   {required: "Profile Image is Required"},
+
+            cover_image :   {required: "Cover Image is Required"},
+
+            listing_description :   {required: "Listing Description is Required"},
+
             event_contact_name: {required: "Contact Person Name is Required"},
 
             event_image: {required: "Event Image is Required"},
@@ -231,8 +305,14 @@ $(document).ready(function () {
 
 
         submitHandler: function (form) { // for demo
-
-            form.submit();
+               
+            var editorContent = CKEditor.instances.editor.getData();
+            if (!isValidContent(editorContent)) {
+                alert("Invalid content in the CKEditor.");
+            } else {
+                form.submit();
+            }
+            //form.submit();
 
         }
 

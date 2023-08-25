@@ -57,6 +57,7 @@ if (isset($_POST['listing_submit'])) {
     $_SESSION['twi_url'] = $_POST["twi_url"];
     $_SESSION['link_url'] = $_POST["link_url"];
     $_SESSION['reg_group'] = $_POST["reg_group"];
+    $_SESSION['reg_stamp_checkbox'] = $_POST["reg_stamp_checkbox"];
     $_SESSION['listing_description'] = $_POST["listing_description"];
 //        $state_id = $_POST["state_id"];
 

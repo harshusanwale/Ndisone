@@ -4,7 +4,7 @@ function getAllRegGroup()
 {
     global $conn;
 
-    $sql = "SELECT * FROM " . TBL . "reg_group ORDER BY id  DESC";
+    $sql = "SELECT * FROM " . TBL . "reg_group ORDER BY id  ASC";
     $rs = mysqli_query($conn, $sql);
     return $rs;
 

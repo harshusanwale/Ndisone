@@ -98,6 +98,11 @@ display: block;
 display: none;
 
 }
+.work_hour_check{
+position: absolute;
+right: 31px;
+top: 15px;   
+}
 </style>
 <!-- START -->
 <!--PRICING DETAILS-->
@@ -187,6 +192,9 @@ display: none;
                     <div class="login add-list-map">
                         <form action="add-listing-step-new-7.php" class="listing_form_4" id="listing_form_4"
                               name="listing_form_4" method="post" enctype="multipart/form-data">
+                              <div class="work_hour_check">
+                                    <input type="checkbox" name="work_hour_check">
+                              </div>
                               
                               <input id="location" name="location" type="hidden"
                                    value="<?php echo $_SESSION['location']; ?>"

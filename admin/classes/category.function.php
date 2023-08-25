@@ -5,7 +5,7 @@ function getAllCategories()
 {
     global $conn;
 
-    $sql = "SELECT * FROM " . TBL . "categories ORDER BY category_id DESC";
+    $sql = "SELECT * FROM " . TBL . "categories ORDER BY category_id ASC    ";
     $rs = mysqli_query($conn, $sql);
     return $rs;
 

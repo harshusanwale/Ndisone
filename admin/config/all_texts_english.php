@@ -1783,7 +1783,7 @@ $BIZBOOK['LISTING_NAME_STAR'] = "Listing Name";
 $BIZBOOK['BUSINESS_NAME'] = "Business Trading Name*";
 
 
-$BIZBOOK['ABN_NUMBER'] = "Abn Number*";
+$BIZBOOK['ABN_NUMBER'] = "ABN Number*";
 
 
 $BIZBOOK['REGSITRATION_NUMBER'] = "Registration Number*";
@@ -1795,13 +1795,13 @@ $BIZBOOK['CREATE_NOW'] = "Create Now";
 $BIZBOOK['REGSITRATION_STAMP'] = "Registration Stamp*";
 
 
-$BIZBOOK['COM_LAND_NUMBER'] = "Company Landline Number";
+$BIZBOOK['COM_LAND_NUMBER'] = "Company's Contact Number";
 
 
-$BIZBOOK['COM_PHONE_1'] = "Company Phone 1";
+$BIZBOOK['COM_PHONE_1'] = "Company's Contact Number 1";
 
 
-$BIZBOOK['COM_PHONE_2'] = "Company Phone 2";
+$BIZBOOK['COM_PHONE_2'] = "Company's Contact Number 2";
 
 
 $BIZBOOK['COM_EMAIL'] = "Company EMAIL";

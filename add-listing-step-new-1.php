@@ -29,6 +29,32 @@ if($listing_count_user >= $plan_type_listing_count){
 ?>
 <!-- START -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb1vGO92hZfS0oRzq9X9VhDJzz2BcqV0w&libraries=places"></script>
+<style>
+#imagePreviewContainer {
+  display: none;
+  margin-bottom: 10px;
+}
+
+#imagePreview {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 100%; /* This makes the element round */
+  align-items: center; /* Vertically center */
+}
+
+#coverimagePreviewContainer {
+  display: none;
+  margin-bottom: 10px;
+}
+
+#coverimagePreview {
+  height:30rem;
+  border : 1px solid black;
+  /* max-width: 200px;
+  max-height: 200px; */
+  align-items: center; /* Vertically center */
+}
+</style>
 
 <!--PRICING DETAILS-->
 <section class="<?php if ($footer_row['admin_language'] == 2) {
@@ -152,7 +178,9 @@ if($listing_count_user >= $plan_type_listing_count){
                                             <option value="2"  <?php if($_SESSION['organi_type'] == 2){ echo  "selected" ; }?>>Digital</option>
                                             <option value="3"  <?php if($_SESSION['organi_type'] == 3){ echo  "selected" ; }?>>Agency</option>                                            
                                     </select>
+                                    <!-- <label for="organi_type" class="error">Organisation type is Required</label> -->
                                 </div>
+                                <label for="organi_type" class="error"></label>
                                 </div>
                              </div>
                             <!--FILED END-->
@@ -167,6 +195,7 @@ if($listing_count_user >= $plan_type_listing_count){
                                             <option value="2" <?php if($_SESSION['ndis_reg'] == 2) {echo "selected" ;} ?>>NO</option>                                                                         
                                     </select>
                                 </div>
+                                <label for="ndis_reg" class="error"></label>
                                 </div>
                              </div>
                             <!--FILED END-->
@@ -190,9 +219,11 @@ if($listing_count_user >= $plan_type_listing_count){
                                     <div class="form-group">
                                         <label><?php echo $BIZBOOK['REGSITRATION_STAMP']; ?></label>
                                         <div class="fil-img-uplo">
-                                            <span class="dumfil"><?php echo $BIZBOOK['UPLOAD_A_FILE'];  ?></span>
-                                            <input type="file" name="reg_stamp" accept="image/*,.jpg,.jpeg,.png" class="form-control">
+                                        <img src="<?php echo $webpage_full_link; ?>images\listings\register_stamp.png" style="
+                                         width: 59px; margin-left: 8px; "> 
+                                           <input type="checkbox"  name="reg_stamp_checkbox" class="register-stamp">                          
                                         </div>
+                                      
                                     </div>
                                 </div>
                             </div>
@@ -210,6 +241,7 @@ if($listing_count_user >= $plan_type_listing_count){
                                             <option value="2"  <?php if($_SESSION['ndis_early_child'] == 2) { echo "selected" ;}?>>NO</option>                                                                            
                                     </select>
                                 </div>
+                                <label for="ndis_early_child" class="error"></label>
                                 </div>
                              </div>
                             <!--FILED END-->
@@ -218,7 +250,7 @@ if($listing_count_user >= $plan_type_listing_count){
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="text" name="com_land_num" class="form-control"
+                                        <input type="text" name="com_land_num"  id="com_land_num" class="form-control"
                                                value="<?php echo $_SESSION['com_land_num'] ?>"
                                                placeholder="<?php echo $BIZBOOK['COM_LAND_NUMBER']; ?>*(This will be displayed on the listing )">
                                     </div>
@@ -230,14 +262,14 @@ if($listing_count_user >= $plan_type_listing_count){
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" name="com_phone_1" class="form-control"
+                                        <input type="text" name="com_phone_1" id="com_phone_1" class="form-control"
                                                value="<?php echo $_SESSION['com_phone_1'] ?>"
                                                placeholder="<?php echo $BIZBOOK['COM_PHONE_1']; ?>(alternate number)">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" name="com_phone_2" class="form-control"
+                                        <input type="text" name="com_phone_2" id="com_phone_2" class="form-control"
                                                value="<?php echo $_SESSION['com_phone_2'] ?>" 
                                                placeholder="<?php echo $BIZBOOK['COM_PHONE_2']; ?>(alternate number)">
                                     </div>
@@ -248,7 +280,7 @@ if($listing_count_user >= $plan_type_listing_count){
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="email" name="comp_email" class="form-control"
+                                        <input type="email" name="comp_email"  id="comp_email"  class="form-control"
                                                value="<?php echo $_SESSION['comp_email'] ?>"
                                                placeholder="<?php echo $BIZBOOK['COM_EMAIL']; ?>">
                                     </div>
@@ -259,7 +291,7 @@ if($listing_count_user >= $plan_type_listing_count){
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="text" name="com_website" class="form-control"
+                                        <input type="text" name="com_website" id="com_website" class="form-control"
                                                value="<?php echo $_SESSION['com_website'] ?>"
                                                placeholder="<?php echo $BIZBOOK['COM_WEBSITE']; ?>">
                                     </div>
@@ -271,7 +303,7 @@ if($listing_count_user >= $plan_type_listing_count){
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="text" name="primary_location" class="form-control location"
+                                        <input type="text" name="primary_location"  id="primary_location" class="form-control location"
                                                value="<?php echo $_SESSION['primary_location'] ?>" id="user_address"
                                                placeholder="<?php echo $BIZBOOK['PRIMARY_LOCATION']; ?>">
                                     </div>
@@ -283,14 +315,14 @@ if($listing_count_user >= $plan_type_listing_count){
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" name="face_url" class="form-control"
+                                        <input type="text" name="face_url" id="face_url"  class="form-control"
                                                value="<?php echo $_SESSION['face_url'] ?>"
                                                placeholder="<?php echo $BIZBOOK['FACE_URL']; ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" name="insta_url" class="form-control"
+                                        <input type="text" name="insta_url" id="insta_url" class="form-control"
                                                value="<?php echo $_SESSION['insta_url'] ?>" 
                                                placeholder="<?php echo $BIZBOOK['INSTA_URL']; ?>">
                                     </div>
@@ -301,14 +333,14 @@ if($listing_count_user >= $plan_type_listing_count){
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" name="twi_url" class="form-control"
+                                        <input type="text" name="twi_url"  id="twi_url" class="form-control"
                                                value="<?php echo $_SESSION['twi_url'] ?>"
                                                placeholder="<?php echo $BIZBOOK['TWI_URL']; ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" name="link_url" class="form-control"
+                                        <input type="text" name="link_url" id="link_url"  class="form-control"
                                                value="<?php echo $_SESSION['link_url'] ?>" 
                                                placeholder="<?php echo $BIZBOOK['LINK_URL']; ?>">
                                     </div>
@@ -329,26 +361,40 @@ if($listing_count_user >= $plan_type_listing_count){
                             
                             <!--FILED START-->
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label><?php echo $BIZBOOK['CHOOSE_PROFILE_IMAGE']; ?></label>
                                         <div class="fil-img-uplo">
                                             <span class="dumfil"><?php echo $BIZBOOK['UPLOAD_A_FILE'];  ?></span>
-                                            <input type="file" name="profile_image" accept="image/*,.jpg,.jpeg,.png" class="form-control">
+                                            <input type="file" name="profile_image" accept="image/*,.jpg,.jpeg,.png" class="form-control" id="profile_image">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="">
+                                <div id="imagePreviewContainer">
+                                    <img id="imagePreview" src="#" alt="Image Preview">
+                                </div>
+                                </div>
+                            </div>
+                            <!--FILED END-->
+
+                            <!--FILED START-->
+                            <div class="row">
+                             <div class="col-md-12">
                                     <div class="form-group">
                                         <label><?php echo $BIZBOOK['CHOOSE_COVER_IMAGE']; ?></label>
                                         <div class="fil-img-uplo">
                                             <span class="dumfil"><?php echo $BIZBOOK['UPLOAD_A_FILE'];  ?></span>
-                                            <input type="file" name="cover_image" accept="image/*,.jpg,.jpeg,.png" class="form-control">
+                                            <input type="file" name="cover_image" accept="image/*,.jpg,.jpeg,.png" class="form-control" id="cover_image">
                                         </div>
                                     </div>
                                 </div>
+                                <div class="">
+                                <div id="coverimagePreviewContainer">
+                                    <img id="coverimagePreview" src="#" alt="Image Preview">
+                                </div>
+                                </div>
                             </div>
-                            <!--FILED END-->
                             
   
                              <!--FILED START-->
@@ -362,10 +408,10 @@ if($listing_count_user >= $plan_type_listing_count){
                                         <div class="chbox">
                                             <?php
                                              if($_SESSION['reg_group']){?>
-                                            <input type="checkbox" name="reg_group[]" value="<?php echo $row['id']; ?>"  <?php if(in_array($row['id'], $_SESSION['reg_group'])){echo 'checked="checked"'; }?>  class="feature_check" id="suppOffr<?php echo $row['id']; ?>" />
+                                            <input type="checkbox" name="reg_group[]"  value="<?php echo $row['id']; ?>"  <?php if(in_array($row['id'], $_SESSION['reg_group'])){echo 'checked="checked"'; }?>  class="feature_check" id="suppOffr<?php echo $row['id']; ?>" />
                                             <label for="suppOffr<?php echo $row['id']; ?>"><h6><?php echo $row['name']; ?></h6></label>
                                             <?php }else{?>
-                                            <input type="checkbox" name="reg_group[]" value="<?php echo $row['id']; ?>"    class="feature_check" id="suppOffr<?php echo $row['id']; ?>" />
+                                            <input type="checkbox" name="reg_group[]"  value="<?php echo $row['id']; ?>"    class="feature_check" id="suppOffr<?php echo $row['id']; ?>" />
                                             <label for="suppOffr<?php echo $row['id']; ?>"><h6><?php echo $row['name']; ?></h6></label>
                                             <?php } ?>
                                             
@@ -413,6 +459,17 @@ include "footer.php";
 <script src="js/custom.js"></script>
 <script src="js/jquery.validate.min.js"></script>
 <script src="js/custom_validation.js"></script>
+<script src="admin/ckeditor/ckeditor.js"></script>
+
+
+<script>
+
+
+    CKEDITOR.replace('listing_description');
+
+
+</script>
+
 <script>
     function getSubCategory(val) {
         $.ajax({
@@ -455,6 +512,57 @@ $(document).ready(function(){
     });
 });
 </script> 
+<!-- For Profile Image Preview Script -->
+<script>
+$(document).ready(function() {
+  // Listen for changes in the file input
+  $("#profile_image").change(function() {
+    // Get the selected file from the input
+    var file = this.files[0];
+
+    if (file) {
+      // Show the image preview container
+      $("#imagePreviewContainer").css("display", "block");
+
+      // Read the selected file and set it as the source for the image preview
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        $("#imagePreview").attr("src", e.target.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      // Hide the image preview container if no file is selected
+      $("#imagePreviewContainer").css("display", "none");
+    }
+  });
+});
+</script>
+
+<!-- For Cover Image Preview Script -->
+<script>
+$(document).ready(function() {
+  // Listen for changes in the file input
+  $("#cover_image").change(function() {
+    // Get the selected file from the input
+    var file = this.files[0];
+
+    if (file) {
+      // Show the image preview container
+      $("#coverimagePreviewContainer").css("display", "block");
+
+      // Read the selected file and set it as the source for the image preview
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        $("#coverimagePreview").attr("src", e.target.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      // Hide the image preview container if no file is selected
+      $("#coverimagePreviewContainer").css("display", "none");
+    }
+  });
+});
+</script>
 </body>
 
 </html>

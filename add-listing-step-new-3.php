@@ -30,7 +30,6 @@ if ($listing_count_user >= $plan_type_listing_count) {
 
 if (isset($_POST['listing_submit'])) {
     // print_r($_POST);die;
-
 // Service Offered Details
     $_SESSION['category_id'] = $_POST["category_id"];
     $_SESSION['sub_category_id'] = $_POST["sub_category_id"];
