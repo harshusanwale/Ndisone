@@ -22,9 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $com_phone_2 = $_POST["com_phone_2"];
         $comp_email = $_POST["comp_email"];
         $com_website = $_POST["com_website"];
-        $primary_location = $_POST["primary_location"];
+        $face_url = $_POST["face_url"];
         $listing_type_id = 1;
-
+        $abn_number = $_POST["abn_number"];
+        $organi_type = $_POST["organi_type"];
+        $ndis_reg = $_POST["ndis_reg"];
+        $reg_number = $_POST["reg_number"];
         $primary_location = $_POST["primary_location"];
         $insta_url = $_POST["insta_url"];
         $state_id = "1";
@@ -32,8 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $twi_url = $_POST["twi_url"];
 
         $link_url = $_POST["link_url"];
-
-        $reg_group = $_POST["reg_group"];
+     
+        $reg_group123 = $_POST["reg_group"];
         
         $prefix = $fruitList = '';
         foreach ($reg_group123 as $fruit)
@@ -76,6 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 // Listing Status
         $payment_status = "Pending";
+        // print_r($_POST);die;
 
         function checkListingSlug($link, $counter = 1)
         {
@@ -232,7 +236,7 @@ if (!empty($_FILES['reg_stamp']['name'])) {
         appr_merhod, language, serv_specilisation, pet_frie,profile_image,cover_image) 
         VALUES 
         ('$user_id', '$category_id', '$sub_category_id', '$listing_type_id', '$listing_name', '$primary_location', '$service_locations',
-        '$fb_link', '$twitter_link', '$listing_status', '$payment_status', '$listing_slug', '$curDate', '$abn_number', '$organi_type', '$ndis_reg', '$ndis_early_child', '$reg_number', '$reg_stamp_image', '$com_land_num',
+        '$face_url', '$twi_url', '$listing_status', '$payment_status', '$listing_slug', '$curDate', '$abn_number', '$organi_type', '$ndis_reg', '$ndis_early_child', '$reg_number', '$reg_stamp_image', '$com_land_num',
         '$com_phone_1', '$com_phone_2', '$comp_email', '$com_website', '$insta_url', '$link_url', '$reg_group', '$days',
         '$appr_method', '$language', '$ser_special', '$pet_frie','$profile_image','$cover_image')";
 

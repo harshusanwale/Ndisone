@@ -280,6 +280,18 @@ display: none;
                                 </div>
                             </div>
                             <!--FILED END-->
+                            <!--FILED START-->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                    <textarea readonly="readonly" class="form-control"
+                                                id="listing_description"
+                                                name="listing_description"
+                                                placeholder="<?php echo $BIZBOOK['DETAILS_ABOUT_LISTING']; ?>"><?php echo $listings_a_row['listing_description']; ?></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--FILED END-->
   
                              <!--FILED START-->
                              <?php if($listings_a_row['ndis_reg'] != 2) {?>
@@ -322,53 +334,28 @@ display: none;
                                         <h4>Service Offered</h4>
                                         
                                        <!--FILED START-->
-                                       <div class="row">
+                                        <div class="row" id="reg_group" style="">
+                                        <?php foreach(getAllCategories() as $row) { ?>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <select disabled="disabled" name="category_id" id="category_id"
-                                                            class="form-control">
-                                                        <option
-                                                            value=""><?php echo $BIZBOOK['SELECT_CATEGORY']; ?></option>
-                                                        <?php
-                                                        foreach (getAllCategories() as $categories_row) {
+                                                <label><?php echo $row['category_name']?>:</label>
+                                                <!-- <input type="hidden" -->
+                                                <?php foreach(getCategorySubCategories($row['category_id']) as $subrow)  { ?>                
+                                                    <div class="chbox">
+                                                        <input type="checkbox" disabled="disabled" name="sub_category_id[]" 
+                                                        <?php $suppOffarray = explode(',',$listings_a_row['sub_category_id']);
+                                                            foreach ($suppOffarray as $seroff_Array) {
+                                                            if($subrow['sub_category_id'] == $seroff_Array){ 
+                                                                echo 'checked="checked"';
+                                                            }} 
                                                             ?>
-                                                            <option <?php if ($listings_a_row['category_id'] == $categories_row['category_id']) {
-                                                                echo "selected";
-                                                            } ?>
-                                                                value="<?php echo $categories_row['category_id']; ?>"><?php echo $categories_row['category_name']; ?></option>
-                                                            <?php
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
+                                                        value="<?php echo $subrow['sub_category_id']; ?>"   class="feature_check" id="suppOffr<?php echo $subrow['sub_category_id']; ?>"/>
+                                                        <label for="suppOffr<?php echo $subrow['sub_category_id']; ?>"><?php echo $subrow['sub_category_name']; ?></label>                                           
+                                                    </div>
+                                                    <?php } ?>                            
+                                                </div>                            
                                             </div>
-                                        </div>
-                                        <!--FILED END-->
-
-                                        <!--FILED START-->
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                <select  disabled="disabled" name="sub_category_id[]" id="sub_category_id" multiple
-                                                class="chosen-select form-control">                                          
-                                                    <?php
-                                                    foreach (getCategorySubCategories($listings_a_row['category_id']) as $sub_categories_row) {
-                                                        ?>
-                                                        <option <?php $catArray = explode(',', $listings_a_row['sub_category_id']);
-                                                        foreach ($catArray as $cat_Array) {
-                                                            if ($sub_categories_row['sub_category_id'] == $cat_Array) {
-                                                                echo "selected";
-
-                                                            }
-
-                                                        } ?>
-                                                            value="<?php echo $sub_categories_row['sub_category_id']; ?>"><?php echo $sub_categories_row['sub_category_name']; ?></option>
-                                                        <?php
-                                                    }
-                                                    ?>
-                                                </select>
-                                                </div>
-                                            </div>
+                                            <?php } ?>
                                         </div>
                                         <!--FILED END--> 
                                        
@@ -447,56 +434,64 @@ display: none;
                                 <div class="log add-list-map">
                                     <div class="login add-list-map">
 
-                                        <h4>Working Hours</h4>
-                                        <?php
-                                        $data = json_decode($listings_a_row['work_hours'],true);
-                                        // print_r($listings_a_row['work_hours']);die;
-                                        $days_1 = $data;
+                                        <h4><?php echo $BIZBOOK['OFFERS']; ?></h4>
+                                        <ul>
+                                            <?php
+                                            $listings_a_row_service_1_name = $listings_a_row['service_1_name'];
+                                            $listings_a_row_service_1_price = $listings_a_row['service_1_price'];
+                                            $listings_a_row_service_1_detail = $listings_a_row['service_1_detail'];
 
-                                        $si1 = 1;
+                                            $ser_1_name_Array = explode(',', $listings_a_row_service_1_name);
+                                            $ser_1_price_Array = explode(',', $listings_a_row_service_1_price);
+                                            $ser_1_detail_Array = explode(',', $listings_a_row_service_1_detail);
 
-                                        foreach(getAllAvailTime() as $row2) {
-                                        
-                                        $isChecked = isset($days_1[$row2['avail_time_name']]);
-                                        
-                                        $daySlots = $isChecked ? $days_1[$row2['avail_time_name']]['day'] : "";
-                        
-                                        $timeSlots = $isChecked ? $days_1[$row2['avail_time_name']]['data'] : [];
+                                            $zipped = array_map(null, $ser_1_name_Array, $ser_1_price_Array, $ser_1_detail_Array);
 
-                                        ?>
-                                        <ul>                    
-                                        <li>
-                                            <div class="col-md-12">
-                                                <div class="form-group chbox">
-                                                    <input disabled="disabled" type="checkbox" name="days[<?php echo  $row2['avail_time_name']?>][day]" value="<?php echo  $row2['avail_time_name']?>"  <?php if($daySlots == $row2['avail_time_name'] ) {echo  'checked' ; }else{echo '' ;}?> class="feature_check" id="<?php echo  $row2['avail_time_name'].$si1 ;?>" />
-                                                    <label for="<?php echo  $row2['avail_time_name'].$si1 ;?>"><?php echo  $row2['avail_time_name']?></label>
-                                                    <div class="<?php echo $row2['avail_time_name']?> <?php if($daySlots == $row2['avail_time_name']){echo "dinon";}?>">
-                                                        <span class="add-list-add-btn slots-add-btn slots-add" data-toggle="tooltip" title="Click to make additional Time Slot field">+</span>
-                                                        <span class="add-list-rem-btn slots-rem-btn slots-rev" data-toggle="tooltip" title="Click to remove last Time Slot field">-</span>
+                                            foreach ($zipped as $tuple) {
+                                                $tuple[0]; // offer name
+                                                $tuple[1]; // offer Price
+                                                $tuple[2]; // offer Detail
+
+                                                ?>
+                                                <li>
+                                                    <!--FILED START-->
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <input readonly="readonly" type="text"
+                                                                       class="form-control"
+                                                                       value="<?php echo $tuple[0]; ?>"
+                                                                       name="service_1_name[]"
+                                                                       placeholder="<?php echo $BIZBOOK['OFFER_NAME']; ?>">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <input readonly="readonly" type="text"
+                                                                       class="form-control"
+                                                                       value="<?php echo $tuple[1]; ?>"
+                                                                       name="service_1_price[]"
+                                                                       placeholder="<?php echo $BIZBOOK['PRICE']; ?>">
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <?php 
-                                            $i = 0;
-                                            foreach ($timeSlots as $timeSlot) {
-                                            echo  '<li class="removeable">';
-                                            echo  '<div class="row">';
-                                            echo  '<div class="col-md-2">';
-                                            echo  '</div>';
-                                            echo  '<div class="col-md-4">';
-                                            echo  '<input  readonly="readonly" type="time" class="form-control" name="days['.$daySlots.'][data]['.$i.'][from]" value="' . $timeSlot['from'] . '">';
-                                            echo  '</div>';
-                                            echo  '<div class="col-md-4">';
-                                            echo  '<input  readonly="readonly" type="time" class="form-control" name="days['.$daySlots.'][data]['.$i.'][to]" value="' . $timeSlot['to'] . '">';
-                                            echo  '</div>';
-                                            echo  '</div>';
-                                            echo  '</li>';
-                                            $i++;
-                                        }?>
-                                        </li>                            
-                                    </ul>
-                                    <?php 
-                                    $si1++ ;} ?>
+                                                    <!--FILED END-->
+                                                    <!--FILED START-->
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                            <textarea readonly="readonly" class="form-control"
+                                                                      name="service_1_detail[]"
+                                                                      placeholder="<?php echo $BIZBOOK['DETAILS_ABOUT_OFFER']; ?>"><?php echo $tuple[2]; ?></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--FILED END-->
+                                                </li>
+                                                <?php
+                                            }
+                                            ?>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -505,10 +500,445 @@ display: none;
                             <div class="login-main add-list">
                                 <div class="log-bor">&nbsp;</div>
                                 <span class="steps"><?php echo $BIZBOOK['STEP5']; ?></span>
+                                <div class="log add-list-map">
+                                    <div class="login add-list-map">
+
+                                        <h4><?php echo $BIZBOOK['MAP_360_VIEW']; ?></h4>
+                                        <!--FILED START-->
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <textarea readonly="readonly" class="form-control" name="google_map"
+                                                              placeholder="<?php echo $BIZBOOK['SHOP_LOCATION']; ?>"><?php echo $listings_a_row['google_map']; ?></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--FILED END-->
+                                        <!--FILED START-->
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <textarea readonly="readonly" class="form-control" name="360_view"
+                                                              placeholder="<?php echo $BIZBOOK['360_VIEW']; ?>"><?php echo $listings_a_row['360_view']; ?></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--FILED END-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="login-main add-list">
+                                <div class="log-bor">&nbsp;</div>
+                                <span class="steps"><?php echo $BIZBOOK['STEP6']; ?></span>
+                                <div class="log add-list-map">
+                                    <div class="login add-list-map">
+
+                                        <h4>Work Hours</h4>
+                                        <!--FILED START-->
+                                        <div class="bor-box">
+                                            
+                                            <div class="row add-work-hrs">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="">Monday</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <select  disabled="disabled"  name="mon_is_open" class="chosen-select form-control">
+                                                            <option <?php if($listings_a_row['mon_is_open'] == 1){ echo 'selected'; } ?> value="1">Open</option>
+                                                            <option <?php if($listings_a_row['mon_is_open'] == 0){ echo 'selected'; } ?> value="0">Close</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <select disabled="disabled" name="mon_open_time" class="chosen-select form-control">
+                                                            <option value="" >Open time</option>
+                                                            <?php
+                                                            for ($i =6; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['mon_open_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                            <option <?php if($listings_a_row['mon_open_time'] == '12:00 pm'){ echo 'selected'; } ?> value="12:00 pm">12:00 pm</option>
+                                                            <?php
+                                                            for ($i =1; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['mon_open_time'] == $i.':00 pm'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 pm"><?php echo $i; ?>:00 pm</option>
+                                                            <?php } ?>
+                                                            <?php
+                                                            for ($i =1; $i <= 5; $i++){?>
+                                                                <option <?php if($listings_a_row['mon_open_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <select disabled="disabled" name="mon_close_time" class="chosen-select form-control">
+                                                            <option value ="">Close time</option>
+                                                            <?php
+                                                            for ($i =6; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['mon_close_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                            <option <?php if($listings_a_row['mon_close_time'] == '12:00 pm'){ echo 'selected'; } ?> value="12:00 pm">12:00 pm</option>
+                                                            <?php
+                                                            for ($i =1; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['mon_close_time'] == $i.':00 pm'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 pm"><?php echo $i; ?>:00 pm</option>
+                                                            <?php } ?>
+                                                            <?php
+                                                            for ($i =1; $i <= 5; $i++){?>
+                                                                <option <?php if($listings_a_row['mon_close_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row add-work-hrs">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="">Tuesday</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <select disabled="disabled" name="tue_is_open" class="chosen-select form-control">
+                                                            <option <?php if($listings_a_row['tue_is_open'] == 1){ echo 'selected'; } ?> value="1">Open</option>
+                                                            <option <?php if($listings_a_row['tue_is_open'] == 0){ echo 'selected'; } ?> value="0">Close</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <select disabled="disabled"  name="tue_open_time" class="chosen-select form-control">
+                                                            <option value ="">Open time</option>
+                                                            <?php
+                                                            for ($i =6; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['tue_open_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                            <option <?php if($listings_a_row['tue_open_time'] == '12:00 pm'){ echo 'selected'; } ?> value="12:00 pm">12:00 pm</option>
+                                                            <?php
+                                                            for ($i =1; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['tue_open_time'] == $i.':00 pm'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 pm"><?php echo $i; ?>:00 pm</option>
+                                                            <?php } ?>
+                                                            <?php
+                                                            for ($i =1; $i <= 5; $i++){?>
+                                                                <option <?php if($listings_a_row['tue_open_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <select disabled="disabled" name="tue_close_time" class="chosen-select form-control">
+                                                            <option value ="">Close time</option>
+                                                            <?php
+                                                            for ($i =6; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['tue_close_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                            <option <?php if($listings_a_row['tue_close_time'] == '12:00 pm'){ echo 'selected'; } ?> value="12:00 pm">12:00 pm</option>
+                                                            <?php
+                                                            for ($i =1; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['tue_close_time'] == $i.':00 pm'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 pm"><?php echo $i; ?>:00 pm</option>
+                                                            <?php } ?>
+                                                            <?php
+                                                            for ($i =1; $i <= 5; $i++){?>
+                                                                <option <?php if($listings_a_row['tue_close_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row add-work-hrs">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="">Wednesday</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <select disabled="disabled" name="wed_is_open" class="chosen-select form-control">
+                                                            <option <?php if($listings_a_row['wed_is_open'] == 1){ echo 'selected'; } ?> value="1">Open</option>
+                                                            <option <?php if($listings_a_row['wed_is_open'] == 0){ echo 'selected'; } ?> value="0">Close</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <select disabled="disabled" name="wed_open_time" class="chosen-select form-control">
+                                                            <option value ="">Open time</option>
+                                                            <?php
+                                                            for ($i =6; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['wed_open_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                            <option <?php if($listings_a_row['wed_open_time'] == '12:00 pm'){ echo 'selected'; } ?> value="12:00 pm">12:00 pm</option>
+                                                            <?php
+                                                            for ($i =1; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['wed_open_time'] == $i.':00 pm'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 pm"><?php echo $i; ?>:00 pm</option>
+                                                            <?php } ?>
+                                                            <?php
+                                                            for ($i =1; $i <= 5; $i++){?>
+                                                                <option <?php if($listings_a_row['wed_open_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <select disabled="disabled" name="wed_close_time" class="chosen-select form-control">
+                                                            <option value ="">Close time</option>
+                                                            <?php
+                                                            for ($i =6; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['wed_close_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                            <option <?php if($listings_a_row['wed_close_time'] == '12:00 pm'){ echo 'selected'; } ?> value="12:00 pm">12:00 pm</option>
+                                                            <?php
+                                                            for ($i =1; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['wed_close_time'] == $i.':00 pm'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 pm"><?php echo $i; ?>:00 pm</option>
+                                                            <?php } ?>
+                                                            <?php
+                                                            for ($i =1; $i <= 5; $i++){?>
+                                                                <option <?php if($listings_a_row['wed_close_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row add-work-hrs">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="">Thursday</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <select disabled="disabled" name="thu_is_open" class="chosen-select form-control">
+                                                            <option <?php if($listings_a_row['thu_is_open'] == 1){ echo 'selected'; } ?> value="1">Open</option>
+                                                            <option <?php if($listings_a_row['thu_is_open'] == 0){ echo 'selected'; } ?> value="0">Close</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <select disabled="disabled" name="thu_open_time" class="chosen-select form-control">
+                                                            <option value ="">Open time</option>
+                                                            <?php
+                                                            for ($i =6; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['thu_open_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                            <option <?php if($listings_a_row['thu_open_time'] == '12:00 am'){ echo 'selected'; } ?> value="12:00 pm">12:00 pm</option>
+                                                            <?php
+                                                            for ($i =1; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['thu_open_time'] == $i.':00 pm'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 pm"><?php echo $i; ?>:00 pm</option>
+                                                            <?php } ?>
+                                                            <?php
+                                                            for ($i =1; $i <= 5; $i++){?>
+                                                                <option <?php if($listings_a_row['thu_open_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <select disabled="disabled" name="thu_close_time" class="chosen-select form-control">
+                                                            <option value ="">Close time</option>
+                                                            <?php
+                                                            for ($i =6; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['thu_close_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                            <option <?php if($listings_a_row['thu_close_time'] == '12:00 am'){ echo 'selected'; } ?> value="12:00 pm">12:00 pm</option>
+                                                            <?php
+                                                            for ($i =1; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['thu_close_time'] == $i.':00 pm'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 pm"><?php echo $i; ?>:00 pm</option>
+                                                            <?php } ?>
+                                                            <?php
+                                                            for ($i =1; $i <= 5; $i++){?>
+                                                                <option <?php if($listings_a_row['thu_close_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row add-work-hrs">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="">Friday</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <select disabled="disabled" name="fri_is_open" class="chosen-select form-control">
+                                                            <option <?php if($listings_a_row['fri_is_open'] == 1){ echo 'selected'; } ?> value="1">Open</option>
+                                                            <option <?php if($listings_a_row['fri_is_open'] == 0){ echo 'selected'; } ?> value="0">Close</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <select disabled="disabled" name="fri_open_time" class="chosen-select form-control">
+                                                            <option value ="">Open time</option>
+                                                            <?php
+                                                            for ($i =6; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['fri_open_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                            <option <?php if($listings_a_row['fri_open_time'] == '12:00 pm'){ echo 'selected'; } ?> value="12:00 pm">12:00 pm</option>
+                                                            <?php
+                                                            for ($i =1; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['fri_open_time'] == $i.':00 pm'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 pm"><?php echo $i; ?>:00 pm</option>
+                                                            <?php } ?>
+                                                            <?php
+                                                            for ($i =1; $i <= 5; $i++){?>
+                                                                <option <?php if($listings_a_row['fri_open_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <select disabled="disabled" name="fri_close_time" class="chosen-select form-control">
+                                                            <option value ="">Close time</option>
+                                                            <?php
+                                                            for ($i =6; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['fri_close_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                            <option <?php if($listings_a_row['fri_close_time'] == '12:00 pm'){ echo 'selected'; } ?> value="12:00 pm">12:00 pm</option>
+                                                            <?php
+                                                            for ($i =1; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['fri_close_time'] == $i.':00 pm'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 pm"><?php echo $i; ?>:00 pm</option>
+                                                            <?php } ?>
+                                                            <?php
+                                                            for ($i =1; $i <= 5; $i++){?>
+                                                                <option <?php if($listings_a_row['fri_close_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row add-work-hrs">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="">Saturday</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <select disabled="disabled" name="sat_is_open" class="chosen-select form-control">
+                                                            <option <?php if($listings_a_row['sat_is_open'] == 1){ echo 'selected'; } ?> value="1">Open</option>
+                                                            <option <?php if($listings_a_row['sat_is_open'] == 0){ echo 'selected'; } ?> value="0">Close</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <select disabled="disabled" name="sat_open_time" class="chosen-select form-control">
+                                                            <option value ="">Open time</option>
+                                                            <?php
+                                                            for ($i =6; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['sat_open_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                            <option <?php if($listings_a_row['sat_open_time'] == '12:00 pm'){ echo 'selected'; } ?> value="12:00 pm">12:00 pm</option>
+                                                            <?php
+                                                            for ($i =1; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['sat_open_time'] == $i.':00 pm'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 pm"><?php echo $i; ?>:00 pm</option>
+                                                            <?php } ?>
+                                                            <?php
+                                                            for ($i =1; $i <= 5; $i++){?>
+                                                                <option <?php if($listings_a_row['sat_open_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <select disabled="disabled" name="sat_close_time" class="chosen-select form-control">
+                                                            <option value ="">Close time</option>
+                                                            <?php
+                                                            for ($i =6; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['sat_close_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                            <option <?php if($listings_a_row['sat_close_time'] == '12:00 pm'){ echo 'selected'; } ?> value="12:00 pm">12:00 pm</option>
+                                                            <?php
+                                                            for ($i =1; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['sat_close_time'] == $i.':00 pm'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 pm"><?php echo $i; ?>:00 pm</option>
+                                                            <?php } ?>
+                                                            <?php
+                                                            for ($i =1; $i <= 5; $i++){?>
+                                                                <option <?php if($listings_a_row['sat_close_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row add-work-hrs">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="">Sunday</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <select disabled="disabled" name="sun_is_open" class="chosen-select form-control">
+                                                            <option <?php if($listings_a_row['sun_is_open'] == 1){ echo 'selected'; } ?> value="1">Open</option>
+                                                            <option <?php if($listings_a_row['sun_is_open'] == 0){ echo 'selected'; } ?> value="0">Close</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <select disabled="disabled" name="sun_open_time" class="chosen-select form-control">
+                                                            <option value ="">Open time</option>
+                                                            <?php
+                                                            for ($i =6; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['sun_open_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                            <option <?php if($listings_a_row['sun_open_time'] == '12:00 pm'){ echo 'selected'; } ?> value="12:00 pm">12:00 pm</option>
+                                                            <?php
+                                                            for ($i =1; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['sun_open_time'] == $i.':00 pm'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 pm"><?php echo $i; ?>:00 pm</option>
+                                                            <?php } ?>
+                                                            <?php
+                                                            for ($i =1; $i <= 5; $i++){?>
+                                                                <option <?php if($listings_a_row['sun_open_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <select disabled="disabled" name="sun_close_time" class="chosen-select form-control">
+                                                            <option value ="">Close time</option>
+                                                            <?php
+                                                            for ($i =6; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['sun_close_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                            <option <?php if($listings_a_row['sun_close_time'] == '12:00 pm'){ echo 'selected'; } ?> value="12:00 pm">12:00 pm</option>
+                                                            <?php
+                                                            for ($i =1; $i <= 11; $i++){?>
+                                                                <option <?php if($listings_a_row['sun_close_time'] == $i.':00 pm'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 pm"><?php echo $i; ?>:00 pm</option>
+                                                            <?php } ?>
+                                                            <?php
+                                                            for ($i =1; $i <= 5; $i++){?>
+                                                                <option <?php if($listings_a_row['sun_close_time'] == $i.':00 am'){ echo 'selected'; } ?> value="<?php echo $i; ?>:00 am"><?php echo $i; ?>:00 am</option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!--FILED END-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="login-main add-list">
+                                <div class="log-bor">&nbsp;</div>
+                                <span class="steps"><?php echo $BIZBOOK['STEP7']; ?></span>
                                 <div class="log">
                                     <div class="login add-lis-oth">
 
-                                        <h4><?php echo $BIZBOOK['OTHER_INFORMATIONS']; ?></h4>
+                                        <h4><?php echo $BIZBOOK['BUSINESS_DETAILS']; ?></h4>
                                         <ul>
                                         <li>
                                         <!--FILED START-->
@@ -516,7 +946,7 @@ display: none;
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Approach Method:</label>
-                                                <select readonly="readonly" name="appr_method" id="appr_method" class="form-control colorBackground ca-check-plan empty valid">
+                                                <select disabled="disabled" name="appr_method" id="appr_method" class="form-control colorBackground ca-check-plan empty valid">
                                                         <option value="">--Select--</option>
                                                         <option value="1" <?php if($listings_a_row['appr_merhod'] == 1){echo "selected" ;}?>>Online</option>
                                                         <option value="2" <?php  if($listings_a_row['appr_merhod'] == 2){echo "selected" ; }?>>Telehealth</option>
@@ -532,12 +962,21 @@ display: none;
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Languages:</label>
-                                                <select readonly="readonly" name="language" id="language" class="form-control colorBackground ca-check-plan" >
-                                                    <option value="">--Select--</option>
-                                                    <?php foreach (getAllLanguages() as $Lrow) { ?>
-                                                        <option value="<?php echo $Lrow['id']; ?>"  <?php if($listings_a_row['language'] == $Lrow['id']){ echo "selected" ; }?>><?php echo $Lrow['language_name']; ?></option>
-                                                    <?php } ?>
-                                                </select>
+                                                <select name="language" disabled="disabled" id="language" class="form-control colorBackground  chosen-select" >
+                                                <option value="">--Select--</option>
+                                                <?php foreach (getAllLanguages() as $Lrow) {
+                                                    $extratarry = explode(',',$listings_a_row['language']);
+                                                    ?>
+                                                
+                                                    <option 
+                                                    <?php foreach ($extratarry as $value) {
+                                                        if($Lrow['id'] == $value){ 
+                                                            echo "selected" ; 
+                                                        }}
+                                                        ?>
+                                                    value="<?php echo $Lrow['id']; ?>"><?php echo $Lrow['language_name']; ?></option>
+                                                <?php } ?>
+                                            </select>
                                             </div>
                                             </div>
                                         </div>
@@ -547,7 +986,7 @@ display: none;
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Service Specilisation:</label>
-                                                <select readonly="readonly" name="ser_special" id="ser_special" class="form-control colorBackground ca-check-plan empty valid">
+                                                <select disabled="disabled" name="ser_special" id="ser_special" class="form-control colorBackground ca-check-plan empty valid">
                                                         <option value="">--Select--</option>
                                                         <option value="1"  <?php if($listings_a_row['serv_specilisation'] == 1){echo "selected" ;}?>>Aboriginal and Torres Strait Islander</option>
                                                         <option value="2"  <?php if($listings_a_row['serv_specilisation'] == 2){echo "selected" ;}?>>LGBTIQ+</option>
@@ -566,7 +1005,7 @@ display: none;
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Pet friendly !:</label>
-                                                <select readonly="readonly" name="pet_frie" id="pet_frie" class="form-control colorBackground ca-check-plan empty valid">
+                                                <select disabled="disabled" name="pet_frie" id="pet_frie" class="form-control colorBackground ca-check-plan empty valid">
                                                         <option value="">--Select--</option>
                                                         <option value="1" <?php if($listings_a_row['pet_frie'] == 1){echo "selected";}?>>Happy</option>
                                                         <option value="2" <?php if($listings_a_row['pet_frie'] == 2){echo  "selected" ;}?>>Not Happy</option>
@@ -576,7 +1015,107 @@ display: none;
                                             </div>
                                         </div>
                                         <!--FILED END-->
+                                        <!--FILED START-->
+                                        <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Service delivery method :</label>
+                                                <select disabled="disabled" name="ser_deli_method" id="ser_deli_method" class="form-control colorBackground ca-check-plan empty valid">
+                                                        <option value="">--Select--</option>
+                                                        <option value="1"  <?php if($listings_a_row['ser_deli_method'] == 1){echo "selected" ;}?>>Onliner</option>
+                                                        <option value="2"  <?php if($listings_a_row['ser_deli_method'] == 2){ echo "selected" ;}?>>Telecare</option>
+                                                        <option value="3" <?php if($listings_a_row['ser_deli_method'] == 3) {echo "selected" ;}?>>Group</option>
+                                                        <option value="4" <?php if($listings_a_row['ser_deli_method'] == 4) {echo  "selected" ;}?>>We come to you</option>
+                                                        <option value="5" <?php if($listings_a_row['ser_deli_method'] == 5) { echo "selected" ;}?>>You come to us</option>                                      
+                                                </select>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <!--FILED END-->
+                                        <!--FILED START-->
+                                        <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Which age group do you support? :</label>
+                                                <select disabled="disabled" name="age_group" id="age_group" class="form-control colorBackground ca-check-plan empty valid">
+                                                        <option value="">--Select--</option>
+                                                        <option value="1"  <?php if($listings_a_row['age_group'] == 1) {echo "selected" ;}?>>Earlychildhood ( 0-7)</option>
+                                                        <option value="2"  <?php if($listings_a_row['age_group'] == 2) {echo  "selected" ;}?>>Children (8-16)</option>
+                                                        <option value="3" <?php if($listings_a_row['age_group'] == 3) {echo  "selected" ;}?>>Young ( 17-21)</option>
+                                                        <option value="4" <?php if($listings_a_row['age_group'] == 4) {echo  "selected" ;}?>>Adults (22-59)</option>
+                                                        <option value="5" <?php if($listings_a_row['age_group'] == 5) {echo "selected" ;}?>>Mature Age ( 60+)</option>                                      
+                                                </select>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <!--FILED END-->
                                         </li>
+                                        </ul>
+                                        <!--FILED START-->
+                                        
+                                        <!--FILED END-->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="login-main add-list">
+                                <div class="log-bor">&nbsp;</div>
+                                <span class="steps"><?php echo $BIZBOOK['STEP9']; ?></span>
+                                <div class="log">
+                                    <div class="login add-lis-oth">
+
+                                        <h4><?php echo $BIZBOOK['OTHER_INFORMATIONS']; ?></h4>
+                                        <ul>
+                                            <?php
+                                            $listings_a_row_listing_info_question = $listings_a_row['listing_info_question'];
+                                            $listings_a_row_listing_info_answer = $listings_a_row['listing_info_answer'];
+
+                                            $listings_a_row_listing_info_question_Array = explode(',', $listings_a_row_listing_info_question);
+                                            $listings_a_row_listing_info_answer_Array = explode(',', $listings_a_row_listing_info_answer);
+
+                                            $zipped = array_map(null, $listings_a_row_listing_info_question_Array, $listings_a_row_listing_info_answer_Array);
+
+                                            foreach ($zipped as $tuple) {
+                                                $tuple[0]; // Info question
+                                                $tuple[1]; // Info Answer
+
+                                                ?>
+                                                <li>
+                                                    <!--FILED START-->
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <div class="form-group">
+                                                                <input readonly="readonly" type="text"
+                                                                       class="form-control"
+                                                                       name="listing_info_question[]"
+                                                                       value="<?php echo $tuple[0]; ?>"
+                                                                       placeholder="<?php echo $BIZBOOK['OTHER_INFORMATIONS_PLACEHOLDER_LEFT']; ?>">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <i class="material-icons">arrow_forward</i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <div class="form-group">
+                                                                <input readonly="readonly" type="text"
+                                                                       class="form-control"
+                                                                       name="listing_info_answer[]"
+                                                                       value="<?php echo $tuple[1]; ?>"
+                                                                       placeholder="<?php echo $BIZBOOK['OTHER_INFORMATIONS_PLACEHOLDER_RIGHT']; ?>">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--FILED END-->
+                                                </li>
+                                                <?php
+                                            }
+                                            ?>
+
+
                                         </ul>
                                         <!--FILED START-->
                                         <div class="row">
@@ -620,7 +1159,7 @@ display: none;
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-ui.js"></script>
-<script src="js/select-opt.js"></script>
+ <script src="js/select-opt.js"></script> 
 <script type="text/javascript">var webpage_full_link = '<?php echo $webpage_full_link;?>';</script>
 <script type="text/javascript">var login_url = '<?php echo $LOGIN_URL;?>';</script>
 <script src="js/custom.js"></script>

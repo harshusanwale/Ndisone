@@ -28,6 +28,8 @@ if($listing_count_user >= $plan_type_listing_count){
 
 ?>
 <!-- START -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb1vGO92hZfS0oRzq9X9VhDJzz2BcqV0w&libraries=places"></script>
+
 <!--PRICING DETAILS-->
 <section class="<?php if ($footer_row['admin_language'] == 2) {
     echo "lg-arb";
@@ -58,18 +60,48 @@ if($listing_count_user >= $plan_type_listing_count){
                         <li>
                             <a href="#!">
                                 <span><?php echo $BIZBOOK['STEP4']; ?></span>
-                                <b><?php echo $BIZBOOK['WPR_HOURS']; ?></b>
+                                <b><?php echo $BIZBOOK['SPECIAL_OFFERS']; ?></b>
                             </a>
                         </li>
-                        <li>
+                        <!-- <li>
+                            <a href="#!">
+                                <span><?php echo $BIZBOOK['STEP4']; ?></span>
+                                <b><?php echo $BIZBOOK['WPR_HOURS']; ?></b>
+                            </a>
+                        </li> -->
+                        <!-- <li>
                             <a href="#!">
                                 <span><?php echo $BIZBOOK['STEP5']; ?></span>
                                 <b><?php echo $BIZBOOK['OTHER']; ?></b>
+                            </a>
+                        </li> -->
+                        <li>
+                            <a href="#!">
+                                <span><?php echo $BIZBOOK['STEP5']; ?></span>
+                                <b><?php echo $BIZBOOK['MAP_PHOTO_GALLARY']; ?></b>
                             </a>
                         </li>
                         <li>
                             <a href="#!">
                                 <span><?php echo $BIZBOOK['STEP6']; ?></span>
+                                <b><?php echo $BIZBOOK['WPR_HOURS']; ?></b>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#!">
+                                <span><?php echo $BIZBOOK['STEP7']; ?></span>
+                                <b><?php echo $BIZBOOK['BUSINESS_DETAILS']; ?></b>
+                            </a>
+                        </li>
+                         <li>
+                            <a href="#!">
+                                <span><?php echo $BIZBOOK['STEP8']; ?></span>
+                                <b><?php echo $BIZBOOK['OTHER']; ?></b>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#!">
+                                <span><?php echo $BIZBOOK['STEP9']; ?></span>
                                 <b><?php echo $BIZBOOK['DONE']; ?></b>
                             </a>
                         </li>
@@ -188,7 +220,7 @@ if($listing_count_user >= $plan_type_listing_count){
                                     <div class="form-group">
                                         <input type="text" name="com_land_num" class="form-control"
                                                value="<?php echo $_SESSION['com_land_num'] ?>"
-                                               placeholder="<?php echo $BIZBOOK['COM_LAND_NUMBER']; ?>">
+                                               placeholder="<?php echo $BIZBOOK['COM_LAND_NUMBER']; ?>*(This will be displayed on the listing )">
                                     </div>
                                 </div>
                             </div>
@@ -200,14 +232,14 @@ if($listing_count_user >= $plan_type_listing_count){
                                     <div class="form-group">
                                         <input type="text" name="com_phone_1" class="form-control"
                                                value="<?php echo $_SESSION['com_phone_1'] ?>"
-                                               placeholder="<?php echo $BIZBOOK['COM_PHONE_1']; ?>">
+                                               placeholder="<?php echo $BIZBOOK['COM_PHONE_1']; ?>(alternate number)">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <input type="text" name="com_phone_2" class="form-control"
                                                value="<?php echo $_SESSION['com_phone_2'] ?>" 
-                                               placeholder="<?php echo $BIZBOOK['COM_PHONE_2']; ?>">
+                                               placeholder="<?php echo $BIZBOOK['COM_PHONE_2']; ?>(alternate number)">
                                     </div>
                                 </div>
                             </div>
@@ -239,8 +271,8 @@ if($listing_count_user >= $plan_type_listing_count){
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="text" name="primary_location" class="form-control"
-                                               value="<?php echo $_SESSION['primary_location'] ?>" id="primary_location"
+                                        <input type="text" name="primary_location" class="form-control location"
+                                               value="<?php echo $_SESSION['primary_location'] ?>" id="user_address"
                                                placeholder="<?php echo $BIZBOOK['PRIMARY_LOCATION']; ?>">
                                     </div>
                                 </div>
@@ -279,6 +311,17 @@ if($listing_count_user >= $plan_type_listing_count){
                                         <input type="text" name="link_url" class="form-control"
                                                value="<?php echo $_SESSION['link_url'] ?>" 
                                                placeholder="<?php echo $BIZBOOK['LINK_URL']; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                            <!--FILED END-->
+                            <!--FILED START-->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control" id="listing_description"
+                                                  name="listing_description"
+                                                  placeholder="<?php echo $BIZBOOK['DETAILS_ABOUT_LISTING']; ?>"><?php echo $_SESSION['listing_description'] ?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -337,7 +380,7 @@ if($listing_count_user >= $plan_type_listing_count){
                             
                             <!--PROGRESSBAR START-->
                             <div class="progress biz-prog">
-                                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width:20%">20%</div>
+                                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width:10%">10%</div>
                             </div>
                           <!--PROGRESSBAR END-->
                         </form>
@@ -351,6 +394,9 @@ if($listing_count_user >= $plan_type_listing_count){
 <?php
 include "footer.php";
 ?>
+<!-- <?php
+//include "google_address_api.php";
+?> -->
 
 
 

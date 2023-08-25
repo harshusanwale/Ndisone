@@ -7,6 +7,7 @@
 if (file_exists('config/info.php')) {
     include('config/info.php');
 }
+//print_r($_SERVER['REQUEST_METHOD']);die;
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['listing_submit'])) {
 

@@ -17,7 +17,7 @@ if (file_exists('config/listing_page_authentication.php')) {
 $plan_type_listing_count = $user_plan_type['plan_type_listing_count'];
 $listing_count_user = getCountUserListing($_SESSION['user_id']);
 
-if ($listing_count_user >= $plan_type_listing_count) {
+if($listing_count_user >= $plan_type_listing_count){
 
     $_SESSION['status_msg'] = $BIZBOOK['LISTINGS_LIMIT_EXCEED_MESSAGE'];
 
@@ -29,50 +29,53 @@ if ($listing_count_user >= $plan_type_listing_count) {
 //if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 if (isset($_POST['listing_submit'])) {
-   
+
 // Service Provided Details
-    $_SESSION['days'] = $_POST["days"];
-    // print_r(json_encode($_SESSION['days']));die;
-    // $_SESSION['360_view'] = $_POST["360_view"];
-    // $_SESSION['listing_video'] = $_POST["listing_video"];
-
-    // ************************  Gallery Image Upload starts  **************************   
-
-    // $all_gallery_image = $_FILES['gallery_image'];
-    // $all_gallery_image23 = $_FILES['gallery_image']['name'];
-
-    // for ($k = 0; $k < count($all_gallery_image23); $k++) {
+    $_SESSION['service_1_name'] = $_POST["service_1_name"];
+    $_SESSION['service_1_price'] = $_POST["service_1_price"];
+    $_SESSION['service_1_detail'] = $_POST["service_1_detail"];
+    $_SESSION['service_1_view_more'] = $_POST["service_1_view_more"];
 
 
-    //     if (!empty($all_gallery_image['name'][$k])) {
-    //         $file1 = rand(1000, 100000) . $all_gallery_image['name'][$k];
-    //         $file_loc1 = $all_gallery_image['tmp_name'][$k];
-    //         $file_size1 = $all_gallery_image['size'][$k];
-    //         $file_type1 = $all_gallery_image['type'][$k];
-    //         $allowed = array("image/jpeg", "image/pjpeg", "image/png", "image/gif", "image/webp", "image/svg", "application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.openxmlformats-officedocument.wordprocessingml.template");
-    //         if(in_array($file_type1, $allowed)) {
-    //             $folder1 = "images/listings/";
-    //             $new_size = $file_size1 / 1024;
-    //             $new_file_name1 = strtolower($file1);
-    //             $event_image1 = str_replace(' ', '-', $new_file_name1);
-    //             //move_uploaded_file($file_loc1, $folder1 . $event_image1);
-    //             $gallery_image1[] = compressImage($event_image1, $file_loc1, $folder1, $new_size);
-    //         }else{
-    //             $gallery_image1[] = '';
-    //         }
-    //     }
-    //     if($gallery_image1 != NULL){
-    //         $gallery_image = implode(",", $gallery_image1);
-    //         }else{
-    //             $gallery_image = '';
-    //         }
-    // }
+    // ************************  Offer Image Upload Starts  **************************
 
-// ************************  Gallery Image Upload ends  **************************   
+    $all_service_1_image = $_FILES['service_1_image'];
+    $all_service_1_image2 = $_FILES['service_1_image']['name'];
 
-    // $_SESSION['gallery_image'] = $gallery_image;
+    for ($k = 0; $k < count($all_service_1_image2); $k++) {
+
+        if (!empty($_FILES['service_1_image']['name'][$k])) {
+            $file = rand(1000, 100000) . $_FILES['service_1_image']['name'][$k];
+            $file_loc = $_FILES['service_1_image']['tmp_name'][$k];
+            $file_size = $_FILES['service_1_image']['size'][$k];
+            $file_type = $_FILES['service_1_image']['type'][$k];
+            $allowed = array("image/jpeg", "image/pjpeg", "image/png", "image/gif", "image/webp", "image/svg", "application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.openxmlformats-officedocument.wordprocessingml.template");
+            if(in_array($file_type, $allowed)) {
+                $folder = "images/services/";
+                $new_size = $file_size / 1024;
+                $new_file_name = strtolower($file);
+                $event_image = str_replace(' ', '-', $new_file_name);
+                //move_uploaded_file($file_loc, $folder . $event_image);
+                $service_1_image1[] = compressImage($event_image, $file_loc, $folder, $new_size);
+            }else{
+                $service_1_image1[] = '';
+            }
+        }
+        if($service_1_image1 != NULL){
+            $service_1_image = implode(",", $service_1_image1);
+            }else{
+            $service_1_image = '';
+            }
+    }
+// ************************  Offer Image Upload ends  **************************
+    $_SESSION['service_1_image'] = $service_1_image;
+
 }
 
+//} else {
+//
+//    header('Location: add-listing-step-1'); 
+//}
 ?>
 <!-- START -->
 <!--PRICING DETAILS-->
@@ -84,14 +87,14 @@ if (isset($_POST['listing_submit'])) {
             <div class="add-list-ste">
                 <div class="add-list-ste-inn">
                     <ul>
-                        <li>
+                    <li>
                             <a href="add-listing-step-new-1">
                                 <span><?php echo $BIZBOOK['STEP1']; ?></span>
                                 <b><?php echo $BIZBOOK['BASIC_INFO']; ?></b>
                             </a>
                         </li>
                         <li>
-                            <a href="add-listing-step-new-2">
+                            <a href="add-listing-step-new-2" >
                                 <span><?php echo $BIZBOOK['STEP2']; ?></span>
                                 <b>Service Offered</b>
                             </a>
@@ -105,18 +108,48 @@ if (isset($_POST['listing_submit'])) {
                         <li>
                             <a href="add-listing-step-new-4">
                                 <span><?php echo $BIZBOOK['STEP4']; ?></span>
-                                <b><?php echo $BIZBOOK['WPR_HOURS']; ?></b>
+                                <b><?php echo $BIZBOOK['SPECIAL_OFFERS']; ?></b>
                             </a>
                         </li>
+                        <!-- <li>
+                            <a href="#!">
+                                <span><?php echo $BIZBOOK['STEP4']; ?></span>
+                                <b><?php echo $BIZBOOK['WPR_HOURS']; ?></b>
+                            </a>
+                        </li> -->
+                        <!-- <li>
+                            <a href="#!">
+                                <span><?php echo $BIZBOOK['STEP5']; ?></span>
+                                <b><?php echo $BIZBOOK['OTHER']; ?></b>
+                            </a>
+                        </li> -->
                         <li>
                             <a href="add-listing-step-new-5" class="act">
                                 <span><?php echo $BIZBOOK['STEP5']; ?></span>
-                                <b><?php echo $BIZBOOK['OTHER']; ?></b>
+                                <b><?php echo $BIZBOOK['MAP_PHOTO_GALLARY']; ?></b>
                             </a>
                         </li>
                         <li>
                             <a href="#!">
                                 <span><?php echo $BIZBOOK['STEP6']; ?></span>
+                                <b><?php echo $BIZBOOK['WPR_HOURS']; ?></b>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#!">
+                                <span><?php echo $BIZBOOK['STEP7']; ?></span>
+                                <b><?php echo $BIZBOOK['BUSINESS_DETAILS']; ?></b>
+                            </a>
+                        </li>
+                         <li>
+                            <a href="#!">
+                                <span><?php echo $BIZBOOK['STEP8']; ?></span>
+                                <b><?php echo $BIZBOOK['OTHER']; ?></b>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#!">
+                                <span><?php echo $BIZBOOK['STEP9']; ?></span>
                                 <b><?php echo $BIZBOOK['DONE']; ?></b>
                             </a>
                         </li>
@@ -128,103 +161,132 @@ if (isset($_POST['listing_submit'])) {
             <div class="login-main add-list">
                 <div class="log-bor">&nbsp;</div>
                 <span class="steps"><?php echo $BIZBOOK['STEP5']; ?></span>
-                <div class="log">
-                    <div class="login add-lis-oth">
+                <div class="log add-list-map">
+                    <div class="login add-list-map">
+                        <form action="add-listing-step-new-6.php" class="listing_form_4" id="listing_form_4"
+                              name="listing_form_4" method="post" enctype="multipart/form-data">
 
-                        <h4><?php echo $BIZBOOK['OTHER_INFORMATIONS']; ?></h4>
-                        <!-- <span class="add-list-add-btn lis-add-oad" title="add new offer">+</span>
-                        <span class="add-list-rem-btn lis-add-ore" title="remove offer">-</span> -->
-                        <form action="listing_insert_new.php" class="listing_form" id="listing_form_5" name="listing_form_5"
-                              method="post" enctype="multipart/form-data">
-                              <input id="days" name="days" value="<?php echo $_SESSION['days']; ?>"
-                                required="required"
-                                type="hidden" class="validate">
-                            <ul>                                               
-                            <li>
                             <!--FILED START-->
-                            <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Approach Method:</label>
-                                    <select name="appr_method" id="appr_method" class="form-control colorBackground ca-check-plan empty valid">
-                                            <option value="">--Select--</option>
-                                            <option value="1" <?php ($_SESSION['appr_method'] == 1) ? "selected" : "";?>>Online</option>
-                                            <option value="2" <?php ($_SESSION['appr_method'] == 2) ? "selected" : "";?>>Telehealth</option>
-                                            <option value="3" <?php ($_SESSION['appr_method'] == 3) ? "selected" : "";?>>We come to you</option>
-                                            <option value="4" <?php ($_SESSION['appr_method'] == 4) ? "selected" : "";?>>You come to us</option>                                        
-                                    </select>
-                                </div>
-                                </div>
-                             </div>
-                            <!--FILED END-->
-                            <!--FILED START-->
-                            <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Languages:</label>
-                                    <select name="language" id="language" class="form-control colorBackground ca-check-plan" >
-                                        <option value="">--Select--</option>
-                                        <?php foreach (getAllLanguages() as $Lrow) { ?>
-                                            <option value="<?php echo $Lrow['id']; ?>"  <?php ($_SESSION['language'] == $Lrow['id']) ? "selected" : "";?>><?php echo $Lrow['language_name']; ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                                </div>
-                             </div>
-                            <!--FILED END-->
-                            <!--FILED START-->
-                            <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Service Specilisation:</label>
-                                    <select name="ser_special" id="ser_special" class="form-control colorBackground ca-check-plan empty valid">
-                                            <option value="">--Select--</option>
-                                            <option value="1"  <?php ($_SESSION['ser_special'] == 1) ? "selected" : "";?>>Aboriginal and Torres Strait Islander</option>
-                                            <option value="2"  <?php ($_SESSION['ser_special'] == 2) ? "selected" : "";?>>LGBTIQ+</option>
-                                            <option value="3" <?php ($_SESSION['ser_special'] == 3) ? "selected" : "";?>>Autism</option>
-                                            <option value="4" <?php ($_SESSION['ser_special'] == 4) ? "selected" : "";?>>CALD</option>
-                                            <option value="5" <?php ($_SESSION['ser_special'] == 5) ? "selected" : "";?>>Intellectual Disability</option> 
-                                            <option value="6" <?php ($_SESSION['ser_special'] ==  6)? "selected" : "";?>>Psychosocial Disability</option> 
-                                            <option value="7" <?php ($_SESSION['ser_special'] ==  7)? "selected" : "";?>>Sensory Impairment</option>                                           
-                                    </select>
-                                </div>
-                                </div>
+                            <h4><?php echo $BIZBOOK['PHOTO_GALLERY']; ?></h4>
+                            <div>
+                                <input type="file" name="gallery_image[]" accept="image/*,.jpg,.jpeg,.png" multiple>
                             </div>
                             <!--FILED END-->
-                            <!--FILED START-->
-                            <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Pet friendly !:</label>
-                                    <select name="pet_frie" id="pet_frie" class="form-control colorBackground ca-check-plan empty valid">
-                                            <option value="">--Select--</option>
-                                            <option value="1" <?php ($_SESSION['pet_frie'] == 1) ? "selected" : "";?>>Happy</option>
-                                            <option value="2" <?php ($_SESSION['pet_frie'] == 2) ? "selected" : "";?>>Not Happy</option>
-                                            <option value="3" <?php ($_SESSION['pet_frie'] == 3) ? "selected" : "";?>>No preference</option>                                        
-                                    </select>
-                                </div>
-                                </div>
-                            </div>
-                            <!--FILED END-->
-                            </li>
+                            <p></p>
+                            <h4><?php echo $BIZBOOK['VIDEO_GALLERY']; ?></h4>
+                            <!-- TOOL TIP -->
+                            <!--<div class="ttip-com">
+                                <i class="material-icons">priority_high</i>
+                                <div><?php echo $BIZBOOK['VIDEO_GALLERY_INFO']; ?></div>
+                            </div>-->
+                            <!-- END -->
+                            <ul>
+                                <span class="add-list-add-btn lis-add-oadvideo" title="add new video">+</span>
+                                <span class="add-list-rem-btn lis-add-orevideo" title="remove video">-</span>
+                                <?php
+                                $listings_a_row_listing_video = $_SESSION['listing_video'];
+
+                                $listings_a_row_listing_video_count = isset($listings_a_row_listing_video) ? count($listings_a_row_listing_video) : 0; //Get count of array
+
+                                if ($listings_a_row_listing_video_count != 0) {
+
+                                    foreach ($listings_a_row_listing_video as $tuple) {
+                                        ?>
+                                        <li>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <textarea id="listing_video" name="listing_video[]"
+                                                                  class="form-control"
+                                                                  placeholder="<?php echo $BIZBOOK['PASTE_IFRAME_CODE']; ?>"><?php echo $tuple; ?></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <?php
+                                    }
+                                } else {
+                                    ?>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                 <textarea id="listing_video" name="listing_video[]"
+                                                           class="form-control"
+                                                           placeholder="<?php echo $BIZBOOK['PASTE_IFRAME_CODE']; ?>"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <?php
+                                }
+                                ?>
                             </ul>
+                            <h4><?php echo $BIZBOOK['MAP_360_VIEW']; ?></h4>
+                            
+                            <!--FILED START-->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <textarea id="google_map" name="google_map" class="form-control"
+                                                  placeholder="<?php echo $BIZBOOK['SHOP_LOCATION']; ?>"><?php echo $_SESSION['google_map'] ?></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--FILED END-->
+                            <!--FILED START-->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <textarea id="360_view" name="360_view" class="form-control"
+                                                  placeholder="<?php echo $BIZBOOK['360_VIEW']; ?>"><?php echo $_SESSION['360_view'] ?></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--FILED END-->
+
+<!--                            <h4 class="pt30">--><?php //echo $BIZBOOK['PHOTO_GALLERY']; ?><!--</h4>-->
+<!--                            --><?php
+//                            //To check the photos count with current plan starts
+//
+//                            $plan_type_photos_count = $user_plan_type['plan_type_photos_count'];
+//
+//                            ?>
+                            <!--FILED START-->
+<!--                            <div class="row">-->
+<!--                                --><?php
+//                                for($p=1;$p<= $plan_type_photos_count;$p++) {
+//                                    ?>
+<!--                                    <div class="col-md-6">-->
+<!--                                        <div class="form-group">-->
+<!--                                            <input type="file" name="gallery_image[]" class="form-control">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    --><?php
+//                                }
+//                                ?>
+<!--                            </div>-->
+                            <!--FILED END-->
+
+                            
                             <!--FILED START-->
                             <div class="row">
                                 <div class="col-md-6">
                                     <a href="add-listing-step-new-4">
-                                        <button type="button"
-                                                class="btn btn-primary"><?php echo $BIZBOOK['PREVIOUS']; ?></button>
+                                        <button type="button" class="btn btn-primary"><?php echo $BIZBOOK['PREVIOUS']; ?></button>
                                     </a>
                                 </div>
                                 <div class="col-md-6">
-                                    <button type="submit" name="listing_submit"
-                                            class="btn btn-primary"><?php echo $BIZBOOK['FINISH']; ?></button>
+                                    <button type="submit" name="listing_submit" class="btn btn-primary"><?php echo $BIZBOOK['NEXT']; ?></button>
+                                </div>
+                                <div class="col-md-12">
+                                    <a href="add-listing-step-new-6" class="skip"><?php echo $BIZBOOK['SKIP_THIS']; ?> >></a>
                                 </div>
                             </div>
                             <!--FILED END-->
                             <!--PROGRESSBAR START-->
                             <div class="progress biz-prog">
-                                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width:90%">90%</div>
+                                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width:50%">50%</div>
                             </div>
                             <!--PROGRESSBAR END-->
                         </form>
@@ -235,10 +297,10 @@ if (isset($_POST['listing_submit'])) {
     </div>
 </section>
 <!--END PRICING DETAILS-->
-
 <?php
 include "footer.php";
 ?>
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -246,9 +308,15 @@ include "footer.php";
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-ui.js"></script>
-<script type="text/javascript">var webpage_full_link = '<?php echo $webpage_full_link;?>';</script>
-<script type="text/javascript">var login_url = '<?php echo $LOGIN_URL;?>';</script>
+<script type="text/javascript">var webpage_full_link ='<?php echo $webpage_full_link;?>';</script>
+<script type="text/javascript">var login_url ='<?php echo $LOGIN_URL;?>';</script>
+<script type="text/javascript" src="js/imageuploadify.min.js"></script>
 <script src="js/custom.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('input[type="file"]').imageuploadify();
+    })
+</script>
 </body>
 
 </html>

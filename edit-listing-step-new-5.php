@@ -13,15 +13,17 @@ if (file_exists('config/listing_page_authentication.php')) {
     include('config/listing_page_authentication.php');
 }
 
+//Get & Process Listing Data
+
 if ($_GET['row'] == NULL && empty($_GET['row'])) {
 
     header("Location: db-all-listing");
 }
 
-if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_codea'])) {
+if (!isset($_SESSION['listing_codea']) || empty($_SESSION['listing_codea'])) {
     $listing_codea = $_GET['row'];
 } else {
-    $listing_codea = $listings_a_row['listing_codea'];
+    $listing_codea = $_SESSION['listing_codea'];
 }
 
 ?>
@@ -42,13 +44,13 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
                             </a>
                         </li>
                         <li>
-                            <a href="edit-listing-step-new-2?row=<?php echo $listing_codea; ?>">
+                            <a href="edit-listing-step-new-2?row=<?php echo $listing_codea; ?>" >
                                 <span><?php echo $BIZBOOK['STEP2']; ?></span>
                                 <b>Service Offered</b>
                             </a>
                         </li>
                         <li>
-                            <a href="edit-listing-step-new-3?row=<?php echo $listing_codea; ?>">
+                            <a href="edit-listing-step-new-3?row=<?php echo $listing_codea; ?>" >
                                 <span><?php echo $BIZBOOK['STEP3']; ?></span>
                                 <b>Locations</b>
                             </a>
@@ -56,18 +58,36 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
                         <li>
                             <a href="edit-listing-step-new-4?row=<?php echo $listing_codea; ?>">
                                 <span><?php echo $BIZBOOK['STEP4']; ?></span>
-                                <b>Work Hours</b>
+                                <b><?php echo $BIZBOOK['SPECIAL_OFFERS']; ?></b>
                             </a>
                         </li>
                         <li>
-                            <a href="edit-listing-step-new-5?row=<?php echo $listing_codea; ?>" class="act">
+                            <a href="edit-listing-step-new-5?row=<?php echo $listing_codea; ?>">
                                 <span><?php echo $BIZBOOK['STEP5']; ?></span>
-                                <b><?php echo $BIZBOOK['OTHER']; ?></b>
+                                <b><?php echo $BIZBOOK['MAP_PHOTO_GALLARY']; ?></b>
                             </a>
                         </li>
                         <li>
                             <a href="edit-listing-step-new-6?row=<?php echo $listing_codea; ?>">
                                 <span><?php echo $BIZBOOK['STEP6']; ?></span>
+                                <b>Work Hours</b>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="edit-listing-step-new-7?row=<?php echo $listing_codea; ?>">
+                                <span><?php echo $BIZBOOK['STEP7']; ?></span>
+                                <b><?php echo $BIZBOOK['BUSINESS_DETAILS']; ?></b>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="edit-listing-step-new-8?row=<?php echo $listing_codea; ?>">
+                                <span><?php echo $BIZBOOK['STEP8']; ?></span>
+                                <b><?php echo $BIZBOOK['OTHER']; ?></b>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="edit-listing-step-new-9?row=<?php echo $listing_codea; ?>">
+                                <span><?php echo $BIZBOOK['STEP9']; ?></span>
                                 <b><?php echo $BIZBOOK['DONE']; ?></b>
                             </a>
                         </li>
@@ -78,13 +98,9 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
         <div class="row">
             <div class="login-main add-list">
                 <div class="log-bor">&nbsp;</div>
-                <span class="steps"><?php echo $BIZBOOK['STEP5']; ?></span>
-                <div class="log">
-                    <div class="login add-lis-oth">
-
-                        <h4><?php echo $BIZBOOK['OTHER_INFORMATIONS']; ?></h4>
-                        <span class="add-list-add-btn lis-add-oad" title="add new offer">+</span>
-                        <span class="add-list-rem-btn lis-add-ore" title="remove offer">-</span>
+                <span class="steps"><?php echo $BIZBOOK['STEP4']; ?></span>
+                <div class="log add-list-map">
+                    <div class="login add-list-map">
                         <?php
                         $listings_a_row = getListing($listing_codea);
                         ?>
@@ -99,81 +115,94 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
                                    name="listing_code" class="validate">
                             <input type="hidden" id="listing_id" value="<?php echo $listings_a_row['listing_id']; ?>"
                                    name="listing_id" class="validate">
-                            <ul>
-                            <li>
-                            <!--FILED START-->
-                            <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Approach Method:</label>
-                                    <select name="appr_method" id="appr_method" class="form-control colorBackground ca-check-plan empty valid">
-                                            <option value="">--Select--</option>
-                                            <option value="1" <?php if($listings_a_row['appr_merhod'] == 1){echo "selected" ;}?>>Online</option>
-                                            <option value="2" <?php  if($listings_a_row['appr_merhod'] == 2){echo "selected" ; }?>>Telehealth</option>
-                                            <option value="3" <?php  if($listings_a_row['appr_merhod'] == 3){echo "selected" ;}?>>We come to you</option>
-                                            <option value="4" <?php if($listings_a_row['appr_merhod'] == 4){echo "selected" ;}?>>You come to us</option>                                        
-                                    </select>
-                                </div>
-                                </div>
-                             </div>
-                            <!--FILED END-->
-                            <!--FILED START-->
-                            <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Languages:</label>
-                                    <select name="language" id="language" class="form-control colorBackground ca-check-plan" >
-                                        <option value="">--Select--</option>
-                                        <?php foreach (getAllLanguages() as $Lrow) { ?>
-                                            <option value="<?php echo $Lrow['id']; ?>"  <?php if($listings_a_row['language'] == $Lrow['id']){ echo "selected" ; }?>><?php echo $Lrow['language_name']; ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                                </div>
-                             </div>
-                            <!--FILED END-->
-                            <!--FILED START-->
-                            <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Service Specilisation:</label>
-                                    <select name="ser_special" id="ser_special" class="form-control colorBackground ca-check-plan empty valid">
-                                            <option value="">--Select--</option>
-                                            <option value="1"  <?php if($listings_a_row['serv_specilisation'] == 1){echo "selected" ;}?>>Aboriginal and Torres Strait Islander</option>
-                                            <option value="2"  <?php if($listings_a_row['serv_specilisation'] == 2){echo "selected" ;}?>>LGBTIQ+</option>
-                                            <option value="3" <?php if($listings_a_row['serv_specilisation'] == 3) {echo  "selected" ;}?>>Autism</option>
-                                            <option value="4" <?php if($listings_a_row['serv_specilisation'] == 4){echo "selected" ;}?>>CALD</option>
-                                            <option value="5" <?php if($listings_a_row['serv_specilisation'] == 5) {echo"selected" ;}?>>Intellectual Disability</option> 
-                                            <option value="6" <?php if($listings_a_row['serv_specilisation'] ==  6){echo "selected" ;}?>>Psychosocial Disability</option> 
-                                            <option value="7" <?php if($listings_a_row['serv_specilisation'] ==  7){echo "selected" ;}?>>Sensory Impairment</option>                                           
-                                    </select>
-                                </div>
-                                </div>
-                            </div>
-                            <!--FILED END-->
-                            <!--FILED START-->
-                            <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Pet friendly !:</label>
-                                    <select name="pet_frie" id="pet_frie" class="form-control colorBackground ca-check-plan empty valid">
-                                            <option value="">--Select--</option>
-                                            <option value="1" <?php if($listings_a_row['pet_frie'] == 1){echo "selected";}?>>Happy</option>
-                                            <option value="2" <?php if($listings_a_row['pet_frie'] == 2){echo  "selected" ;}?>>Not Happy</option>
-                                            <option value="3" <?php if($listings_a_row['pet_frie'] == 3){echo "selected";}?>>No preference</option>                                        
-                                    </select>
-                                </div>
-                                </div>
-                            </div>
-                            <!--FILED END-->
-                            </li>   
+                            <input type="hidden" id="gallery_image_old"
+                                   value="<?php echo $listings_a_row['gallery_image']; ?>" name="gallery_image_old"
+                                   class="validate">
 
+                            <!--FILED END-->
+                            <!-- <h4><?php echo $BIZBOOK['PHOTO_GALLERY']; ?></h4>
+                            <div>
+                                <input type="file" name="gallery_image[]" accept="image/*,.jpg,.jpeg,.png" multiple>
+                            </div> -->
+                            <!--FILED START-->
+                              <p></p>
+                            <!--FILED START-->
+
+                            <h4><?php echo $BIZBOOK['VIDEO_GALLERY']; ?></h4>
+                            <ul class="vid-gal-add">
+                                <span class="add-list-add-btn lis-add-oadvideo" title="add new video">+</span>
+                                <span class="add-list-rem-btn lis-add-orevideo" title="remove video">-</span>
+                                <?php
+                                $listings_a_row_listing_video = $listings_a_row['listing_video'];
+
+                                $listings_a_row_listing_videoArray = explode('|', $listings_a_row_listing_video);
+
+                                foreach ($listings_a_row_listing_videoArray as $tuple) {
+                                    ?>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                        <textarea id="listing_video" name="listing_video[]"
+                                                                  class="form-control"
+                                                                  placeholder="<?php echo $BIZBOOK['PASTE_IFRAME_CODE']; ?>"><?php echo $tuple; ?></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <?php
+                                }
+                                ?>
 
                             </ul>
+
+                            <h4><?php echo $BIZBOOK['MAP_360_VIEW']; ?></h4>
                             <!--FILED START-->
                             <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                                <textarea class="form-control" name="google_map"
+                                                          placeholder="<?php echo $BIZBOOK['SHOP_LOCATION']; ?>"><?php echo $listings_a_row['google_map']; ?></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--FILED END-->
+                            <!--FILED START-->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="360_view"
+                                                  placeholder="<?php echo $BIZBOOK['360_VIEW']; ?>"><?php echo $listings_a_row['360_view']; ?></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--FILED END-->
+
+<!--                            <h4 class="pt30">--><?php //echo $BIZBOOK['PHOTO_GALLERY']; ?><!--</h4>-->
+<!--                            --><?php
+//                            //To check the photos count with current plan starts
+//
+//                            $plan_type_photos_count = $user_plan_type['plan_type_photos_count'];
+//
+//                            ?>
+                            <!--FILED START-->
+<!--                            <div class="row">-->
+<!--                                --><?php
+//                                for ($p = 1; $p <= $plan_type_photos_count; $p++) {
+//                                    ?>
+<!--                                    <div class="col-md-6">-->
+<!--                                        <div class="form-group">-->
+<!--                                            <input type="file" name="gallery_image[]" class="form-control">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    --><?php
+//                                }
+//                                ?>
+<!--                            </div>-->
+
+                            <div class="row">
                                 <div class="col-md-6">
-                                    <a href="edit-listing-step-new-4?row=<?php echo $listings_a_row['listing_codea']; ?>">
+                                    <a href="edit-listing-step-new-4?row=<?php echo $listing_codea; ?>">
                                         <button type="button"
                                                 class="btn btn-primary"><?php echo $BIZBOOK['PREVIOUS']; ?></button>
                                     </a>
@@ -181,6 +210,10 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
                                 <div class="col-md-6">
                                     <button type="submit" name="listing_submit"
                                             class="btn btn-primary"><?php echo $BIZBOOK['SAVE_AND_EXIT']; ?></button>
+                                </div>
+                                <div class="col-md-12">
+                                    <a href="edit-listing-step-new-6?row=<?php echo $listing_codea; ?>"
+                                       class="skip"><?php echo $BIZBOOK['SKIP_THIS']; ?> >></a>
                                 </div>
                                 <div class="col-md-12">
                                     <a href="dashboard" class="skip"><?php echo $BIZBOOK['GO_TO_USER_DASHBOARD']; ?>
@@ -210,6 +243,13 @@ include "footer.php";
 <script type="text/javascript">var webpage_full_link = '<?php echo $webpage_full_link;?>';</script>
 <script type="text/javascript">var login_url = '<?php echo $LOGIN_URL;?>';</script>
 <script src="js/custom.js"></script>
+<!-- <script type="text/javascript" src="js/imageuploadify.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('input[type="file"]').imageuploadify();
+    })
+</script> -->
 </body>
 
 </html>

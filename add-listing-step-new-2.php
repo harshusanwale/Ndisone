@@ -57,6 +57,7 @@ if (isset($_POST['listing_submit'])) {
     $_SESSION['twi_url'] = $_POST["twi_url"];
     $_SESSION['link_url'] = $_POST["link_url"];
     $_SESSION['reg_group'] = $_POST["reg_group"];
+    $_SESSION['listing_description'] = $_POST["listing_description"];
 //        $state_id = $_POST["state_id"];
 
 
@@ -135,6 +136,8 @@ if (isset($_POST['listing_submit'])) {
 
     $_SESSION['cover_image'] = $cover_image;
 
+    //print_r($_SESSION);die;
+
 //************************  Cover Image Upload ends  **************************
 
 
@@ -157,7 +160,7 @@ if ($_SESSION['listing_name'] == NULL || empty($_SESSION['listing_name'])) {
                 <div class="add-list-ste-inn">
                     <ul>
                         <li>
-                            <a href="add-listing-step-1">
+                            <a href="add-listing-step-new-1">
                                 <span><?php echo $BIZBOOK['STEP1']; ?></span>
                                 <b><?php echo $BIZBOOK['BASIC_INFO']; ?></b>
                             </a>
@@ -177,18 +180,48 @@ if ($_SESSION['listing_name'] == NULL || empty($_SESSION['listing_name'])) {
                         <li>
                             <a href="#!">
                                 <span><?php echo $BIZBOOK['STEP4']; ?></span>
-                                <b><?php echo $BIZBOOK['WPR_HOURS']; ?></b>
+                                <b><?php echo $BIZBOOK['SPECIAL_OFFERS']; ?></b>
                             </a>
                         </li>
-                        <li>
+                        <!-- <li>
+                            <a href="#!">
+                                <span><?php echo $BIZBOOK['STEP4']; ?></span>
+                                <b><?php echo $BIZBOOK['WPR_HOURS']; ?></b>
+                            </a>
+                        </li> -->
+                        <!-- <li>
                             <a href="#!">
                                 <span><?php echo $BIZBOOK['STEP5']; ?></span>
                                 <b><?php echo $BIZBOOK['OTHER']; ?></b>
+                            </a>
+                        </li> -->
+                        <li>
+                            <a href="#!">
+                                <span><?php echo $BIZBOOK['STEP5']; ?></span>
+                                <b><?php echo $BIZBOOK['MAP_PHOTO_GALLARY']; ?></b>
                             </a>
                         </li>
                         <li>
                             <a href="#!">
                                 <span><?php echo $BIZBOOK['STEP6']; ?></span>
+                                <b><?php echo $BIZBOOK['WPR_HOURS']; ?></b>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#!">
+                                <span><?php echo $BIZBOOK['STEP7']; ?></span>
+                                <b><?php echo $BIZBOOK['BUSINESS_DETAILS']; ?></b>
+                            </a>
+                        </li>
+                         <li>
+                            <a href="#!">
+                                <span><?php echo $BIZBOOK['STEP8']; ?></span>
+                                <b><?php echo $BIZBOOK['OTHER']; ?></b>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#!">
+                                <span><?php echo $BIZBOOK['STEP9']; ?></span>
                                 <b><?php echo $BIZBOOK['DONE']; ?></b>
                             </a>
                         </li>
@@ -294,38 +327,35 @@ if ($_SESSION['listing_name'] == NULL || empty($_SESSION['listing_name'])) {
                                    required="required"
                                    type="hidden" class="validate">
 
+                            <input id="listing_description" name="listing_description" type="hidden"
+                            value="<?php echo $_SESSION['listing_description']; ?>"
+                            required="required" class="validate">
+
                             <!--FILED START-->
-                            <div class="row">
+                            <div class="row" id="reg_group" style="">
+                            <?php foreach(getAllCategories() as $row) { ?>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <select onChange="getSubCategory(this.value);" name="category_id"
-                                                id="category_id" class="chosen-select form-control">
-                                            <option value=""><?php echo $BIZBOOK['SELECT_CATEGORY']; ?></option>
-                                            <?php
-                                            foreach (getAllCategories() as $categories_row) {
-                                                ?>
-                                                <option <?php if ($_SESSION['category_id'] == $categories_row['category_id']) {
-                                                    echo "selected";
-                                                } ?>
-                                                    value="<?php echo $categories_row['category_id']; ?>"><?php echo $categories_row['category_name']; ?></option>
-                                                <?php
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
+                                       <label><?php echo $row['category_name']?>:</label>
+                                       <!-- <input type="hidden" -->
+                                       <?php foreach(getCategorySubCategories($row['category_id']) as $subrow)  { ?>
+                      
+                                        
+                                        <div class="chbox">
+                                        <?php 
+                                        if($_SESSION['ser_offer']) {?>
+                                            <input type="checkbox" name="sub_category_id[]" value="<?php echo $subrow['sub_category_id']; ?>"  <?php if (in_array($subrow, $_SESSION['ser_offer'])) echo 'checked="checked"'; ?> class="feature_check" id="suppOffr<?php echo $subrow['sub_category_id']; ?>"/>
+                                            <label for="suppOffr<?php echo $subrow['sub_category_id']; ?>"><?php echo $subrow['sub_category_name']; ?></label>
+                                            <?php } else {?>
+                                            <input type="checkbox" name="sub_category_id[]" value="<?php echo $subrow['sub_category_id']; ?>" class="feature_check" id="suppOffr<?php echo $subrow['sub_category_id']; ?>"/>
+                                            <label for="suppOffr<?php echo $subrow['sub_category_id']; ?>"><?php echo $subrow['sub_category_name']; ?></label>
+                                            <?php } ?>
+                                           
+                                        </div>
+                                        <?php } ?>                                   
+                                    </div>                            
                                 </div>
-                            </div>
-                            <!--FILED END-->
-                            <!--FILED START-->
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <select data-placeholder="Select Sub Category" name="sub_category_id[]"
-                                                id="sub_category_id" multiple class="chosen-select form-control">
-                                            <option value=""><?php echo $BIZBOOK['SELECT_SUB_CATEGORY']; ?></option>
-                                        </select>
-                                    </div>
-                                </div>
+                                <?php } ?>
                             </div>
                             <!--FILED END-->
                             <!--FILED START-->
@@ -348,7 +378,7 @@ if ($_SESSION['listing_name'] == NULL || empty($_SESSION['listing_name'])) {
                             <!--FILED END-->
                             <!--PROGRESSBAR START-->
                             <div class="progress biz-prog">
-                                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width:40%">40%</div>
+                                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width:20%">20%</div>
                             </div>
                             <!--PROGRESSBAR END-->
                         </form>

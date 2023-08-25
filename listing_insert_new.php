@@ -13,12 +13,8 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
         
         $reg_group = "" ;
         $ser_offer  = "" ;
-
-        $_SESSION['appr_method'] = $_POST["appr_method"];
-        $_SESSION['language'] = $_POST["language"];
-        $_SESSION['ser_special'] = $_POST["ser_special"];
-        $_SESSION['pet_frie'] = $_POST["pet_frie"];
-        // $_SESSION['days'] = $_POST["days"];
+        $_SESSION['listing_info_question'] = $_POST["listing_info_question"];
+        $_SESSION['listing_info_answer'] = $_POST["listing_info_answer"];
        
 
 // Basic Personal Details
@@ -40,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
         $primary_location = $_SESSION["primary_location"];
         $fb_link = $_SESSION["face_url"];
         $insta_url = $_SESSION["insta_url"];
+        $listing_description = addslashes($_SESSION["listing_description"]);
 
         $twitter_link = $_SESSION["twi_url"];
 
@@ -54,15 +51,8 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
             $prefix = ',';
         }
 
-// Service Offers Details 
-        // $ser_offer123 = $_SESSION["ser_offer"];
-        // $prefix1 = $fruitList = '';
-        // foreach ($ser_offer123 as $fruit1)
-        // {
-        //     $ser_offer .= $prefix1 .  $fruit1 ;
-        //     $prefix1 = ',';
-        // }
-        $category_id = $_SESSION["category_id"];
+        //$category_id = $_SESSION["category_id"];
+        $category_id = 30;
 
         $sub_category_id123 = $_SESSION["sub_category_id"];
 
@@ -74,16 +64,169 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
         }
 //Location Details
         $service_locations = json_encode($_SESSION["location"]);
-        // print_r( $location);die;
 
-        $days = json_encode($_SESSION["days"]);
 
-        $appr_method = $_SESSION["appr_method"];
 
-// Other Details
-        $language = $_SESSION["language"];
+// Listing Service Names Details
+
+        $service_1_name123 = $_SESSION["service_1_name"];
+                
+        $service_1_name = implode("|",$service_1_name123);
+
+        // Listing Offer Prices Details
+        $service_1_price123 = $_SESSION["service_1_price"];
+
+        $prefix1 = $fruitList = '';
+        foreach ($service_1_price123 as $fruit1)
+        {
+            $service_1_price .= $prefix1 .  $fruit1 ;
+            $prefix1 = ',';
+        }
+        $service_2_price = 0;
+        $service_3_price = 0;
+        $service_4_price = 0;
+        $service_5_price = 0;
+        $service_6_price = 0;
+
+        // Listing Offer Details
+        $service_1_detail123 = $_SESSION["service_1_detail"];
+
+        $service_1_detail1 = implode("|",$service_1_detail123);
+        $service_1_detail = addslashes($service_1_detail1);
+
+        // Listing Offer View more link
+        $service_1_view_more123 = $_SESSION["service_1_view_more"];
+        $prefix1 = $fruitList = '';
+        foreach ($service_1_view_more123 as $fruit1)
+        {
+            $service_1_view_more .= $prefix1 .  $fruit1 ;
+            $prefix1 = ',';
+        }
+
+// Listing Location Details
+        $google_map = $_SESSION["google_map"];
+        $threesixty_view = $_SESSION["360_view"];
+
+        // Listing Video
+        $listing_video123 = $_SESSION['listing_video'];
+
+        $prefix6 = $fruitList = '';
+        foreach ($listing_video123 as $fruit6)
+        {
+            $listing_video1 = $prefix6 .  $fruit6 ;
+            $listing_video .= addslashes($listing_video1);
+            $prefix6 = '|';
+        }
+
+// Working Hours
+        $mon_is_open = $_SESSION['mon_is_open'];
+        $mon_open_time = $_SESSION['mon_open_time'];
+        $mon_close_time = $_SESSION['mon_close_time'];
+        $mon_check  =  $_SESSION['mon_check'];
+
+        if($mon_check == "on"){
+            $mon_check = 1 ; 
+        }else{
+            $mon_check = 0 ; 
+        }
+
+        $tue_is_open = $_SESSION['tue_is_open'];
+        $tue_open_time = $_SESSION['tue_open_time'];
+        $tue_close_time = $_SESSION['tue_close_time'];
+        $tue_check      = $_SESSION['tue_check'];
+
+        if($tue_check == "on"){
+            $tue_check = 1 ; 
+        }else{
+            $tue_check = 0 ; 
+        }
+
+        $wed_is_open = $_SESSION['wed_is_open'];
+        $wed_open_time = $_SESSION['wed_open_time'];
+        $wed_close_time = $_SESSION['wed_close_time'];
+        $wed_check = $_SESSION['wed_check'] ;
+
+        if($wed_check == "on"){
+            $wed_check = 1 ; 
+        }else{
+            $wed_check = 0 ; 
+        }
+
+        $thu_is_open = $_SESSION['thu_is_open'];
+        $thu_open_time = $_SESSION['thu_open_time'];
+        $thu_close_time = $_SESSION['thu_close_time'];
+        $thu_check = $_SESSION['thu_check'];
+        if($thu_check == "on"){
+            $thu_check = 1 ; 
+        }else{
+            $thu_check = 0 ; 
+        }
+
+        $fri_is_open = $_SESSION['fri_is_open'];
+        $fri_open_time = $_SESSION['fri_open_time'];
+        $fri_close_time = $_SESSION['fri_close_time'];
+        $fri_check = $_SESSION['fri_check'];
+        if($fri_check == "on"){
+            $fri_check = 1 ; 
+        }else{
+            $fri_check = 0 ; 
+        }
+
+        $sat_is_open = $_SESSION['sat_is_open'];
+        $sat_open_time = $_SESSION['sat_open_time'];
+        $sat_close_time = $_SESSION['sat_close_time'];
+        $sat_check = $_SESSION['sat_check'];
+        if($sat_check == "on"){
+            $sat_check = 1 ; 
+        }else{
+            $sat_check = 0 ; 
+        }
+
+        $sun_is_open = $_SESSION['sun_is_open'];
+        $sun_open_time = $_SESSION['sun_open_time'];
+        $sun_close_time = $_SESSION['sun_close_time'];
+        $sun_check =  $_SESSION['sun_check'];
+        if($sun_check == "on"){
+            $sun_check = 1 ; 
+        }else{
+            $sun_check = 0 ; 
+        }
+       
+
+// Business Details
+        //$language = $_SESSION["language"];
         $ser_special = $_SESSION["ser_special"];
         $pet_frie = $_SESSION["pet_frie"];
+        $ser_deli_method =  $_SESSION['ser_deli_method'];
+        $age_group =      $_SESSION['age_group'];
+        $appr_method = $_SESSION["appr_method"];
+
+         $language123 = $_SESSION["language"];
+         $prefix1 = $fruitList = '';
+         foreach ($language123 as $fruit1)
+         {
+             $language .= $prefix1 .  $fruit1 ;
+             $prefix1 = ',';
+         }
+
+         //print_r($language);die;        
+        //Listing Other Informations
+        $listing_info_question123 = $_SESSION["listing_info_question"];
+        $prefix1 = $fruitList = '';
+        foreach ($listing_info_question123 as $fruit1)
+        {
+            $listing_info_question .= $prefix1 .  $fruit1 ;
+            $prefix1 = ',';
+        }
+
+        $listing_info_answer123 = $_SESSION["listing_info_answer"];
+        $prefix1 = $fruitList = '';
+        foreach ($listing_info_answer123 as $fruit1)
+        {
+            $listing_info_answer .= $prefix1 .  $fruit1 ;
+            $prefix1 = ',';
+        }
+        //print_r($_SESSION);die;
 
         // $listing_status = "Pending";
         $payment_status = "Pending";
@@ -186,29 +329,44 @@ $cover_image = $_SESSION['cover_image'];
 
 //************************  Cover Image Upload ends  **************************
 
+// ************************  Gallery Image Upload starts  **************************
+
+$gallery_image = $_SESSION['gallery_image'];
+
+// ************************  Gallery Image Upload ends  **************************   
+
+// ************************  Service Image Upload starts  ************************** 
+
+        $service_image = $_SESSION['service_image'];
+
+// ************************  Service Image Upload ends  **************************
+
+// ************************  Offer Image Upload Starts  **************************
+
+        $service_1_image = $_SESSION['service_1_image'];
+
+
 
 //    Listing Insert Part Starts
-
-        // $listing_qry = "INSERT INTO " . TBL . "listing_new 
-		// 			(user_id, abn_number, organi_type, ndis_regs, ndis_early_child, reg_number, reg_stamp, listing_name, com_land_number
-		// 			, com_phone_1, com_phone_2, com_email, com_website, primary_location, face_url, insta_url, twit_url, linkd_url, serv_offers,reg_group, serv_locations, work_hours
-		// 			, appr_merhod, language, serv_specilisation, pet_frie
-		// 			,payment_status, listing_slug, listing_cdt,listing_status,listing_type_id) 
-		// 			VALUES 
-		// 			('$user_id', '$abn_number', '$organi_type', '$ndis_reg','$ndis_early_child', '$reg_number', '$reg_stamp', '$listing_name', '$com_land_num', '$com_phone_1', '$com_phone_2', '$comp_email', '$com_website', '$primary_location'
-		// 			, '$face_url', '$insta_url', '$twi_url', '$link_url', '$ser_offer','$reg_group','$location ','$days', '$appr_method'
-		// 			,'$language', '$ser_special', '$pet_frie', '$payment_status', '$listing_slug', '$curDate','$listing_status','$listing_type_id')";
-
-        $listing_qry = "INSERT INTO " . TBL . "listings 
-                        (user_id, category_id, sub_category_id, listing_type_id, listing_name, listing_address, service_locations,
-                        fb_link, twitter_link, listing_status, payment_status, listing_slug, listing_cdt, abn_number, organi_type, ndis_regs, ndis_early_child, reg_number, reg_stamp, com_land_number,
-                        com_phone_1, com_phone_2, com_email, com_website, insta_url, linkd_url, reg_group, work_hours,
-                        appr_merhod, language, serv_specilisation, pet_frie,profile_image,cover_image) 
-                        VALUES 
-                        ('$user_id', '$category_id', '$sub_category_id', '$listing_type_id', '$listing_name', '$primary_location', '$service_locations',
-                        '$fb_link', '$twitter_link', '$listing_status', '$payment_status', '$listing_slug', '$curDate', '$abn_number', '$organi_type', '$ndis_reg', '$ndis_early_child', '$reg_number', '$reg_stamp', '$com_land_num',
-                        '$com_phone_1', '$com_phone_2', '$comp_email', '$com_website', '$insta_url', '$link_url', '$reg_group', '$days',
-                        '$appr_method', '$language', '$ser_special', '$pet_frie','$profile_image','$cover_image')";
+$listing_qry = "INSERT INTO " . TBL . "listings 
+                (user_id, category_id, sub_category_id, listing_type_id, listing_name, listing_address, service_locations,
+                fb_link, twitter_link, listing_status, payment_status, listing_slug, listing_cdt, abn_number, organi_type, ndis_regs, ndis_early_child, reg_number, reg_stamp, com_land_number,
+                com_phone_1, com_phone_2, com_email, com_website, insta_url, linkd_url, reg_group, work_hours,
+                appr_merhod, language, serv_specilisation, pet_frie,profile_image,cover_image,listing_description,service_1_name, service_1_price, service_1_detail, service_1_image, service_1_view_more, service_2_name,service_2_price, service_2_image, service_3_name,service_3_price, service_3_image
+                 , service_4_name,service_4_price,service_4_image,service_5_name,service_5_price, service_5_image, service_6_name,service_6_price, service_6_image, gallery_image, opening_days, opening_time, closing_time,  gplus_link, google_map
+                 , 360_view, listing_video,mon_is_open, mon_open_time, mon_close_time,mon_check, tue_is_open, tue_open_time, tue_close_time,tue_check, wed_is_open, wed_open_time, wed_close_time,wed_check
+                 , thu_is_open, thu_open_time, thu_close_time,thu_check, fri_is_open, fri_open_time, fri_close_time,fri_check, sat_is_open, sat_open_time, sat_close_time,sat_check
+                 , sun_is_open,sun_open_time, sun_close_time,sun_check,listing_info_question , listing_info_answer,ser_deli_method,age_group) 
+                VALUES 
+                ('$user_id', '$category_id', '$sub_category_id', '$listing_type_id', '$listing_name', '$primary_location', '$service_locations',
+                '$fb_link', '$twitter_link', '$listing_status', '$payment_status', '$listing_slug', '$curDate', '$abn_number', '$organi_type', '$ndis_reg', '$ndis_early_child', '$reg_number', '$reg_stamp', '$com_land_num',
+                '$com_phone_1', '$com_phone_2', '$comp_email', '$com_website', '$insta_url', '$link_url', '$reg_group', '$days',
+                '$appr_method', '$language', '$ser_special', '$pet_frie','$profile_image','$cover_image','$listing_description','$service_1_name', '$service_1_price', '$service_1_detail', '$service_1_image', '$service_1_view_more', '$service_2_name', '$service_2_price', '$service_2_image', '$service_3_name', '$service_3_price', '$service_3_image'
+                ,'$service_4_name', '$service_4_price', '$service_4_image', '$service_5_name', '$service_5_price', '$service_5_image', '$service_6_name', '$service_6_price', '$service_6_image','$gallery_image', '$opening_days', '$opening_time', '$closing_time','$gplus_link', '$google_map'
+                ,'$threesixty_view', '$listing_video','$mon_is_open', '$mon_open_time','$mon_close_time','$mon_check', '$tue_is_open', '$tue_open_time', '$tue_close_time','$tue_check','$wed_is_open', '$wed_open_time', '$wed_close_time','$wed_check'
+                , '$thu_is_open', '$thu_open_time', '$thu_close_time','$thu_check', '$fri_is_open', '$fri_open_time', '$fri_close_time','$fri_check' ,'$sat_is_open', '$sat_open_time', '$sat_close_time','$sat_check'
+                , '$sun_is_open', '$sun_open_time', '$sun_close_time','$sun_check','$listing_info_question', '$listing_info_answer','$ser_deli_method','$age_group')";
+        //print_r($listing_qry);die;
 
         $listing_res = mysqli_query($conn,$listing_qry);
         $ListingID = mysqli_insert_id($conn);
@@ -374,8 +532,49 @@ $cover_image = $_SESSION['cover_image'];
             unset($_SESSION['reg_stamp']); 
             unset($_SESSION["reg_number"]); 
             unset($_SESSION["primary_location"]);
+            unset($_SESSION['listing_description']);
+            unset($_SESSION['service_1_name']);
+            unset($_SESSION['service_1_price']);
+            unset($_SESSION['service_1_detail']);
+            unset($_SESSION['service_1_image']);
+            
+            unset($_SESSION['google_map']);
+            unset($_SESSION['360_view']);
+            unset($_SESSION['listing_video']);
+            unset($_SESSION['gallery_image']);
+            
+            unset($_SESSION['listing_info_question']);
+            unset($_SESSION['listing_info_answer']);
+
+            unset($_SESSION['mon_is_open']);
+            unset($_SESSION['mon_open_time']);
+            unset($_SESSION['mon_close_time']);
+
+            unset($_SESSION['tue_is_open']);
+            unset($_SESSION['tue_open_time']);
+            unset($_SESSION['tue_close_time']);
+
+            unset($_SESSION['wed_is_open']);
+            unset($_SESSION['wed_open_time']);
+            unset($_SESSION['wed_close_time']);
+
+            unset($_SESSION['thu_is_open']);
+            unset($_SESSION['thu_open_time']);
+            unset($_SESSION['thu_close_time']);
+
+            unset($_SESSION['fri_is_open']);
+            unset($_SESSION['fri_open_time']);
+            unset($_SESSION['fri_close_time']);
+
+            unset($_SESSION['sat_is_open']);
+            unset($_SESSION['sat_open_time']);
+            unset($_SESSION['sat_close_time']);
+
+            unset($_SESSION['sun_is_open']);
+            unset($_SESSION['sun_open_time']);
+            unset($_SESSION['sun_close_time']);
                
-            header('Location: add-listing-step-6?code='.$ListCode);
+            header('Location: add-listing-step-new-9?code='.$ListCode);
         } else {
 
             $_SESSION['status_msg'] = $BIZBOOK['OOPS_SOMETHING_WENT_WRONG'];

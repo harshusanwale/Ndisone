@@ -45,7 +45,7 @@ if (!isset($_SESSION['listing_codea']) || empty($_SESSION['listing_codea'])) {
                             </a>
                         </li>
                         <li>
-                            <a href="edit-listing-step-new-2?row=<?php echo $listing_codea; ?>">
+                            <a href="edit-listing-step-new-2?row=<?php echo $listing_codea; ?>" >
                                 <span><?php echo $BIZBOOK['STEP2']; ?></span>
                                 <b>Service Offered</b>
                             </a>
@@ -59,18 +59,36 @@ if (!isset($_SESSION['listing_codea']) || empty($_SESSION['listing_codea'])) {
                         <li>
                             <a href="edit-listing-step-new-4?row=<?php echo $listing_codea; ?>">
                                 <span><?php echo $BIZBOOK['STEP4']; ?></span>
-                                <b>Work Hours</b>
+                                <b><?php echo $BIZBOOK['SPECIAL_OFFERS']; ?></b>
                             </a>
                         </li>
                         <li>
                             <a href="edit-listing-step-new-5?row=<?php echo $listing_codea; ?>">
                                 <span><?php echo $BIZBOOK['STEP5']; ?></span>
-                                <b><?php echo $BIZBOOK['OTHER']; ?></b>
+                                <b><?php echo $BIZBOOK['MAP_PHOTO_GALLARY']; ?></b>
                             </a>
                         </li>
                         <li>
                             <a href="edit-listing-step-new-6?row=<?php echo $listing_codea; ?>">
                                 <span><?php echo $BIZBOOK['STEP6']; ?></span>
+                                <b>Work Hours</b>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="edit-listing-step-new-7?row=<?php echo $listing_codea; ?>">
+                                <span><?php echo $BIZBOOK['STEP7']; ?></span>
+                                <b><?php echo $BIZBOOK['BUSINESS_DETAILS']; ?></b>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="edit-listing-step-new-8?row=<?php echo $listing_codea; ?>">
+                                <span><?php echo $BIZBOOK['STEP8']; ?></span>
+                                <b><?php echo $BIZBOOK['OTHER']; ?></b>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="edit-listing-step-new-9?row=<?php echo $listing_codea; ?>">
+                                <span><?php echo $BIZBOOK['STEP9']; ?></span>
                                 <b><?php echo $BIZBOOK['DONE']; ?></b>
                             </a>
                         </li>

@@ -31,97 +31,18 @@ if ($listing_count_user >= $plan_type_listing_count) {
 if (isset($_POST['listing_submit'])) {
     // print_r($_POST);die;
 
-// Basic Personal Details
+// Service Offered Details
     $_SESSION['category_id'] = $_POST["category_id"];
     $_SESSION['sub_category_id'] = $_POST["sub_category_id"];
-    //  $_SESSION['ser_offer'] = $_POST["ser_offer"];
-    // $_SESSION['last_name'] = $_POST["last_name"];
-    // $_SESSION['mobile_number'] = $_POST["mobile_number"];
-    // $_SESSION['email_id'] = $_POST["email_id"];
-
-    // $_SESSION['register_mode'] = "Direct";
-    // $_SESSION['user_status'] = "Inactive";
-
-// Common Listing Details
-    // $_SESSION['listing_name'] = $_POST["listing_name"];
-    // $_SESSION['listing_mobile'] = $_POST["listing_mobile"];
-    // $_SESSION['listing_email'] = $_POST["listing_email"];
-    // $_SESSION['listing_website'] = $_POST["listing_website"];
-    // $_SESSION['listing_whatsapp'] = $_POST["listing_whatsapp"];
-    // $_SESSION['listing_address'] = $_POST["listing_address"];
-    // $_SESSION['listing_lat'] = $_POST["listing_lat"];
-    // $_SESSION['listing_lng'] = $_POST["listing_lng"];
-    // $_SESSION['listing_description'] = $_POST["listing_description"];
-    // $_SESSION['category_id'] = $_POST["category_id"];
-    // $_SESSION['sub_category_id'] = $_POST["sub_category_id"];
-    // $_SESSION['country_id'] = $_POST["country_id"];
-    // $_SESSION['service_locations'] = $_POST["service_locations"];
-//        $state_id = $_POST["state_id"];
-
-
-    // $_SESSION['state_id'] = "1";
-
-    // $_SESSION['city_id'] = $_POST["city_id"];
-
-
-    //************************  Profile Image Upload starts  **************************
-
-    // if (!empty($_FILES['profile_image']['name'])) {
-    //     $file = rand(1000, 100000) . $_FILES['profile_image']['name'];
-    //     $file_loc = $_FILES['profile_image']['tmp_name'];
-    //     $file_size = $_FILES['profile_image']['size'];
-    //     $file_type = $_FILES['profile_image']['type'];
-    //     $allowed = array("image/jpeg", "image/pjpeg", "image/png", "image/gif", "image/webp", "image/svg", "application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.openxmlformats-officedocument.wordprocessingml.template");
-    //     if(in_array($file_type, $allowed)) {
-    //         $folder = "images/listings/";
-    //         $new_size = $file_size / 1024;
-    //         $new_file_name = strtolower($file);
-    //         $event_image = str_replace(' ', '-', $new_file_name);
-    //         //move_uploaded_file($file_loc, $folder . $event_image);
-    //         $profile_image = compressImage($event_image, $file_loc, $folder, $new_size);
-    //     }else{
-    //         $profile_image = '';
-    //     }
-    // }
-
-    // $_SESSION['profile_image'] = $profile_image;
-
-//************************  Profile Image Upload Ends  **************************
-
-//************************  Cover Image Upload starts  **************************
-
-    // if (!empty($_FILES['cover_image']['name'])) {
-    //     $file = rand(1000, 100000) . $_FILES['cover_image']['name'];
-    //     $file_loc = $_FILES['cover_image']['tmp_name'];
-    //     $file_size = $_FILES['cover_image']['size'];
-    //     $file_type = $_FILES['cover_image']['type'];
-    //     $allowed = array("image/jpeg", "image/pjpeg", "image/png", "image/gif", "image/webp", "image/svg", "application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.openxmlformats-officedocument.wordprocessingml.template");
-    //     if(in_array($file_type, $allowed)) {
-    //         $folder = "images/listing-ban/";
-    //         $new_size = $file_size / 1024;
-    //         $new_file_name = strtolower($file);
-    //         $event_image = str_replace(' ', '-', $new_file_name);
-    //         //move_uploaded_file($file_loc, $folder . $event_image);
-    //         $cover_image = compressImage($event_image, $file_loc, $folder, $new_size);
-    //     }else{
-    //         $cover_image = '';
-    //     }
-    // }
-
-   // $_SESSION['cover_image'] = $cover_image;
-
-//************************  Cover Image Upload ends  **************************
-
-
-    // if ($_SESSION['listing_name'] == NULL || empty($_SESSION['listing_name'])) {
-    //     header('Location: add-listing-step-1');
-    // }
+  
 }
 
 ?>
 
 
 <!-- START -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb1vGO92hZfS0oRzq9X9VhDJzz2BcqV0w&libraries=places"></script>
+
 <!--PRICING DETAILS-->
 <section class="<?php if ($footer_row['admin_language'] == 2) {
     echo "lg-arb";
@@ -152,18 +73,48 @@ if (isset($_POST['listing_submit'])) {
                         <li>
                             <a href="#!">
                                 <span><?php echo $BIZBOOK['STEP4']; ?></span>
-                                <b><?php echo $BIZBOOK['WPR_HOURS']; ?></b>
+                                <b><?php echo $BIZBOOK['SPECIAL_OFFERS']; ?></b>
                             </a>
                         </li>
-                        <li>
+                        <!-- <li>
+                            <a href="#!">
+                                <span><?php echo $BIZBOOK['STEP4']; ?></span>
+                                <b><?php echo $BIZBOOK['WPR_HOURS']; ?></b>
+                            </a>
+                        </li> -->
+                        <!-- <li>
                             <a href="#!">
                                 <span><?php echo $BIZBOOK['STEP5']; ?></span>
                                 <b><?php echo $BIZBOOK['OTHER']; ?></b>
+                            </a>
+                        </li> -->
+                        <li>
+                            <a href="#!">
+                                <span><?php echo $BIZBOOK['STEP5']; ?></span>
+                                <b><?php echo $BIZBOOK['MAP_PHOTO_GALLARY']; ?></b>
                             </a>
                         </li>
                         <li>
                             <a href="#!">
                                 <span><?php echo $BIZBOOK['STEP6']; ?></span>
+                                <b><?php echo $BIZBOOK['WPR_HOURS']; ?></b>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#!">
+                                <span><?php echo $BIZBOOK['STEP7']; ?></span>
+                                <b><?php echo $BIZBOOK['BUSINESS_DETAILS']; ?></b>
+                            </a>
+                        </li>
+                         <li>
+                            <a href="#!">
+                                <span><?php echo $BIZBOOK['STEP8']; ?></span>
+                                <b><?php echo $BIZBOOK['OTHER']; ?></b>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#!">
+                                <span><?php echo $BIZBOOK['STEP9']; ?></span>
                                 <b><?php echo $BIZBOOK['DONE']; ?></b>
                             </a>
                         </li>
@@ -318,7 +269,7 @@ if (isset($_POST['listing_submit'])) {
                             <!--FILED END-->
                             <!--PROGRESSBAR START-->
                             <div class="progress biz-prog">
-                                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width:40%">40%</div>
+                                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width:30%">30%</div>
                             </div>
                             <!--PROGRESSBAR END-->
                         </form>
@@ -331,9 +282,6 @@ if (isset($_POST['listing_submit'])) {
 <!--END PRICING DETAILS-->
 <?php
 include "footer.php";
-?>
-<?php
-include "google_address_api.php";
 ?>
 
 

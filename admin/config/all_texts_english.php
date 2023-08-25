@@ -1834,6 +1834,7 @@ $BIZBOOK['SER-LOCATION'] = "Locations";
 $BIZBOOK['WPR_HOURS'] = "Work Hours";
 
 
+$BIZBOOK['BUSINESS_DETAILS'] = "Business Details";
 
 $BIZBOOK['BASIC_INFO'] = "Basic Info";
 
@@ -1879,6 +1880,13 @@ $BIZBOOK['STEP5'] = "Step 5";
 
 
 $BIZBOOK['STEP6'] = "Step 6";
+
+$BIZBOOK['STEP7'] = "Step 7";
+
+$BIZBOOK['STEP8'] = "Step 8";
+
+$BIZBOOK['STEP9'] = "Step 9";
+
 
 
 
@@ -1987,6 +1995,9 @@ $BIZBOOK['PASTE_IFRAME_CODE'] = "Paste Your Youtube iframe Code here";
 
 
 $BIZBOOK['MAP_360_VIEW'] = "Map and 360 view";
+
+
+$BIZBOOK['MAP_PHOTO_GALLARY'] = "Map & Photo Gallary";
 
 
 

@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     "use strict";
     //getsource();
@@ -184,6 +185,55 @@ $(document).ready(function () {
         var _removListSer = $(".add-list-ser ul li").length;
         if(_removListSer >= 2){
             $(".add-list-ser ul li:last-child").remove();
+        }
+        else{
+            alert("Sorry! you are not allowed to remove the last one.");
+        }
+    });
+
+
+    //SPECIAL OFFER LIST ADD - APPEND
+    $(".lis-add-off").click(function () {
+        //alert("dfd");
+        $(".add-list-off ul li:last-child").after('<li><div class="row"> <div class="col-md-6"> <div class="form-group"> <input type="text" name="service_1_name[]" class="form-control" placeholder="Offer name *"> </div> </div> <div class="col-md-6"> <div class="form-group"> <input type="text" class="form-control" name="service_1_price[]" onkeypress="return isNumber(event)" placeholder="Price"> </div> </div> </div><div class="row"> <div class="col-md-12"> <div class="form-group"> <textarea class="form-control" name="service_1_detail[]" placeholder="Details about this offer"></textarea> </div> </div> </div><div class="row"> <div class="col-md-12"> <div class="form-group"><div class="fil-img-uplo"> <span class="dumfil">Choose offer image</span> <input type="file" name="service_1_image[]" accept="image/*,.jpg,.jpeg,.png" class="form-control"> </div></div> </div> </div><div class="row"> <div class="col-md-12"> <div class="form-group"> <input type="text" name="service_1_view_more[]" class="form-control" placeholder="View More Link"></div></div></div></li>');
+    });
+    //SPECIAL OFFER LIST REMOVE - APPEND
+    $(".lis-add-rem").on('click', function () {
+        var _removListOff = $(".add-list-off ul li").length;
+        if(_removListOff >= 2){
+            $(".add-list-off ul li:last-child").remove();
+        }
+        else{
+            alert("Sorry! you are not allowed to remove the last one.");
+        }
+    });
+
+
+    
+    //VIDEO LIST ADD - APPEND
+    $(".lis-add-oadvideo").on('click', function () {
+        $(".add-list-map ul li:last-child").after('<li> <div class="row"> <div class="col-md-12"> <div class="form-group"> <textarea id="listing_video" name="listing_video[]" class="form-control" placeholder="Paste Your Youtube Url here"></textarea> </div> </div> </div> </li>');
+    });
+    //VIDEO LIST REMOVE - APPEND
+    $(".lis-add-orevideo").on('click', function () {
+        var _removVid = $(".add-list-map ul li").length;
+        if(_removVid >= 2){
+            $(".add-list-map ul li:last-child").remove();
+        }
+        else{
+            alert("Sorry! you are not allowed to remove the last one.");
+        }
+    });
+
+    //SPECIAL OFFER LIST ADD - APPEND
+    $(".lis-add-oad").on('click', function () {
+        $(".add-lis-oth ul li:last-child").after('<li> <div class="row"> <div class="col-md-5"> <div class="form-group"> <input type="text" name="listing_info_question[]" class="form-control" placeholder="Type your information"> </div> </div><div class="col-md-2"> <div class="form-group"> <i class="material-icons">arrow_forward</i> </div> </div> <div class="col-md-5"> <div class="form-group"> <input type="text" name="listing_info_answer[]" class="form-control" placeholder="yes"> </div> </div> </div> </li>');
+    });
+    //SPECIAL OFFER LIST REMOVE - APPEND
+    $(".lis-add-ore").on('click', function () {
+        var _removListOthe = $(".add-lis-oth ul li").length;
+        if(_removListOthe >= 2){
+            $(".add-lis-oth ul li:last-child").remove();
         }
         else{
             alert("Sorry! you are not allowed to remove the last one.");
@@ -405,34 +455,8 @@ $(document).ready(function () {
         }
     });
 
-    //SPECIAL OFFER LIST ADD - APPEND
-    $(".lis-add-off").click(function () {
-        $(".add-list-off ul li:last-child").after('<li><div class="row"> <div class="col-md-6"> <div class="form-group"> <input type="text" name="service_1_name[]" class="form-control" placeholder="Offer name *"> </div> </div> <div class="col-md-6"> <div class="form-group"> <input type="text" class="form-control" name="service_1_price[]" onkeypress="return isNumber(event)" placeholder="Price"> </div> </div> </div><div class="row"> <div class="col-md-12"> <div class="form-group"> <textarea class="form-control" name="service_1_detail[]" placeholder="Details about this offer"></textarea> </div> </div> </div><div class="row"> <div class="col-md-12"> <div class="form-group"><div class="fil-img-uplo"> <span class="dumfil">Choose offer image</span> <input type="file" name="service_1_image[]" accept="image/*,.jpg,.jpeg,.png" class="form-control"> </div></div> </div> </div><div class="row"> <div class="col-md-12"> <div class="form-group"> <input type="text" name="service_1_view_more[]" class="form-control" placeholder="View More Link"></div></div></div></li>');
-    });
-    //SPECIAL OFFER LIST REMOVE - APPEND
-    $(".lis-add-rem").on('click', function () {
-        var _removListOff = $(".add-list-off ul li").length;
-        if(_removListOff >= 2){
-            $(".add-list-off ul li:last-child").remove();
-        }
-        else{
-            alert("Sorry! you are not allowed to remove the last one.");
-        }
-    });
-    //SPECIAL OFFER LIST ADD - APPEND
-    $(".lis-add-oad").on('click', function () {
-        $(".add-lis-oth ul li:last-child").after('<li> <div class="row"> <div class="col-md-5"> <div class="form-group"> <input type="text" name="listing_info_question[]" class="form-control" placeholder="Type your information"> </div> </div><div class="col-md-2"> <div class="form-group"> <i class="material-icons">arrow_forward</i> </div> </div> <div class="col-md-5"> <div class="form-group"> <input type="text" name="listing_info_answer[]" class="form-control" placeholder="yes"> </div> </div> </div> </li>');
-    });
-    //SPECIAL OFFER LIST REMOVE - APPEND
-    $(".lis-add-ore").on('click', function () {
-        var _removListOthe = $(".add-lis-oth ul li").length;
-        if(_removListOthe >= 2){
-            $(".add-lis-oth ul li:last-child").remove();
-        }
-        else{
-            alert("Sorry! you are not allowed to remove the last one.");
-        }
-    });
+
+    
     //MOBILE MENU - DASHBOARD BOARD MENU SHOW
     $(".mv-pro").on('click', function () {
         $(".mv-pro-menu").slideToggle();
@@ -471,20 +495,6 @@ $(document).ready(function () {
     });
 
 
-    //VIDEO LIST ADD - APPEND
-    $(".lis-add-oadvideo").on('click', function () {
-        $(".add-list-map ul li:last-child").after('<li> <div class="row"> <div class="col-md-12"> <div class="form-group"> <textarea id="listing_video" name="listing_video[]" class="form-control" placeholder="Paste Your Youtube Url here"></textarea> </div> </div> </div> </li>');
-    });
-    //VIDEO LIST REMOVE - APPEND
-    $(".lis-add-orevideo").on('click', function () {
-        var _removVid = $(".add-list-map ul li").length;
-        if(_removVid >= 2){
-            $(".add-list-map ul li:last-child").remove();
-        }
-        else{
-            alert("Sorry! you are not allowed to remove the last one.");
-        }
-    });
 
     //ENQUIRY AND REVIEW LIKE
     // $(".enq-sav i").click(function(){
