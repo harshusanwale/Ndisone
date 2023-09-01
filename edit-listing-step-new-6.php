@@ -28,6 +28,34 @@ if (!isset($_SESSION['listing_codea']) || empty($_SESSION['listing_codea'])) {
 
 ?>
 <!-- START -->
+<style>
+ .Monday,
+.Tuesday,
+.Wednesday,
+.Thursday,
+.Friday,
+.Saturday,
+.Sunday {
+display: none;
+}
+
+.dinon {
+
+display: block;
+
+}
+
+.diBlo {
+
+display: none;
+
+}
+.work_hour_check{
+position: absolute;
+right: 31px;
+top: 15px;   
+}
+</style>
 <!--PRICING DETAILS-->
 <section class="<?php if ($footer_row['admin_language'] == 2) {
     echo "lg-arb";
@@ -106,6 +134,9 @@ if (!isset($_SESSION['listing_codea']) || empty($_SESSION['listing_codea'])) {
                         ?>
                         <form action="listing_update_new.php" class="listing_form_5" id="listing_form_5"
                               name="listing_form_5" method="post" enctype="multipart/form-data">
+                            <div class="work_hour_check">
+                                <input type="checkbox" name="work_hour_check" <?php if($listings_a_row['work_hour_check'] == 1){echo 'checked="checked"'; }?>>
+                            </div>
                             <input type="hidden" id="src_path" value="edit-6"
                                    name="src_path" class="validate">
                             <input type="hidden" id="listing_codea" value="<?php echo $listing_codea; ?>"

@@ -13,8 +13,24 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
         
         $reg_group = "" ;
         $ser_offer  = "" ;
+        $listing_type = $_SESSION['user_type'];
         $work_hour_check = $_SESSION["work_hour_check"];
         $reg_stamp_checkbox = $_SESSION["reg_stamp_checkbox"];
+
+        if($reg_stamp_checkbox == 'on'){
+            $reg_stamp_checkbox =  1 ;
+        }else{
+            $reg_stamp_checkbox =   0 ;
+        }
+
+
+        if($work_hour_check == 'on'){
+            $work_hour_check =  1 ;
+        }else{
+            $work_hour_check =   0 ;
+        }
+
+
         $_SESSION['listing_info_question'] = $_POST["listing_info_question"];
         $_SESSION['listing_info_answer'] = $_POST["listing_info_answer"];
        
@@ -52,9 +68,9 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
             $reg_group .= $prefix .  $fruit ;
             $prefix = ',';
         }
+        // print_r($_SESSION["category_id"]);die;
 
-        //$category_id = $_SESSION["category_id"];
-        $category_id = 30;
+        $category_id = $_SESSION["category_id"];
 
         $sub_category_id123 = $_SESSION["sub_category_id"];
 
@@ -358,7 +374,7 @@ $listing_qry = "INSERT INTO " . TBL . "listings
                  , service_4_name,service_4_price,service_4_image,service_5_name,service_5_price, service_5_image, service_6_name,service_6_price, service_6_image, gallery_image, opening_days, opening_time, closing_time,  gplus_link, google_map
                  , 360_view, listing_video,mon_is_open, mon_open_time, mon_close_time,mon_check, tue_is_open, tue_open_time, tue_close_time,tue_check, wed_is_open, wed_open_time, wed_close_time,wed_check
                  , thu_is_open, thu_open_time, thu_close_time,thu_check, fri_is_open, fri_open_time, fri_close_time,fri_check, sat_is_open, sat_open_time, sat_close_time,sat_check
-                 , sun_is_open,sun_open_time, sun_close_time,sun_check,listing_info_question , listing_info_answer,ser_deli_method,age_group) 
+                 , sun_is_open,sun_open_time, sun_close_time,sun_check,listing_info_question , listing_info_answer,ser_deli_method,age_group,reg_stamp_check,work_hour_check,listing_type) 
                 VALUES 
                 ('$user_id', '$category_id', '$sub_category_id', '$listing_type_id', '$listing_name', '$primary_location', '$service_locations',
                 '$fb_link', '$twitter_link', '$listing_status', '$payment_status', '$listing_slug', '$curDate', '$abn_number', '$organi_type', '$ndis_reg', '$ndis_early_child', '$reg_number', '$reg_stamp', '$com_land_num',
@@ -367,7 +383,7 @@ $listing_qry = "INSERT INTO " . TBL . "listings
                 ,'$service_4_name', '$service_4_price', '$service_4_image', '$service_5_name', '$service_5_price', '$service_5_image', '$service_6_name', '$service_6_price', '$service_6_image','$gallery_image', '$opening_days', '$opening_time', '$closing_time','$gplus_link', '$google_map'
                 ,'$threesixty_view', '$listing_video','$mon_is_open', '$mon_open_time','$mon_close_time','$mon_check', '$tue_is_open', '$tue_open_time', '$tue_close_time','$tue_check','$wed_is_open', '$wed_open_time', '$wed_close_time','$wed_check'
                 , '$thu_is_open', '$thu_open_time', '$thu_close_time','$thu_check', '$fri_is_open', '$fri_open_time', '$fri_close_time','$fri_check' ,'$sat_is_open', '$sat_open_time', '$sat_close_time','$sat_check'
-                , '$sun_is_open', '$sun_open_time', '$sun_close_time','$sun_check','$listing_info_question', '$listing_info_answer','$ser_deli_method','$age_group')";
+                , '$sun_is_open', '$sun_open_time', '$sun_close_time','$sun_check','$listing_info_question', '$listing_info_answer','$ser_deli_method','$age_group','$reg_stamp_checkbox','$work_hour_check','$listing_type')";
         //print_r($listing_qry);die;
 
         $listing_res = mysqli_query($conn,$listing_qry);
@@ -507,6 +523,8 @@ $listing_qry = "INSERT INTO " . TBL . "listings
             unset($_SESSION['ser_special']);
             unset($_SESSION['pet_frie']);
             unset($_SESSION['days']);
+            unset($_SESSION["organi_type"]);
+            unset($_SESSION["ndis_reg"]);
 
             unset($_SESSION['register_mode']);
             unset($_SESSION['user_status']);
@@ -575,6 +593,8 @@ $listing_qry = "INSERT INTO " . TBL . "listings
             unset($_SESSION['sun_is_open']);
             unset($_SESSION['sun_open_time']);
             unset($_SESSION['sun_close_time']);
+            unset($_SESSION["work_hour_check"]);
+            unset($_SESSION["reg_stamp_checkbox"]);
                
             header('Location: add-listing-step-new-9?code='.$ListCode);
         } else {

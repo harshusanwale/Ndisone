@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         //On Update data from edit listing step -1 starts
         if ($src_path == "edit-1")
         {
-
+   
             $listing_id = $_POST["listing_id"];
             $reg_stamp_old = $_POST["reg_stamp_old"];
             $profile_image_old = $_POST["profile_image_old"];
@@ -91,6 +91,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             $abn_number = $_POST["abn_number"];
             $organi_type = $_POST["organi_type"];
             $ndis_reg = $_POST["ndis_reg"];
+         
+            $reg_stamp_checkbox = $_POST["reg_stamp_checkbox"];
+
+            if($reg_stamp_checkbox == 'on'){
+                $reg_stamp_checkbox =  1 ;
+            }else{
+                $reg_stamp_checkbox =   0 ;
+            }
             $reg_number = $_POST["reg_number"];
             $register_mode = "Direct";
 
@@ -273,7 +281,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                  listing_type_id='" . $listing_type_id . "', organi_type='" . $organi_type . "', ndis_regs='" . $ndis_reg . "', reg_number='" . $reg_number . "' 
     , com_land_number='" . $com_land_num . "', com_phone_1='" . $com_phone_1 . "', com_phone_2='" . $com_phone_2 . "',listing_name	='" . $listing_name . "',listing_description='" . $listing_description . "', com_email='" . $comp_email . "'
     , com_website='" . $com_website . "', listing_address='" . $primary_location . "', listing_slug ='" . $listing_slug . "'
-    ,insta_url='" . $insta_url . "',twitter_link='" . $twi_url . "',linkd_url='" . $link_url . "',reg_group='" . $reg_groupid . "',fb_link='" . $face_url . "',reg_stamp='" . $reg_stamp_image . "',profile_image='" . $profile_image . "',cover_image='" . $cover_image . "'
+    ,insta_url='" . $insta_url . "',twitter_link='" . $twi_url . "',linkd_url='" . $link_url . "',reg_group='" . $reg_groupid . "',fb_link='" . $face_url . "',reg_stamp='" . $reg_stamp_image . "',profile_image='" . $profile_image . "',cover_image='" . $cover_image . "',reg_stamp_check='" . $reg_stamp_checkbox . "'
     where listing_id='" . $listing_id . "'";
 
         }
@@ -285,7 +293,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         {
             $listing_id = $_POST["listing_id"];
 
-            $category_id = $_POST["category_id"];
+            // $category_id = $_POST["category_id"];
 
             $sub_category_id123 = $_POST["sub_category_id"];
             $prefix = $fruitList = '';
@@ -294,6 +302,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                 $sub_category_id .= $prefix . $fruit;
                 $prefix = ',';
             }
+
+            $arr = array();
+            foreach ($sub_category_id123 as $catid)
+            {
+                $category_id1 = getsubCategoryCategories($catid);
+                $testid = $category_id1['category_id'];
+                
+                if(!in_array( $testid ,$arr))
+                {
+                    $arr[] = $testid;     
+                }            
+            }
+    
+           $catid = implode(",", $arr);
+           $category_id =   $catid;
             // print_r($_POST);die;
             $listing_qry = "UPDATE  " . TBL . "listings SET user_id='" . $user_id . "',category_id='" . $category_id . "', sub_category_id='" . $sub_category_id . "'
              where listing_id='" . $listing_id . "'";
@@ -529,6 +552,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                     $sun_open_time = $_POST['sun_open_time'];
                     $sun_close_time = $_POST['sun_close_time'];
 
+                    $work_hour_check = $_POST["work_hour_check"];
+
+                    if($work_hour_check == 'on'){
+                        $work_hour_check =  1 ;
+                    }else{
+                        $work_hour_check =   0 ;
+                    }
+
             $listing_qry =
                 "UPDATE  " . TBL . "listings  SET user_id='" . $user_id . "'
         ,mon_is_open='" . $mon_is_open . "',mon_open_time='" . $mon_open_time . "',mon_close_time='" . $mon_close_time . "'
@@ -537,7 +568,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         ,thu_is_open='" . $thu_is_open . "',thu_open_time='" . $thu_open_time . "',thu_close_time='" . $thu_close_time . "'
         ,fri_is_open='" . $fri_is_open . "',fri_open_time='" . $fri_open_time . "',fri_close_time='" . $fri_close_time . "'
         ,sat_is_open='" . $sat_is_open . "',sat_open_time='" . $sat_open_time . "',sat_close_time='" . $sat_close_time . "'
-        ,sun_is_open='" . $sun_is_open . "',sun_open_time='" . $sun_open_time . "',sun_close_time='" . $sun_close_time . "'
+        ,sun_is_open='" . $sun_is_open . "',sun_open_time='" . $sun_open_time . "',sun_close_time='" . $sun_close_time . "',work_hour_check='" . $work_hour_check . "'
         where listing_id='" . $listing_id . "'";
 
         }

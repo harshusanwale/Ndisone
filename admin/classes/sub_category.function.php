@@ -70,3 +70,19 @@ function getCountSubCategoryCategory($arg)
 
 }
 
+
+//Get All Sub Category with given  sub Category Id
+function getsubCategoryCategories($arg)
+{
+   
+    global $conn;
+
+    $sql = "SELECT * FROM " . TBL . "sub_categories where sub_category_id='".$arg."' ORDER BY sub_category_id DESC";
+    $rs = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($rs);
+    return  $row;
+
+}
+
+
+

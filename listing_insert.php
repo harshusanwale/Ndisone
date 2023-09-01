@@ -51,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
             $prefix = ',';
         }
 
-        $category_id = $_SESSION["category_id"];
 
         $sub_category_id123 = $_SESSION["sub_category_id"];
 

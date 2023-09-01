@@ -39,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $_SESSION['user_code'] = $user_code;
                     $_SESSION['user_name'] = $user_name;
                     $_SESSION['user_id'] = $user_id;
+                    $_SESSION['user_type'] = $login_row['user_type'];
 
                     if ($src == '' || empty($src)) {
                         

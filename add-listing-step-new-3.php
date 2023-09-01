@@ -30,10 +30,23 @@ if ($listing_count_user >= $plan_type_listing_count) {
 
 if (isset($_POST['listing_submit'])) {
     // print_r($_POST);die;
-// Service Offered Details
-    $_SESSION['category_id'] = $_POST["category_id"];
-    $_SESSION['sub_category_id'] = $_POST["sub_category_id"];
-  
+// Service Offered Details   
+       $_SESSION['sub_category_id'] = $_POST["sub_category_id"];
+       $arr = array();
+        foreach ($_SESSION['sub_category_id'] as $catid)
+        {
+            $category_id1 = getsubCategoryCategories($catid);
+            $testid = $category_id1['category_id'];
+            
+            if(!in_array( $testid ,$arr))
+            {
+                $arr[] = $testid;     
+            }            
+        }
+    
+        $catid = implode(",", $arr);
+       $_SESSION["category_id"] =   $catid;
+        
 }
 
 ?>

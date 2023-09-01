@@ -48,7 +48,8 @@ if($listing_count_user >= $plan_type_listing_count){
 }
 
 #coverimagePreview {
-  height:30rem;
+height: 18rem;
+width: 41rem;
   border : 1px solid black;
   /* max-width: 200px;
   max-height: 200px; */
@@ -172,12 +173,20 @@ if($listing_count_user >= $plan_type_listing_count){
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Organisation Type:</label>
+                                    <?php if($_SESSION['user_type'] == 'Service provider'){?>
                                     <select name="organi_type" id="organi_type" class="form-control colorBackground ca-check-plan empty valid">
                                             <option value="">--Select--</option>
                                             <option value="1" <?php if($_SESSION['organi_type'] == 1){ echo "selected" ;}?>>Sole Trader</option>
                                             <option value="2"  <?php if($_SESSION['organi_type'] == 2){ echo  "selected" ; }?>>Digital</option>
                                             <option value="3"  <?php if($_SESSION['organi_type'] == 3){ echo  "selected" ; }?>>Agency</option>                                            
                                     </select>
+                                    <?php }else if($_SESSION['user_type'] == 'Support coordinator') {?>
+                                        <select name="organi_type" id="organi_type" class="form-control colorBackground ca-check-plan empty valid">
+                                            <option value="">--Select--</option>
+                                            <option value="1" <?php if($_SESSION['organi_type'] == 1){ echo "selected" ;}?>>Sole Trader</option>
+                                            <option value="2"  <?php if($_SESSION['organi_type'] == 3){ echo  "selected" ; }?>>Agency</option>                                            
+                                    </select>
+                                    <?php } ?>
                                     <!-- <label for="organi_type" class="error">Organisation type is Required</label> -->
                                 </div>
                                 <label for="organi_type" class="error"></label>

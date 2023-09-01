@@ -345,11 +345,12 @@ if ($_SESSION['listing_name'] == NULL || empty($_SESSION['listing_name'])) {
                                         <div class="chbox">
                                         <?php 
                                         if($_SESSION['ser_offer']) {?>
-                                            <input type="checkbox" name="sub_category_id[]" value="<?php echo $subrow['sub_category_id']; ?>"  <?php if (in_array($subrow, $_SESSION['ser_offer'])) echo 'checked="checked"'; ?> class="feature_check" id="suppOffr<?php echo $subrow['sub_category_id']; ?>"/>
+                                            <input type="checkbox" name="sub_category_id[]" value="<?php echo $subrow['sub_category_id']; ?>"  <?php if (in_array($subrow['sub_category_id'], $_SESSION['ser_offer'])) echo 'checked="checked"'; ?> class="feature_check" id="suppOffr<?php echo $subrow['sub_category_id']; ?>"/>
                                             <label for="suppOffr<?php echo $subrow['sub_category_id']; ?>"><?php echo $subrow['sub_category_name']; ?></label>
                                             <?php } else {?>
                                             <input type="checkbox" name="sub_category_id[]" value="<?php echo $subrow['sub_category_id']; ?>" class="feature_check" id="suppOffr<?php echo $subrow['sub_category_id']; ?>"/>
                                             <label for="suppOffr<?php echo $subrow['sub_category_id']; ?>"><?php echo $subrow['sub_category_name']; ?></label>
+                                            <!-- <input type="hidden" id="catid<?php echo $subrow['category_id']; ?>" name="catid[]" value="<?php echo $subrow['category_id']; ?>"> -->
                                             <?php } ?>
                                            
                                         </div>
@@ -359,6 +360,7 @@ if ($_SESSION['listing_name'] == NULL || empty($_SESSION['listing_name'])) {
                                 <?php } ?>
                             </div>
                             <!--FILED END-->
+                            <div id="errorMessages"></div>
                             <!--FILED START-->
                             <div class="row">
                                 <div class="col-md-6">
@@ -431,6 +433,31 @@ include "footer.php";
             }
         });
     }
+</script>
+<script>
+    //     // Function to handle checkbox change event
+    //     function handleCheckboxChange() {
+    //         var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            
+    //         checkboxes.forEach(function(checkbox) {
+    //             checkbox.addEventListener('change', function() {
+    //                 if (checkbox.checked) {
+    //                     // Checkbox is checked
+    //                     console.log("Checkbox with ID " + checkbox.id + " is checked.");
+    //                     // You can add additional logic here if needed
+    //                 } else {
+    //                     // Checkbox is unchecked
+    //                     console.log("Checkbox with ID " + checkbox.id + " is unchecked.");
+    //                     // You can add additional logic here if needed
+    //                 }
+    //             });
+    //         });
+    //     }
+
+    //     // Call the function to set up onchange handlers for checkboxes
+    //     handleCheckboxChange();
+    // </script>
+
 </script>
 </body>
 </html>

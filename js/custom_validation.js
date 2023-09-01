@@ -325,6 +325,187 @@ $(document).ready(function () {
 // Listing Form -1 validation ends
 
 
+// Listing Form -2 validation starts
+// Validation function
+function validateForm() {
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    var checked = false;
+
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+            checked = true;
+            break;
+        }
+    }
+
+    if (!checked) {
+        alert("Please select service offer.");
+        return false; // Prevent form submission
+    }
+
+    return true; // Allow form submission
+}
+
+// Attach the validation function to the form's onsubmit event
+document.getElementById("listing_form_2").onsubmit = validateForm;
+// Listing Form -2 validation ends
+
+
+//Edit  Listing Form -1 validation starts
+
+$(document).ready(function () {
+
+    $("#edit_listing_form_1").validate({
+
+        onfocusout: function (element) {
+
+            $(element).valid();
+
+        },
+
+        rules: {
+
+            listing_name: {required: true},
+
+            abn_number: {required: true,number: true},
+
+            organi_type: {required: true},
+
+            ndis_reg: {required: true},
+
+            reg_number: {required: true},
+
+            ndis_early_child: {required: true},
+
+            com_phone_1: {required: true,number: true},
+
+            com_phone_2: {required: true,number: true},
+
+            com_land_num: {required: true,number: true},
+
+            comp_email: {required: true,email: true},
+
+            com_website: {required: true,url: true},
+
+            primary_location: {required: true},
+
+            face_url: {required: true,url: true},
+
+            insta_url: {required: true,url: true},
+
+            twi_url: {required: true,url: true},
+
+            link_url: {required: true,url: true},
+
+            listing_address: {required: true},
+
+            listing_description: {required: true},
+
+
+            reg_group: {required: true},
+
+            // listing_lat: {required: true},
+
+            // listing_lng: {required: true},
+
+            event_image: {required: true},
+
+            event_address: {required: true},
+
+            event_start_date: {required: true},
+
+            event_time: {required: true},
+
+            event_description: {required: true},
+
+            event_email: {required: true, email: true},
+
+            event_mobile: {required: true}
+
+        },
+
+        messages: {
+
+
+
+            listing_name: {required: "Listing Name is Required"},
+
+            abn_number :   {required: "ABN Number is Required"},
+
+            organi_type :   {required: "Organisation type is Required"},
+
+            ndis_reg :   {required: "Ndis Register Option is Required"},
+
+            reg_number :   {required: "Registration Number is Required"},
+
+            com_land_num :   {required: "Company Contact Number is Required"},
+
+            com_phone_1 :   {required: "Company Contact Number1 is Required"},
+
+            com_phone_2 :   {required: "Company Contact Number2 is Required"},
+
+            comp_email :   {required: "Company Email is Required"},
+
+            primary_location :   {required: "Primary Location is Required"},
+
+            com_website :   {required: "Company Website is Required"},
+
+            link_url :   {required: "Linkedin Url is Required"},
+
+            twi_url :   {required: "Twitter Url is Required"},
+
+            insta_url :   {required: "Instagram Url is Required"},
+
+            face_url :   {required: "Facebook Url is Required"},
+
+            listing_description :   {required: "Listing Description is Required"},
+
+            listing_description :   {required: "Listing Description is Required"},
+
+            event_contact_name: {required: "Contact Person Name is Required"},
+
+            event_image: {required: "Event Image is Required"},
+
+            listing_address: {required: "Listing Address is Required"},
+
+            // listing_lat: {required: "Listing Latitude is Required"},
+
+            // listing_lng: {required: "Listing Longitude is Required"},
+
+            event_start_date: {required: "Event Date is Required"},
+
+            event_time: {required: "Event Time is Required"},
+
+            event_description: {required: "Event Description is Required"},
+
+            event_email: {required: "Event Email ID is Required"},
+
+            event_mobile: {required: "Phone Number is Required"}
+
+        },
+
+
+
+        submitHandler: function (form) { // for demo
+               
+            var editorContent = CKEditor.instances.editor.getData();
+            if (!isValidContent(editorContent)) {
+                alert("Invalid content in the CKEditor.");
+            } else {
+                form.submit();
+            }
+            //form.submit();
+
+        }
+
+    });
+
+});
+
+
+
+//Edit  Listing Form -1 validation ends
+
 
 // Event Form validation starts
 

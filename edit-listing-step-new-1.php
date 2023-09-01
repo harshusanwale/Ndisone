@@ -26,6 +26,33 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
 
 ?>
 <!-- START -->
+<style>
+#imagePreviewContainer {
+  /* display: none; */
+  margin-bottom: 10px;
+}
+
+#imagePreview {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 100%; /* This makes the element round */
+  align-items: center; /* Vertically center */
+}
+
+#coverimagePreviewContainer {
+  /* //display: none; */
+  margin-bottom: 10px;
+}
+
+#coverimagePreview {
+height: 18rem;
+width: 41rem;
+  border : 1px solid black;
+  /* max-width: 200px;
+  max-height: 200px; */
+  align-items: center; /* Vertically center */
+}
+</style>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb1vGO92hZfS0oRzq9X9VhDJzz2BcqV0w&libraries=places"></script>
 
 <!--PRICING DETAILS-->
@@ -109,7 +136,7 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
                         $listings_a_row = getListing($listing_codea);
 
                         ?>
-                        <form action="listing_update_new.php" id="listing_form_1"
+                        <form action="listing_update_new.php" id="edit_listing_form_1"
                               name="listing_form_1" method="post" enctype="multipart/form-data">
 
                             <input type="hidden" id="src_path" value="edit-1"
@@ -160,12 +187,20 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Organisation Type:</label>
+                                    <?php if($_SESSION['user_type'] == 'Service provider'){?>
                                     <select name="organi_type" id="organi_type" class="form-control colorBackground ca-check-plan empty valid">
                                             <option value="">--Select--</option>                                            
                                             <option value="1" <?php if($listings_a_row['organi_type'] == 1) {echo 'selected' ; }  ?>>Sole Trader</option>
                                             <option value="2"  <?php if($listings_a_row['organi_type'] == 2) {echo 'selected' ; }  ?>>Digital</option>
                                             <option value="3"  <?php if($listings_a_row['organi_type'] == 3) {echo 'selected' ; }  ?>>Agency</option>                                            
                                     </select>
+                                    <?php }else if($_SESSION['user_type'] == 'Support coordinator') {?>
+                                    <select name="organi_type" id="organi_type" class="form-control colorBackground ca-check-plan empty valid">
+                                        <option value="">--Select--</option>                                            
+                                        <option value="1" <?php if($listings_a_row['organi_type'] == 1) {echo 'selected' ; }  ?>>Sole Trader</option>
+                                        <option value="2"  <?php if($listings_a_row['organi_type'] == 3) {echo 'selected' ; }  ?>>Agency</option>                                            
+                                    </select>
+                                    <?php } ?>
                                 </div>
                                 </div>
                              </div>
@@ -201,8 +236,9 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
                                     <div class="form-group">
                                         <label><?php echo $BIZBOOK['REGSITRATION_STAMP']; ?></label>
                                         <div class="fil-img-uplo">
-                                            <span class="dumfil"><?php echo $BIZBOOK['UPLOAD_A_FILE'];  ?></span>
-                                            <input type="file" name="reg_stamp" accept="image/*,.jpg,.jpeg,.png" class="form-control">
+                                        <img src="<?php echo $webpage_full_link; ?>images\listings\register_stamp.png" style="
+                                         width: 59px; margin-left: 8px; "> 
+                                           <input type="checkbox"  name="reg_stamp_checkbox" class="register-stamp" <?php if($listings_a_row['reg_stamp_check'] == 1){echo 'checked="checked"'; }?>>                          
                                         </div>
                                     </div>
                                 </div>
@@ -340,7 +376,7 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
 
                              <!--FILED START-->
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label><?php echo $BIZBOOK['CHOOSE_PROFILE_IMAGE']; ?></label>
                                         <div class="fil-img-uplo">
@@ -349,7 +385,12 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="">
+                                <div id="imagePreviewContainer">
+                                    <img id="imagePreview" src="images/listings/<?php echo $listings_a_row['profile_image'] ?>" alt="Image Preview">
+                                </div>
+                                </div>
+                                <!-- <div class="col-md-6">
                                     <div class="form-group">
                                         <label><?php echo $BIZBOOK['CHOOSE_COVER_IMAGE']; ?></label>
                                         <div class="fil-img-uplo">
@@ -357,9 +398,26 @@ if (!isset($listings_a_row['listing_codea']) || empty($listings_a_row['listing_c
                                             <input type="file" name="cover_image" accept="image/*,.jpg,.jpeg,.png" class="form-control">
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <!--FILED END-->
+                            <!--FILED START-->
+                            <div class="row">
+                             <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label><?php echo $BIZBOOK['CHOOSE_COVER_IMAGE']; ?></label>
+                                        <div class="fil-img-uplo">
+                                            <span class="dumfil"><?php echo $BIZBOOK['UPLOAD_A_FILE'];  ?></span>
+                                            <input type="file" name="cover_image" accept="image/*,.jpg,.jpeg,.png" class="form-control" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="">
+                                <div id="coverimagePreviewContainer">
+                                    <img id="coverimagePreview" src="images/listing-ban/<?php echo $listings_a_row['cover_image'] ?>" alt="Image Preview">
+                                </div>
+                                </div>
+                            </div>
   
                              <!--FILED START-->
                              <?php if($listings_a_row['ndis_reg'] != 2) {?>
